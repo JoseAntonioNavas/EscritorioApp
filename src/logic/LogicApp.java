@@ -19,6 +19,9 @@ import model.Usuario;
 
 public class LogicApp {
 
+	private void lol() {
+		
+	}
 	/**
 	 * Anchura y Altura de la pantalla 
 	 * @return
