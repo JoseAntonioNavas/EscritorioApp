@@ -11,57 +11,53 @@ import org.json.JSONObject;
 import logic.GestFchSerializable;
 import logic.globalVariables;
 import model.Usuario;
+import repository.UsuarioRepository;
 
 public class LoginController {
 	
 	private static boolean booleanError= false;
 	
-	
-		
 	/**
 	 * 
 	 */
 	public static void login() {
+			
 		
 		// Recogo los datos
 		
 		String email = view.Login.txtEmail.getText();
 		String password = logic.LogicApp.descrifarPassword(view.Login.passwordField);
 		
-				// FORMATO JSON
-		 JSONObject obj = new JSONObject();		
-		 obj.put("email", email);
-		 obj.put("password", password);
-	
+		// FORMATO JSON
 		
+		 JSONObject usuarioJSON = new JSONObject();		
+		 usuarioJSON.put("email", email);
+		 usuarioJSON.put("password", password);
+	
 		// Mandamos peticion al servidor 
+		 
 		try {
-			
-			String responseUsuario = logic.PeticionHTTP.peticionHttpPOST("http://localhost/VehiculosAPI/WebService/public/api/usuario/login", obj);
-			List<Usuario> listaUsuario = logic.LogicApp.JsonToUsuarios(responseUsuario);
+		
+			// Peticion Login
+			List<Usuario> listaUsuario = UsuarioRepository.login(usuarioJSON);
 			
 			if(listaUsuario.size() != 0) {
 				
 				booleanError = false;
 				mensajeError("");
-				// Como solo devuelve 1 Usuario
-				for (Usuario u : listaUsuario) {
-					
+				
+				listaUsuario.forEach(u -> {
+
 					Usuario u1 = new Usuario(u.getId_user(),u.getEmail(),u.getPasswd());
 					
 					// Pasamos el usuario que ha iniciado sesion a una variable global para que toda la aplicacion pueda usarla.
 					logic.globalVariables.usuarioLogged = u1;
-					
-					
-				}
+				});
 				
 				// Guardamos las variables en un archivo externo si el usuario quiere que le recuerdela contraseña y el usuario
 					LoginController.escrituraRecordarUsuario();
-			
-				
 			}else {
 				
-				// No existe el usuario || email y contraseñas no coinciden
 				booleanError = true;
 				mensajeError("Usuario y contraseña incorrectas.");
 			
@@ -77,7 +73,11 @@ public class LoginController {
 		
 	}
 	
-	
+
+
+
+
+
 	public static void ocultarLogin(JFrame f) {
 		
 		if(logic.globalVariables.usuarioLogged instanceof Usuario) {
@@ -91,6 +91,7 @@ public class LoginController {
 			f.setVisible(true);
 		};
 	}
+	
 	
 	
 	public static void mensajeError(String mensaje) {
@@ -124,12 +125,16 @@ public class LoginController {
 		}
 	}
 
+	
+	
 	private static void btnEnabledFalse(JButton btnEntrar) {
 		
 		btnEntrar.setEnabled(false);
 		
 	}
 
+	
+	
 	private static void btnEnabledTrue(JButton btnEntrar) {
 		btnEntrar.setEnabled(true);
 	}
@@ -160,6 +165,7 @@ public class LoginController {
 		GestFchSerializable.writeDataObjecctUsuario(globalVariables.FILE_RECORDAR_USUARIO,listadoUsuario);
 	}
 	
+	
 	private static Usuario lecturaRecordarUsuario() {
 		
 		Usuario usuario = null;
@@ -171,6 +177,7 @@ public class LoginController {
 		return usuario;
 		
 	}
+	
 	
 	public static void rellenarCamposLogin() {
 				

@@ -19,9 +19,7 @@ import model.Usuario;
 
 public class LogicApp {
 
-	private void lol() {
-		
-	}
+
 	/**
 	 * Anchura y Altura de la pantalla 
 	 * @return
@@ -63,34 +61,6 @@ public class LogicApp {
 		
 	}
 	
-	
-	public static List<Usuario> JsonToUsuarios(String response) {
-		List<Usuario> lstResultado = new ArrayList<>();
-		
-		JSONArray jsonA = new JSONArray(response);
-		for (int i = 0; i < jsonA.length(); i++) {
-			
-			JSONObject jsonO = jsonA.getJSONObject(i);
-			Usuario u = JsonToUsuario(jsonO);
-					
-					lstResultado.add(u);
-				
-		}
-	
-		return lstResultado;
-	}
-	
-	private static Usuario JsonToUsuario(JSONObject jsonO) {
-		
-		   	Integer id_user = jsonO.getInt("id_user");
-		    String email = jsonO.getString("email");
-		    String password = jsonO.getString("password");
-		     
-		     
-		     Usuario u = new Usuario(id_user, email, password);
-		     return u;
-		     
-	}
 	
 	
 	public static int longitudTextField(JTextField txtField) {
