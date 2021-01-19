@@ -28,7 +28,7 @@ public class UsuarioLogic {
 		return lstResultado;
 	}
 	
-	private static Usuario JsonToUsuario(JSONObject jsonO) {
+	public static Usuario JsonToUsuario(JSONObject jsonO) {
 		
 		   	Integer id_user = jsonO.getInt("id_user");
 		    String email = jsonO.getString("email");

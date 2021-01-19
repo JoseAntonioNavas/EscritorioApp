@@ -27,7 +27,7 @@ public static List<Roles> JsonToRoles(String response) {
 		return listRoles;
 	}
 	
-	private static Roles JsonToRol(JSONObject jsonO) {
+	public static Roles JsonToRol(JSONObject jsonO) {
 		
 		 
 		    int id_rol = jsonO.getInt("id_rol");
