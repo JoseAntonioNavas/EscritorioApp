@@ -69,7 +69,7 @@ public class Login extends JFrame {
 				
 				//prueba
 				try {
-					service.DetallesUsuarioService.getListDetalleUsuario();
+					service.DetallesUsuarioService.getListDetalleUsuarioByID("10");
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();

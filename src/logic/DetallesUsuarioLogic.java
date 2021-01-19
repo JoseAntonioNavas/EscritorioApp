@@ -13,14 +13,7 @@ import model.Usuario;
 public class DetallesUsuarioLogic {
 
 	
-	public static void JsonToAllDetallesUsuarios(String response) {
-		
-		List<DetallesUsuario> du = JsonToDetallesUsuarios(response);
-		
-	}
-	
-	
-	
+/*
 	public static List<DetallesUsuario> JsonToDetallesUsuarios(String response) {
 		
 		List<DetallesUsuario> listDetalleUsuario = new ArrayList<>();
@@ -36,10 +29,30 @@ public class DetallesUsuarioLogic {
 		}
 	
 		return listDetalleUsuario;
-	}
+	}*/
 	
-	private static DetallesUsuario JsonToDetalleUsuario(JSONObject jsonO) {
+	
+	public static List<Object> JsonToDetallesUsuariosObject(String response) {
 		
+		List<Object> listObject = new ArrayList<>();
+		
+		JSONArray jsonA = new JSONArray(response);
+		for (int i = 0; i < jsonA.length(); i++) {
+			
+			JSONObject jsonO = jsonA.getJSONObject(i);
+			Object dU = JsonToDetalleUsuario(jsonO);
+					
+			listObject.add(dU);
+				
+		}
+	
+		return listObject;
+	}
+
+	public static List<Object> JsonToDetalleUsuario(JSONObject jsonO) {
+		
+			List<Object> listObject = new ArrayList<Object>();
+			
 		   	Integer id_detalle_usuario = jsonO.getInt("id_detalle_usuario");
 		    String nick_user = jsonO.getString("nick_user");
 		    String nombre = jsonO.getString("nombre");
@@ -47,16 +60,21 @@ public class DetallesUsuarioLogic {
 		    String apellido_2 = jsonO.getString("apellido_2");
 		    int id_user = jsonO.getJSONObject("usuario").getInt("id_user");
 		    int id_rol = jsonO.getJSONObject("rol").getInt("id_rol");
-		    
-		   System.out.println(logic.UsuarioLogic.JsonToUsuario(jsonO.getJSONObject("usuario")));
-		   System.out.println(logic.RolesLogic.JsonToRol(jsonO.getJSONObject("rol")));
+	
 		   
-		    
+		   Usuario u = logic.UsuarioLogic.JsonToUsuario(jsonO.getJSONObject("usuario"));
+		   Roles r = logic.RolesLogic.JsonToRol(jsonO.getJSONObject("rol"));
 		   DetallesUsuario du = new DetallesUsuario(id_detalle_usuario, id_user, nick_user, id_rol, nombre, apellido_1, apellido_2);
 		   
-		   return du;
+		  
+		   listObject.add(du);
+		   listObject.add(u);
+		   listObject.add(r);
+		   
+		   return listObject;
 		    
-		     
+	     
 	}
+	
 		
 }
