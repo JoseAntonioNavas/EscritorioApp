@@ -66,6 +66,19 @@ public class Login extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
+				
+				//prueba
+				try {
+					service.DetallesUsuarioService.getListDetalleUsuario();
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+				
+				
+				
 				// Si el usuario le dio a recordar, rellenamos los campos con su valores 
 				controller.LoginController.rellenarCamposLogin();
 					

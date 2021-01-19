@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class PeticionHTTP {
 
-	private static String peticionHttpGET(String urlWebService)throws Exception{
+	public static String peticionHttpGET(String urlWebService)throws Exception{
 		StringBuilder resultado = new StringBuilder();
 			
 		// Realizar la peticón http

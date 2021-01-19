@@ -1,4 +1,4 @@
-package repository;
+package service;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import model.Usuario;
 
-public class UsuarioRepository {
+public class UsuarioService {
 
 	
 	public static List<Usuario> login(JSONObject usuario) throws Exception{
@@ -20,5 +20,6 @@ public class UsuarioRepository {
 		
 		
 	}
+	
 	
 }

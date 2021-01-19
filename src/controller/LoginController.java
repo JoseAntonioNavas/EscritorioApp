@@ -11,12 +11,17 @@ import org.json.JSONObject;
 import logic.GestFchSerializable;
 import logic.globalVariables;
 import model.Usuario;
-import repository.UsuarioRepository;
+import service.UsuarioService;
 
 public class LoginController {
 	
 	private static boolean booleanError= false;
 	
+	private static UsuarioService usuarioService;
+	
+
+
+
 	/**
 	 * 
 	 */
@@ -39,7 +44,7 @@ public class LoginController {
 		try {
 		
 			// Peticion Login
-			List<Usuario> listaUsuario = UsuarioRepository.login(usuarioJSON);
+			List<Usuario> listaUsuario = UsuarioService.login(usuarioJSON);
 			
 			if(listaUsuario.size() != 0) {
 				
