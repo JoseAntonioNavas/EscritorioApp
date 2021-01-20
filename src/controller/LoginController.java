@@ -17,34 +17,30 @@ public class LoginController {
 	
 	private static boolean booleanError= false;
 	
-	private static UsuarioService usuarioService;
 	
-
-
-
 	/**
 	 * 
 	 */
 	public static void login() {
 			
+
 		
-		// Recogo los datos
-		
-		String email = view.Login.txtEmail.getText();
-		String password = logic.LogicApp.descrifarPassword(view.Login.passwordField);
-		
-		// FORMATO JSON
-		
-		 JSONObject usuarioJSON = new JSONObject();		
-		 usuarioJSON.put("email", email);
-		 usuarioJSON.put("password", password);
-	
 		// Mandamos peticion al servidor 
 		 
 		try {
 		
+			
+			// Recogo los datos
+			
+			String email = view.Login.txtEmail.getText();
+			String password = logic.LogicApp.descrifarPassword(view.Login.passwordField);
+			
+			// OBJETO USUARIO 
+			
+			Usuario usuario = new Usuario(email, password);
+			
 			// Peticion Login
-			List<Usuario> listaUsuario = UsuarioService.login(usuarioJSON);
+			List<Usuario> listaUsuario = UsuarioService.login(usuario);
 			
 			if(listaUsuario.size() != 0) {
 				

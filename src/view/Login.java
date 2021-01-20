@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import logic.DetallesUsuarioLogic;
+import model.DetallesUsuario;
 import model.Usuario;
 
 import javax.swing.JLabel;
@@ -69,14 +71,12 @@ public class Login extends JFrame {
 				
 				//prueba
 				try {
-					service.DetallesUsuarioService.getListDetalleUsuarioByID("10");
+					
+					
 				} catch (Exception e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				
-				
-				
 				
 				
 				// Si el usuario le dio a recordar, rellenamos los campos con su valores 

@@ -32,7 +32,7 @@ public class UsuarioLogic {
 		
 		   	Integer id_user = jsonO.getInt("id_user");
 		    String email = jsonO.getString("email");
-		    String password = jsonO.getString("password");
+		    String password = jsonO.getString("passwd");
 		     
 		     
 		     Usuario u = new Usuario(id_user, email, password);
