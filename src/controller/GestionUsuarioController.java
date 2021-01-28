@@ -138,7 +138,7 @@ public class GestionUsuarioController {
 	public static void borrarUsuario(String id) {
 		String respuesta = UsuarioService.deleteUsuario(id);
 		mensajeError(respuesta,"Usuario Borrado Correctamente");
-		btnBorrarEnabled();
+		btnBorrarEnabled(); 
 	}
 	
 	
