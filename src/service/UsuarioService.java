@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import logic.ErrorLogic;
 import model.Usuario;
 
 public class UsuarioService {
@@ -68,8 +69,47 @@ public class UsuarioService {
 		return listUsuario;
 		
 	}
-
 	
+	public static String insertarUsuario(Usuario usuario){
+		
+	
+		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/usuario/new";
+		
+		JSONObject o = logic.LogicApp.ObjetoToJson(usuario);
+		
+	
+		try {
+				String response = logic.PeticionHTTP.peticionHttpPOST(urlWebService,o);
+				
+				List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
+				
+				return p.get(0).getMsg();
+				
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			return null;
+		}
+
+		
+	}
+
+	public static String deleteUsuario(String id) {
+		
+		String urlWebService = "http://localhost/VehiculosAPI/WebService/public//api/usuario/deleteById/"+id;
+		
+		String response;
+		try {
+			response = logic.PeticionHTTP.peticionHttpDELETE(urlWebService);
+			List<ErrorLogic> Errorlog = logic.ErrorLogic.JsonToErrores(response);
+			return Errorlog.get(0).getMsg();
+			
+		} catch (Exception e) {
+			return null;
+		}
+		
+		
+		
+	}
 	
 	
 }
