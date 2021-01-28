@@ -15,6 +15,8 @@ import javax.swing.JTextField;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.google.gson.Gson;
+
 import model.Usuario;
 
 public class LogicApp {
@@ -85,6 +87,14 @@ public class LogicApp {
 		}
 	}
 
+	
+	public static JSONObject ObjetoToJson(Object o) {
+		Gson g = new Gson();
+		String jsonInString = g.toJson(o);
+	
+		JSONObject jsonObject  = new JSONObject(jsonInString);
+		return jsonObject;
+	}
 	
 	
 	

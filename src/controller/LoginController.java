@@ -12,6 +12,7 @@ import logic.GestFchSerializable;
 import logic.globalVariables;
 import model.Usuario;
 import service.UsuarioService;
+import view.Principal;
 
 public class LoginController {
 	
@@ -196,6 +197,11 @@ public class LoginController {
 		};
 		
 		
+	}
+	
+	public static void abrirPantallaPrincipal() {
+		Principal frame = new Principal();
+		frame.setVisible(true);
 	}
 	
 

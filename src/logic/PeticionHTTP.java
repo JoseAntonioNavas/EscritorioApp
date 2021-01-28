@@ -31,6 +31,8 @@ public class PeticionHTTP {
 		rd.close();
 		
 		return resultado.toString();
+		
+		
 	}
 	
 	
@@ -53,6 +55,8 @@ public class PeticionHTTP {
 		    byte[] input = jsonInputString.getBytes("utf-8");
 		    os.write(input, 0, input.length);			
 		}
+		
+	
 		
 		try(BufferedReader br = new BufferedReader(
 				  new InputStreamReader(conexion.getInputStream(), "utf-8"))) {

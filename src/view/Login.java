@@ -68,17 +68,7 @@ public class Login extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
-				
-				//prueba
-				try {
-					
-					
-				} catch (Exception e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-				
+								
 				// Si el usuario le dio a recordar, rellenamos los campos con su valores 
 				controller.LoginController.rellenarCamposLogin();
 					
@@ -162,6 +152,8 @@ public class Login extends JFrame {
 					// Si nos hemos logeado, ocultamos la pantalla del login ( Principal) 
 					controller.LoginController.ocultarLogin(frame);
 					
+					controller.LoginController.abrirPantallaPrincipal();
+					
 				}
 			}
 		});
@@ -175,6 +167,7 @@ public class Login extends JFrame {
 				// Si nos hemos logeado, ocultamos la pantalla del login ( Principal) 
 				controller.LoginController.ocultarLogin(frame);
 			
+				controller.LoginController.abrirPantallaPrincipal();
 				
 			}
 		});
