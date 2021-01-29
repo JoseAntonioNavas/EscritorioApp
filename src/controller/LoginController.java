@@ -10,7 +10,9 @@ import javax.swing.JFrame;
 import org.json.JSONObject;
 import logic.GestFchSerializable;
 import logic.globalVariables;
+import model.GenericUsuario;
 import model.Usuario;
+import service.DetallesUsuarioService;
 import service.UsuarioService;
 import view.Principal;
 
@@ -48,16 +50,34 @@ public class LoginController {
 				booleanError = false;
 				mensajeError("");
 				
-				listaUsuario.forEach(u -> {
-
-					Usuario u1 = new Usuario(u.getId_user(),u.getEmail(),u.getPasswd());
-					
-					// Pasamos el usuario que ha iniciado sesion a una variable global para que toda la aplicacion pueda usarla.
-					logic.globalVariables.usuarioLogged = u1;
-				});
+				 Usuario u1 = new Usuario(listaUsuario.get(0).getId_user(),listaUsuario.get(0).getEmail(),listaUsuario.get(0).getPasswd());
 				
-				// Guardamos las variables en un archivo externo si el usuario quiere que le recuerdela contraseña y el usuario
-					LoginController.escrituraRecordarUsuario();
+				// Vemos si es Administrador
+				List<GenericUsuario> listDetalleUsuario = null;
+
+
+				try {
+					listDetalleUsuario = DetallesUsuarioService.getListDetalleUsuarioByID(String.valueOf(u1.getId_user()));
+					
+					 // Si es administrador puede registrarse
+					 if(listDetalleUsuario.get(0).getDetallesUsuario().getId_rol() == 1) {
+							// Pasamos el usuario que ha iniciado sesion a una variable global para que toda la aplicacion pueda usarla.
+							logic.globalVariables.usuarioLogged = u1;
+							
+							// Guardamos las variables en un archivo externo si el usuario quiere que le recuerdela contraseña y el usuario
+							LoginController.escrituraRecordarUsuario();
+							
+					 }else{
+						 mensajeError("No dispones de los derechos de Admin");
+					 };
+					
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					mensajeError("Error al conectarte al Servidor");
+				}
+				
+				
 			}else {
 				
 				booleanError = true;
@@ -81,12 +101,10 @@ public class LoginController {
 
 
 	public static void ocultarLogin(JFrame f) {
-		
+				
 		if(logic.globalVariables.usuarioLogged instanceof Usuario) {
 			// Si existe la variable global del Usuario que inicia sesion
 			f.setVisible(false);
-			
-			
 
 		}else{
 			// Si no seguimos mostrando el Frame principal(Login)

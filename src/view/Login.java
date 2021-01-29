@@ -167,7 +167,10 @@ public class Login extends JFrame {
 				// Si nos hemos logeado, ocultamos la pantalla del login ( Principal) 
 				controller.LoginController.ocultarLogin(frame);
 			
-				controller.LoginController.abrirPantallaPrincipal();
+				if(logic.globalVariables.usuarioLogged instanceof Usuario) {
+					controller.LoginController.abrirPantallaPrincipal();
+				}
+				
 				
 			}
 		});

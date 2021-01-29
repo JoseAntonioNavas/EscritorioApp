@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import javax.swing.JLabel;
 import java.awt.GridLayout;
 import javax.swing.JTable;
@@ -25,6 +27,7 @@ import javax.swing.JComponent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Hashtable;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.ScrollPane;
@@ -35,6 +38,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import javax.swing.JComboBox;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
 
 public class GestionUsuario extends JFrame {
 
@@ -50,8 +56,7 @@ public class GestionUsuario extends JFrame {
 	private JPanel panelButtons;
 	private JLabel lblEmail;
 	public static JTextField txtEmail;
-	private JLabel lblPassword;
-	public static  JTextField txtPassword;
+	private JLabel lblAdministrador;
 	public static JButton btBorrar;
 	private JSeparator separator;
 	private JPanel panel;
@@ -59,8 +64,8 @@ public class GestionUsuario extends JFrame {
 	private JLabel lblBusqueda;
 	private JScrollBar scrollBar;
 	public static JLabel lblError;
-
-
+	public static JComboBox comboBoxRoles;
+	public static Hashtable<String, Integer> rolesHastable;
 
 	/**
 	 * Create the frame.
@@ -69,6 +74,11 @@ public class GestionUsuario extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				
+				
+				rolesHastable = controller.GestionUsuarioController.setRolesComboBox();
+				
+				System.out.println(rolesHastable);
 				controller.GestionUsuarioController.btnBorrarEnabled();
 				controller.GestionUsuarioController.pintarTableUsuario();
 			}
@@ -103,12 +113,13 @@ public class GestionUsuario extends JFrame {
 		panelBuscadorElement.add(panelEmail);
 		panelEmail.setLayout(null);
 		
-		lblEmail = new JLabel("Email:");
-		lblEmail.setBounds(34, 5, 46, 20);
+		lblEmail = new JLabel("B\u00FAsqueda:");
+		lblEmail.setBounds(10, 5, 70, 20);
 		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panelEmail.add(lblEmail);
 		
 		txtEmail = new JTextField();
+		PromptSupport.setPrompt("Búsqueda por Email, Nombre o Nick", txtEmail);
 		txtEmail.setBounds(90, 5, 250, 25);
 		panelEmail.add(txtEmail);
 		txtEmail.setColumns(10);
@@ -117,15 +128,10 @@ public class GestionUsuario extends JFrame {
 		panelBuscadorElement.add(panelPassword);
 		panelPassword.setLayout(null);
 		
-		lblPassword = new JLabel("Contrase\u00F1a:");
-		lblPassword.setBounds(0, 5, 74, 20);
-		lblPassword.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		panelPassword.add(lblPassword);
-		
-		txtPassword = new JTextField();
-		txtPassword.setBounds(90, 5, 250, 25);
-		panelPassword.add(txtPassword);
-		txtPassword.setColumns(10);
+		lblAdministrador = new JLabel("Rol:");
+		lblAdministrador.setBounds(10, 5, 58, 20);
+		lblAdministrador.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		panelPassword.add(lblAdministrador);
 		
 		lblBusqueda = new JLabel("");
 		lblBusqueda.setBounds(350, 5, 32, 25);
@@ -133,6 +139,16 @@ public class GestionUsuario extends JFrame {
 		lblBusqueda.setIcon(new ImageIcon("images/lupa.jpg"));
 		
 		panelPassword.add(lblBusqueda);
+		
+		comboBoxRoles = new JComboBox();
+		comboBoxRoles.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent arg0) {
+				
+				//System.out.println(rolesHastable.get(comboBoxRoles.getSelectedItem()));
+			}
+		});
+		comboBoxRoles.setBounds(59, 7, 268, 20);
+		panelPassword.add(comboBoxRoles);
 		lblBusqueda.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {

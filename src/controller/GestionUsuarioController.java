@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.AbstractCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -17,11 +19,33 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import model.Roles;
 import model.Usuario;
+import service.DetallesUsuarioService;
+import service.RolesService;
 import service.UsuarioService;
 import view.GestionUsuario;
 
 public class GestionUsuarioController {
+	
+	
+	public static Hashtable<String, Integer> setRolesComboBox() {
+		
+		List<Roles> r = RolesService.getRoles();
+		System.out.println();
+		
+		
+		Hashtable<String, Integer> contenedorRoles = new Hashtable();
+
+		for (Roles ro: r) {
+			
+			contenedorRoles.put(ro.getNombre_rol(),ro.getId_rol());
+			view.GestionUsuario.comboBoxRoles.addItem(ro.getNombre_rol());
+
+		}
+		
+		return contenedorRoles;
+	}
 	
 
 	public static void btnBorrarEnabled() {
@@ -39,32 +63,32 @@ public class GestionUsuarioController {
 	
 	private static void vaciarCamposBusqueda() {
 
-		 view.GestionUsuario.txtEmail.setText("");
-		 view.GestionUsuario.txtPassword.setText("");
+		
 	}
 	
 	private static Usuario getCamposBusqueda() {
 		
-		String email  = view.GestionUsuario.txtEmail.getText();
-		String passwd = view.GestionUsuario.txtPassword.getText();
-		
-		Usuario usuario = new Usuario(email, passwd);
+		Usuario usuario = new Usuario("", "");
 		
 		return usuario;
 		
 	}
 	
-	private static List<Usuario> getUsuarios() {
+	private static List<GestionUsuario> getUsuarios() {
 		
-		Usuario usuario = getCamposBusqueda();
+		//Usuario usuario = getCamposBusqueda();
 		
-		List<Usuario> listUsuario = UsuarioService.getUsuarios(usuario);
+		
+		List<GestionUsuario> listUsuario = null;
+		// DetallesUsuarioService.getListDetalleUsuario();
 		return listUsuario;
 	}
 	
+	
+	
 	public static void pintarTableUsuario() {
 		
-		List<Usuario> lstUsuarios = getUsuarios();
+		List<GestionUsuario> lstUsuarios = getUsuarios();
 
 		
 		DefaultTableModel tableModel = new DefaultTableModel();
@@ -84,9 +108,9 @@ public class GestionUsuarioController {
 		
 		for (int i = 0; i < lstUsuarios.size(); i++) {
 
-		fila[0] = lstUsuarios.get(i).getId_user();
-		fila[1] = lstUsuarios.get(i).getEmail();
-		fila[2] = lstUsuarios.get(i).getPasswd();
+		fila[0] = "";
+		fila[1] = "";
+		fila[2] = "";
 		
 		tableModel.addRow(fila);
 			

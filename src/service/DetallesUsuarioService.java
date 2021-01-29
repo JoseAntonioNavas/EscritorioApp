@@ -8,6 +8,7 @@ import com.google.gson.Gson;
 
 import logic.DetallesUsuarioLogic;
 import model.DetallesUsuario;
+import model.GenericUsuario;
 
 public class DetallesUsuarioService {
 	
@@ -15,11 +16,14 @@ public class DetallesUsuarioService {
 	Gson g = new Gson();
 	
 	// Listar todos los elementos de la tabla detalle_usuario
-	public static List<Object> getListDetalleUsuario() throws Exception {
+	public static List<GenericUsuario> getListDetalleUsuario(Object parametros) throws Exception {
 		
 		
 		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/detalles-usuario";
-		String response =  logic.PeticionHTTP.peticionHttpGET(urlWebService);
+		
+		
+		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
+		String response =  logic.PeticionHTTP.peticionHttpPOST(urlWebService,o);
 		
 		return DetallesUsuarioLogic.JsonToDetallesUsuariosObject(response);
 		
@@ -28,7 +32,7 @@ public class DetallesUsuarioService {
 	
 	
 	// Listar el elmento  de la tabla detalle_usuario por ID
-	public static List<Object> getListDetalleUsuarioByID(String id) throws Exception {
+	public static List<GenericUsuario> getListDetalleUsuarioByID(String id) throws Exception {
 			
 			
 		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/detalles-usuarioById/"+ id;
