@@ -47,7 +47,6 @@ public class DetallesUsuarioLogic {
 				
 		}
 	
-		
 		return listObject;
 	}
 
@@ -69,8 +68,8 @@ public class DetallesUsuarioLogic {
 		   Roles r = logic.RolesLogic.JsonToRol(jsonO.getJSONObject("rol"));
 		   DetallesUsuario du = new DetallesUsuario(id_detalle_usuario, id_user, nick_user, id_rol, nombre, apellido_1, apellido_2);
 		   
-		   model.GenericUsuario gu = new GenericUsuario(du, u, r);
-	
+		   GenericUsuario gu = new GenericUsuario(du, u, r);
+		   
 		  
 		   return gu;
 		    

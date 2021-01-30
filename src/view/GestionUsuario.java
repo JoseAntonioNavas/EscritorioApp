@@ -6,8 +6,13 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
+
+import model.DetallesUsuario;
+import model.GenericUsuario;
 
 import javax.swing.JLabel;
 import java.awt.GridLayout;
@@ -19,6 +24,8 @@ import javax.swing.AbstractCellEditor;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
+
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
@@ -27,7 +34,9 @@ import javax.swing.JComponent;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.Hashtable;
+import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.ScrollPane;
@@ -55,7 +64,7 @@ public class GestionUsuario extends JFrame {
 	private JPanel panelPassword;
 	private JPanel panelButtons;
 	private JLabel lblEmail;
-	public static JTextField txtEmail;
+	public static JTextField txtBusqueda;
 	private JLabel lblAdministrador;
 	public static JButton btBorrar;
 	private JSeparator separator;
@@ -65,8 +74,9 @@ public class GestionUsuario extends JFrame {
 	private JScrollBar scrollBar;
 	public static JLabel lblError;
 	public static JComboBox comboBoxRoles;
-	public static Hashtable<String, Integer> rolesHastable;
-
+	public static Hashtable<String, Integer> contenedorRoles;
+	private static JButton btnEditar;
+	
 	/**
 	 * Create the frame.
 	 */
@@ -75,12 +85,23 @@ public class GestionUsuario extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
+				// INICIALIZAMOS EL HASTABLEY EL COMBOBOX
+				view.GestionUsuario.contenedorRoles = new Hashtable<String, Integer>();
+				controller.GestionUsuarioController.setRolesComboBox();
 				
-				rolesHastable = controller.GestionUsuarioController.setRolesComboBox();
 				
-				System.out.println(rolesHastable);
-				controller.GestionUsuarioController.btnBorrarEnabled();
+				//controller.GestionUsuarioController.btnBorrarEnabled();
 				controller.GestionUsuarioController.pintarTableUsuario();
+				
+				// BOTONES
+				if(controller.GestionUsuarioController.getSelectedRow(table)) {
+					view.GestionUsuario.btBorrar.setEnabled(true);
+					view.GestionUsuario.btnEditar.setEnabled(true);
+
+				}else{
+					view.GestionUsuario.btBorrar.setEnabled(false);
+					view.GestionUsuario.btnEditar.setEnabled(false);
+				};
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -118,11 +139,11 @@ public class GestionUsuario extends JFrame {
 		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panelEmail.add(lblEmail);
 		
-		txtEmail = new JTextField();
-		PromptSupport.setPrompt("Búsqueda por Email, Nombre o Nick", txtEmail);
-		txtEmail.setBounds(90, 5, 250, 25);
-		panelEmail.add(txtEmail);
-		txtEmail.setColumns(10);
+		txtBusqueda = new JTextField();
+		PromptSupport.setPrompt("Búsqueda por Email, Nombre o Nick", txtBusqueda);
+		txtBusqueda.setBounds(90, 5, 250, 25);
+		panelEmail.add(txtBusqueda);
+		txtBusqueda.setColumns(10);
 		
 		panelPassword = new JPanel();
 		panelBuscadorElement.add(panelPassword);
@@ -141,12 +162,6 @@ public class GestionUsuario extends JFrame {
 		panelPassword.add(lblBusqueda);
 		
 		comboBoxRoles = new JComboBox();
-		comboBoxRoles.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				
-				//System.out.println(rolesHastable.get(comboBoxRoles.getSelectedItem()));
-			}
-		});
 		comboBoxRoles.setBounds(59, 7, 268, 20);
 		panelPassword.add(comboBoxRoles);
 		lblBusqueda.addMouseListener(new MouseAdapter() {
@@ -166,18 +181,36 @@ public class GestionUsuario extends JFrame {
 		btBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.GestionUsuarioController.modalBorrar();
-				//System.out.println(service.UsuarioService.deleteUsuario("20"));
+				GenericUsuario g =  controller.GestionUsuarioController.getDatosTableSelectedRow(table);
+				FormGestionUsuario frame = new FormGestionUsuario(2,g);
+				frame.setVisible(true);
+			
 			}
 		});
 		panelButtons.add(btBorrar);
 		btBorrar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		
+		btnEditar = new JButton("Editar Usuario");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				GenericUsuario g =  controller.GestionUsuarioController.getDatosTableSelectedRow(table);
+				FormGestionUsuario frame = new FormGestionUsuario(1,g);
+				frame.setVisible(true);
+			}
+		});
+		btnEditar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		panelButtons.add(btnEditar);
+		
 		btnAddUsuario = new JButton("A\u00F1adir Usuario");
 		panelButtons.add(btnAddUsuario);
 		btnAddUsuario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.GestionUsuarioController.insertarUsuario();
+				
+				GenericUsuario g = null;
+				FormGestionUsuario frame = new FormGestionUsuario(0,g);
+				frame.setVisible(true);
+			
 			}
 		});
 		btnAddUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -196,26 +229,29 @@ public class GestionUsuario extends JFrame {
 		panelTable.setLayout(new BorderLayout(0, 0));
 		
 		
-	
-		
-		/*tblResult = new JTable();
-		panelDat.setViewportView(tblResult);
-*/
+		// TABLA
 		table = new JTable();
-		table.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusGained(FocusEvent e) {
-				controller.GestionUsuarioController.btnBorrarEnabled();
-				System.out.println(table.getValueAt(table.getSelectedRow(), 0));
-			}
-			@Override
-			public void focusLost(FocusEvent e) {
-				controller.GestionUsuarioController.btnBorrarEnabled();
-				System.out.println(table.getValueAt(table.getSelectedRow(), 0));		}
-		});
 		panelTable.add(table, BorderLayout.CENTER);
 		table.setCellSelectionEnabled(true);
 		
+		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				// 
+				if(controller.GestionUsuarioController.getSelectedRow(table)) {
+					view.GestionUsuario.btBorrar.setEnabled(true);
+					view.GestionUsuario.btnEditar.setEnabled(true);
+
+				}else{
+					view.GestionUsuario.btBorrar.setEnabled(false);
+					view.GestionUsuario.btnEditar.setEnabled(false);
+				};
+				
+			}
+		});
+		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Solo se puede seleccionar una fila
+
 		JScrollPane js=new JScrollPane(table);
 		js.setVisible(true);
 		getContentPane().add(js);

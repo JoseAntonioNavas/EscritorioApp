@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import javax.swing.table.TableCellEditor;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import model.GenericUsuario;
 import model.Roles;
 import model.Usuario;
 import service.DetallesUsuarioService;
@@ -28,25 +30,58 @@ import view.GestionUsuario;
 
 public class GestionUsuarioController {
 	
+	private static void resetCamposBusqueda() {
+		
+		view.GestionUsuario.txtBusqueda.setText("");
+		view.GestionUsuario.comboBoxRoles.setSelectedIndex(0);
+	}
 	
-	public static Hashtable<String, Integer> setRolesComboBox() {
+	public static void setRolesComboBox() {
 		
 		List<Roles> r = RolesService.getRoles();
-		System.out.println();
+	
+		view.GestionUsuario.comboBoxRoles.addItem("Todos");
+		view.GestionUsuario.contenedorRoles.put("Todos",-1);
 		
-		
-		Hashtable<String, Integer> contenedorRoles = new Hashtable();
-
 		for (Roles ro: r) {
 			
-			contenedorRoles.put(ro.getNombre_rol(),ro.getId_rol());
+			view.GestionUsuario.contenedorRoles.put(ro.getNombre_rol(),ro.getId_rol());
 			view.GestionUsuario.comboBoxRoles.addItem(ro.getNombre_rol());
 
 		}
 		
-		return contenedorRoles;
+		
 	}
 	
+	public static ParametrosBusquedaDetalleUsuarios getCamposBusqueda() {
+		
+		String txtBusqueda = view.GestionUsuario.txtBusqueda.getText();
+		String id_rol = String.valueOf(view.GestionUsuario.contenedorRoles.get(view.GestionUsuario.comboBoxRoles.getSelectedItem()));
+
+		ParametrosBusquedaDetalleUsuarios p = new ParametrosBusquedaDetalleUsuarios(txtBusqueda,id_rol);
+		
+		return p;
+		
+	}
+	
+	
+	public static List<GenericUsuario> getDetallesUsuariosFiltrados() {
+		
+		List<GenericUsuario> listUsuarios = new ArrayList<GenericUsuario>();
+		
+	 	ParametrosBusquedaDetalleUsuarios p =  getCamposBusqueda();
+	 	
+		try {
+			
+			return listUsuarios = DetallesUsuarioService.getListDetalleUsuario(p);
+
+		} catch (Exception e) {
+			
+			mensajeError("Error al realizar la Búsqueda");
+			return listUsuarios;
+		}
+		
+	}
 
 	public static void btnBorrarEnabled() {
 		
@@ -60,43 +95,25 @@ public class GestionUsuarioController {
 		
 	}
 	
-	
-	private static void vaciarCamposBusqueda() {
-
-		
+	public static boolean getSelectedRow(JTable table) {
+		return logic.GestionUsuarioLogic.getSelectedRow(table);
 	}
 	
-	private static Usuario getCamposBusqueda() {
+	public static GenericUsuario getDatosTableSelectedRow(JTable table) {
 		
-		Usuario usuario = new Usuario("", "");
-		
-		return usuario;
-		
+		return logic.GestionUsuarioLogic.getGenericUsuarioSelectedRow(table);
 	}
-	
-	private static List<GestionUsuario> getUsuarios() {
-		
-		//Usuario usuario = getCamposBusqueda();
-		
-		
-		List<GestionUsuario> listUsuario = null;
-		// DetallesUsuarioService.getListDetalleUsuario();
-		return listUsuario;
-	}
-	
-	
 	
 	public static void pintarTableUsuario() {
 		
-		List<GestionUsuario> lstUsuarios = getUsuarios();
-
-		
+		List<GenericUsuario> lstUsuarios = getDetallesUsuariosFiltrados();
+	
 		DefaultTableModel tableModel = new DefaultTableModel();
-		
-		
+				
 		// COLUMNAS
 		
-		String[] columnNames = {"id__user","Email","Contraseña"};
+		String[] columnNames = {"id_detalle_usuario","Nick","Nombre","Primer Apellido", "Segundo Apellido", "id_user","Email","Contraseña","id_rol","Rol"};
+		
 		for(int i=0; i < columnNames.length;i++) {
 			tableModel.addColumn(columnNames[i]);
 		}
@@ -107,14 +124,20 @@ public class GestionUsuarioController {
 		Object[] fila = new Object[tableModel.getColumnCount()];
 		
 		for (int i = 0; i < lstUsuarios.size(); i++) {
-
-		fila[0] = "";
-		fila[1] = "";
-		fila[2] = "";
+			
+		fila[0] = lstUsuarios.get(i).getDetallesUsuario().getId_detalle_usuario();
+		fila[1] = lstUsuarios.get(i).getDetallesUsuario().getNick_user();
+		fila[2] = lstUsuarios.get(i).getDetallesUsuario().getNombre();
+		fila[3] = lstUsuarios.get(i).getDetallesUsuario().getApellido_1(); 
+		fila[4] = lstUsuarios.get(i).getDetallesUsuario().getApellido_2();
+		fila[5] = lstUsuarios.get(i).getUsuario().getId_user();
+		fila[6] = lstUsuarios.get(i).getUsuario().getEmail();
+		fila[7] = lstUsuarios.get(i).getUsuario().getPasswd();
+		fila[8] = lstUsuarios.get(i).getRol().getId_rol();
+		fila[9] = lstUsuarios.get(i).getRol().getNombre_rol();
 		
 		tableModel.addRow(fila);
 			
-		
 		}
 
 	
@@ -123,70 +146,73 @@ public class GestionUsuarioController {
 		view.GestionUsuario.table.getColumnModel().getColumn(0).setMaxWidth(0);
 		view.GestionUsuario.table.getColumnModel().getColumn(0).setMinWidth(0);
 		view.GestionUsuario.table.getColumnModel().getColumn(0).setPreferredWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(5).setMaxWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(5).setMinWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(5).setPreferredWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(8).setMaxWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(8).setMinWidth(0);
+		view.GestionUsuario.table.getColumnModel().getColumn(8).setPreferredWidth(0);
 		
 		view.GestionUsuario.table.getTableHeader().setReorderingAllowed(false) ;
 		view.GestionUsuario.table.getTableHeader().setResizingAllowed(false);
 		
-			
-		/**view.GestionUsuario.table.changeSelection(0, 0, false, false);
-		view.GestionUsuario.table.requestFocus ();
-		**/
-	
 	}
 
 	
-	public static void mensajeError(String respuesta,String msgSuccess) {
+	public static void mensajeError(String mensaje) {
 		
-		if(respuesta.equals("OK")) {
-			view.GestionUsuario.lblError.setText(msgSuccess);
-			view.GestionUsuario.lblError.setForeground(Color.BLUE);
-			System.out.println("ola");
-			vaciarCamposBusqueda();
-			pintarTableUsuario();
-		}else{
-			view.GestionUsuario.lblError.setText(respuesta);
+			view.GestionUsuario.lblError.setText(mensaje);
 			view.GestionUsuario.lblError.setForeground(Color.RED);
-		};
+	
 	}
 	
-	public static void insertarUsuario() {
+	public static void mensajeExito(String mensaje) {
 		
-		getCamposBusqueda();
-		Usuario usuario = getCamposBusqueda();
-		String respuesta = UsuarioService.insertarUsuario(usuario);
+		view.GestionUsuario.lblError.setText(mensaje);
+		view.GestionUsuario.lblError.setForeground(Color.BLUE);
 		
-		mensajeError(respuesta,"Usuario Registrado Correctamente");
+	}
+	
 
-	}
-	
-	public static void borrarUsuario(String id) {
-		String respuesta = UsuarioService.deleteUsuario(id);
-		mensajeError(respuesta,"Usuario Borrado Correctamente");
-		btnBorrarEnabled(); 
-	}
-	
-	
-	public static void modalBorrar() {
-		String id =  view.GestionUsuario.table.getValueAt(view.GestionUsuario.table.getSelectedRow(), 0).toString();
-		String email = (String) view.GestionUsuario.table.getValueAt(view.GestionUsuario.table.getSelectedRow(), 1);
-		
-		int seleccion = JOptionPane.showOptionDialog(
-				   null,
-				   "¿Estás Seguro de borrar el usuario: + "+ email + "? \n Recuerda que se borraran todos los datos asociados a ese email", 
-				   "Selector de opciones",
-				   JOptionPane.YES_NO_CANCEL_OPTION,
-				   JOptionPane.WARNING_MESSAGE,
-				   null,    // null para icono por defecto.
-				   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
-				   "Aceptar");
-
-				if (seleccion != -1) {
-					
-					borrarUsuario(id);
-					
-				}
-					 
-				
-	}
 	
 }
+
+
+class ParametrosBusquedaDetalleUsuarios{
+	
+	private String Busqueda;
+	private String id_rol;
+	
+	public ParametrosBusquedaDetalleUsuarios(String Busqueda,String id_rol) {
+		this.Busqueda = Busqueda;
+		this.id_rol = id_rol;
+	}
+
+	public String getBusqueda() {
+		return Busqueda;
+	}
+
+	public void setBusqueda(String busqueda) {
+		Busqueda = busqueda;
+	}
+
+	public String getId_rol() {
+		return id_rol;
+	}
+
+	public void setId_rol(String id_rol) {
+		this.id_rol = id_rol;
+	}
+
+	@Override
+	public String toString() {
+		return "ParametrosBusquedaDetalleUsuarios [Busqueda=" + Busqueda + ", id_rol=" + id_rol + "]";
+	}
+	
+	
+}
+
+
+
+
+

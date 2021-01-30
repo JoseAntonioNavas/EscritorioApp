@@ -101,6 +101,44 @@ public class PeticionHTTP {
 	}
 	
 	
+	public static String peticionHttpPUT(String urlWebService,JSONObject objecto) throws Exception {
+		
+		
+		// Realizar la peticón http
+		URL url = new URL(urlWebService);
+		HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
+		conexion.setRequestMethod("PUT");
+		
+		conexion.setRequestProperty("Content-Type", "application/json; utf-8");
+		conexion.setRequestProperty("Accept", "application/json");
+		conexion.setDoOutput(true);
+
+		
+		String jsonInputString = objecto.toString();
+		
+		try(OutputStream os = conexion.getOutputStream()) {
+		    byte[] input = jsonInputString.getBytes("utf-8");
+		    os.write(input, 0, input.length);			
+		}
+		
+	
+		
+		try(BufferedReader br = new BufferedReader(
+				  new InputStreamReader(conexion.getInputStream(), "utf-8"))) {
+					StringBuilder response = new StringBuilder();
+				    String responseLine = null;
+				    
+				    while ((responseLine = br.readLine()) != null) {
+				        response.append(responseLine.trim());
+				    }
+				   
+			return response.toString();
+		}
+		
+	
+		
+	}
+	
 	
 	
 	

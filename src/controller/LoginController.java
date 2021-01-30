@@ -60,7 +60,7 @@ public class LoginController {
 					listDetalleUsuario = DetallesUsuarioService.getListDetalleUsuarioByID(String.valueOf(u1.getId_user()));
 					
 					 // Si es administrador puede registrarse
-					 if(listDetalleUsuario.get(0).getDetallesUsuario().getId_rol() == 1) {
+					 if(listDetalleUsuario.get(0).getDetallesUsuario().getId_rol() == 4) {
 							// Pasamos el usuario que ha iniciado sesion a una variable global para que toda la aplicacion pueda usarla.
 							logic.globalVariables.usuarioLogged = u1;
 							
