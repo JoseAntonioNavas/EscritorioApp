@@ -173,44 +173,44 @@ public class GestionUsuarioController {
 		
 	}
 	
+	private static class ParametrosBusquedaDetalleUsuarios{
+		
+		private String Busqueda;
+		private String id_rol;
+		
+		public ParametrosBusquedaDetalleUsuarios(String Busqueda,String id_rol) {
+			this.Busqueda = Busqueda;
+			this.id_rol = id_rol;
+		}
+
+		public String getBusqueda() {
+			return Busqueda;
+		}
+
+		public void setBusqueda(String busqueda) {
+			Busqueda = busqueda;
+		}
+
+		public String getId_rol() {
+			return id_rol;
+		}
+
+		public void setId_rol(String id_rol) {
+			this.id_rol = id_rol;
+		}
+
+		@Override
+		public String toString() {
+			return "ParametrosBusquedaDetalleUsuarios [Busqueda=" + Busqueda + ", id_rol=" + id_rol + "]";
+		}
+		
+		
+	}
 
 	
 }
 
 
-class ParametrosBusquedaDetalleUsuarios{
-	
-	private String Busqueda;
-	private String id_rol;
-	
-	public ParametrosBusquedaDetalleUsuarios(String Busqueda,String id_rol) {
-		this.Busqueda = Busqueda;
-		this.id_rol = id_rol;
-	}
-
-	public String getBusqueda() {
-		return Busqueda;
-	}
-
-	public void setBusqueda(String busqueda) {
-		Busqueda = busqueda;
-	}
-
-	public String getId_rol() {
-		return id_rol;
-	}
-
-	public void setId_rol(String id_rol) {
-		this.id_rol = id_rol;
-	}
-
-	@Override
-	public String toString() {
-		return "ParametrosBusquedaDetalleUsuarios [Busqueda=" + Busqueda + ", id_rol=" + id_rol + "]";
-	}
-	
-	
-}
 
 
 

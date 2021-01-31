@@ -232,8 +232,7 @@ public class GestionUsuario extends JFrame {
 		// TABLA
 		table = new JTable();
 		panelTable.add(table, BorderLayout.CENTER);
-		table.setCellSelectionEnabled(true);
-		
+		//table.setCellSelectionEnabled(true);
 		table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
 			@Override
@@ -255,7 +254,6 @@ public class GestionUsuario extends JFrame {
 		JScrollPane js=new JScrollPane(table);
 		js.setVisible(true);
 		getContentPane().add(js);
-		
 		
 		
 		separator = new JSeparator();

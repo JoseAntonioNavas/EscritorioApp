@@ -48,5 +48,15 @@ public class Principal extends JFrame {
 		});
 		btnNewButton.setBounds(20, 78, 85, 21);
 		contentPane.add(btnNewButton);
+		
+		JButton btnNewButton_1 = new JButton("gestionCOlor");
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				GestionColor frame = new GestionColor();
+				frame.setVisible(true);
+			}
+		});
+		btnNewButton_1.setBounds(10, 119, 85, 21);
+		contentPane.add(btnNewButton_1);
 	}
 }
