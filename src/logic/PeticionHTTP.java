@@ -13,6 +13,7 @@ public class PeticionHTTP {
 	public static String peticionHttpGET(String urlWebService)throws Exception{
 		StringBuilder resultado = new StringBuilder();
 			
+		
 		// Realizar la peticón http
 		URL url = new URL(urlWebService);
 		HttpURLConnection conexion = (HttpURLConnection) url.openConnection();
