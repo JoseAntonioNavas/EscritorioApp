@@ -44,7 +44,7 @@ public class MarcaService {
 		//JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		
 		try {
-			response = logic.PeticionHTTP.peticionHttpPOST(urlWebService,null);
+			response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, null);
 			
 			return listMarcas = null;
 			
