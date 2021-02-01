@@ -33,24 +33,23 @@ public class MarcaService {
 		
 	}
 	
-	public static List<Marca> getAllMarcas(Object o){
+	public static List<Marca> getAllMarcas(Object parametros){
 		
 		List<Marca> listMarcas = new ArrayList<Marca>();
 		
 		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/getMarcas";
+		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		
 		String response;
-		
-		//JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
-		
 		try {
-			response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, null);
-			
-			return listMarcas = null;
-			
+			response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
+			return listMarcas = logic.MarcaLogic.JsonToMarcas(response);
 		} catch (Exception e) {
 			return listMarcas;
 		}
+		
+		
+		
 	}
 	
 	

@@ -83,7 +83,7 @@ public class MarcaLogic {
 		
 		// COLUMNAS
 		
-		String[] columnNames = {"id_marca","Marca","visible"};
+		String[] columnNames = {"id_marca","Marca","Estado"};
 		
 		JLabel l = new JLabel();
 		for(int i=0; i < columnNames.length;i++) {
@@ -99,7 +99,7 @@ public class MarcaLogic {
 			
 		fila[0] = list.get(i).getId_marca();
 		fila[1] = list.get(i).getNombre_marca();
-		fila[2] = logic.LogicApp.IntegertoBoolean(list.get(i).getVisible());
+		fila[2] = IntegertoBooleanToString(list.get(i).getVisible());
 		tableModel.addRow(fila);
 			
 		}
@@ -118,6 +118,39 @@ public class MarcaLogic {
 		
 	}
 	
+	
+	private static String IntegertoBooleanToString(int e) {
+		
+		if(e == 0) {
+			return "No visible";
+		}else {
+			return "Visible";
+		}
+	}
+	
+	
+	public static String getCodigoComboBoxVisible(String valueItem) {
+		
+		String codItem = "-1";
+		
+		switch (valueItem) {
+		case "Todos":
+			codItem = "-1";
+			break;
+		case "Visible":
+			codItem = "1";
+			break;
+		case "No Visible":
+			codItem = "0";
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		return codItem;
+	}
 	
 	
 	

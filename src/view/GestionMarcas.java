@@ -28,6 +28,10 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class GestionMarcas extends JFrame {
 
@@ -71,6 +75,7 @@ public class GestionMarcas extends JFrame {
 				
 				// ComboBox
 				controller.GestionMarcasController.getComboboxVisible();
+				controller.GestionMarcasController.pintarTableMarcas();
 				
 			}
 		});
@@ -123,6 +128,12 @@ public class GestionMarcas extends JFrame {
 		panel_1.add(comboBoxVisible);
 		
 		lblBusqueda = new JLabel("");
+		lblBusqueda.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				controller.GestionMarcasController.pintarTableMarcas();
+			}
+		});
 		lblBusqueda.setIcon(new ImageIcon("images/lupa.jpg"));
 		lblBusqueda.setBounds(521, 8, 25, 25);
 		panel_1.add(lblBusqueda);
@@ -136,6 +147,13 @@ public class GestionMarcas extends JFrame {
 		panel_2.add(btnEditar);
 		
 		btnAgregar = new JButton("A\u00F1adir");
+		btnAgregar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				controller.GestionMarcasController.abrirFormMarcas("Añadir");
+				
+			}
+		});
 		btnAgregar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(btnAgregar);
 		

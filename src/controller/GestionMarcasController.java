@@ -4,11 +4,11 @@ import java.util.List;
 
 import model.Marca;
 import service.MarcaService;
+import view.FormMarcas;
 import view.GestionMarcas;
 
 public class GestionMarcasController {
 
-	
 	
 	public static void getComboboxVisible(){
 		
@@ -17,19 +17,22 @@ public class GestionMarcasController {
 		view.GestionMarcas.comboBoxVisible.addItem("No Visible");
 	}
 	
+
 	
 	private static BusquedaMarcas getCampos() {
 		
 		String nombreMarca = view.GestionMarcas.txtFieldMarca.getText();
-		String visible = (String) view.GestionMarcas.comboBoxVisible.getSelectedItem();
+		String visible = logic.MarcaLogic.getCodigoComboBoxVisible((String) view.GestionMarcas.comboBoxVisible.getSelectedItem());
 		
 		BusquedaMarcas b = new BusquedaMarcas(nombreMarca, visible);
 		return b;
 	}
 	
+	
 	public static List<Marca> getListMarcas() {
 		
 	   BusquedaMarcas o = getCampos();
+	   
 	   return MarcaService.getAllMarcas(o);
 				
 	}
@@ -40,6 +43,30 @@ public class GestionMarcasController {
 		logic.MarcaLogic.pintarTableMarca(m , GestionMarcas.table);
 	}
 	
+
+	
+	
+	public static void abrirFormMarcas(String status) {
+	
+		if(status.equals("Añadir")) {
+			
+			new FormMarcas("Añadir").setVisible(true);
+			
+		}else{
+			
+			new FormMarcas("Borrar").setVisible(true);
+			
+		}
+		
+	}
+	
+	public static void getCamposFormMarcas() {
+		
+	}
+	
+	public static List<MarcasAPI> getAllMarcasAPI() {
+		return service.MarcaService.getAllMarcasAPI();
+	}
 	
 	
 	public static class MarcasAPI{
@@ -100,4 +127,6 @@ public class GestionMarcasController {
 		
 		
 	}
+
+
 }
