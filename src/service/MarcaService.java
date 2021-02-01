@@ -3,6 +3,8 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.JSONObject;
+
 import controller.GestionMarcasController.MarcasAPI;
 import model.Marca;
 
@@ -10,7 +12,7 @@ import model.Marca;
 public class MarcaService {
 
 	
-	public static List<MarcasAPI> getAllMarcas() {
+	public static List<MarcasAPI> getAllMarcasAPI() {
 		
 		List<MarcasAPI> listMarcas = new ArrayList<MarcasAPI>();
 		
@@ -30,6 +32,28 @@ public class MarcaService {
 		
 		
 	}
+	
+	public static List<Marca> getAllMarcas(Object o){
+		
+		List<Marca> listMarcas = new ArrayList<Marca>();
+		
+		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/getMarcas";
+		
+		String response;
+		
+		//JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
+		
+		try {
+			response = logic.PeticionHTTP.peticionHttpPOST(urlWebService,null);
+			
+			return listMarcas = null;
+			
+		} catch (Exception e) {
+			return listMarcas;
+		}
+	}
+	
+	
 	
 	
 	

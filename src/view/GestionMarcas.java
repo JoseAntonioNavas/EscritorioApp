@@ -8,7 +8,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 
+import org.jdesktop.swingx.prompt.PromptSupport;
+
 import controller.GestionMarcasController.MarcasAPI;
+import controller.GestionUsuarioController;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -29,15 +32,15 @@ import javax.swing.JButton;
 public class GestionMarcas extends JFrame {
 
 	private JPanel contentPane;
-	private JTable table;
+	public static JTable table;
 	private JPanel panel;
 	private JPanel panel_1;
 	private JPanel panel_2;
 	private JLabel lblTitulo;
-	private JLabel lblMarca;
-	private JTextField textField;
+	public static  JLabel lblMarca;
+	public static JTextField txtFieldMarca;
 	private JLabel lblNewLabel_1;
-	private JComboBox comboBox;
+	public static JComboBox comboBoxVisible;
 	private JLabel lblBusqueda;
 	private JButton btnEditar;
 	private JButton btnAgregar;
@@ -66,11 +69,12 @@ public class GestionMarcas extends JFrame {
 			@Override
 			public void windowOpened(WindowEvent e) {
 				
-				
+				// ComboBox
+				controller.GestionMarcasController.getComboboxVisible();
 				
 			}
 		});
-		
+		setTitle("Gestión Marcas");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 413);
 		setLocationRelativeTo(null);  // Para centrar el frame
@@ -102,20 +106,21 @@ public class GestionMarcas extends JFrame {
 		lblMarca.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_1.add(lblMarca);
 		
-		textField = new JTextField();
-		textField.setBounds(84, 12, 214, 25);
-		panel_1.add(textField);
-		textField.setColumns(25);
+		txtFieldMarca = new JTextField();
+		PromptSupport.setPrompt("Búsqueda Nombre Marca", txtFieldMarca);
+		txtFieldMarca.setBounds(84, 12, 214, 25);
+		panel_1.add(txtFieldMarca);
+		txtFieldMarca.setColumns(25);
 		
 		lblNewLabel_1 = new JLabel("Visible:");
 		lblNewLabel_1.setBounds(329, 12, 44, 20);
 		lblNewLabel_1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_1.add(lblNewLabel_1);
 		
-		comboBox = new JComboBox();
-		comboBox.setBounds(383, 8, 117, 28);
-		comboBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		panel_1.add(comboBox);
+		comboBoxVisible = new JComboBox();
+		comboBoxVisible.setBounds(383, 8, 117, 28);
+		comboBoxVisible.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		panel_1.add(comboBoxVisible);
 		
 		lblBusqueda = new JLabel("");
 		lblBusqueda.setIcon(new ImageIcon("images/lupa.jpg"));

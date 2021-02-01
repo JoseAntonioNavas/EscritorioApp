@@ -97,5 +97,14 @@ public class LogicApp {
 	}
 	
 	
+	public static boolean IntegertoBoolean(int e) {
+		
+		if(e == 0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+	
 	
 }

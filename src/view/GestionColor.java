@@ -36,9 +36,10 @@ public class GestionColor extends JFrame {
 	 */
 	public GestionColor() {
 		addWindowListener(new WindowAdapter() {
+			
 			@Override
 			public void windowOpened(WindowEvent e) {
-
+				
 				// ComboBox
 				controller.GestionColorController.setComboBoxColor();
 				//Pintamos tabla
@@ -49,7 +50,7 @@ public class GestionColor extends JFrame {
 		setSize(600, 413);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
-		
+		setTitle("Gestión Colores");
 		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -103,8 +104,8 @@ public class GestionColor extends JFrame {
 		JButton btnAgregar = new JButton("A\u00F1adir");
 		btnAgregar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FormGestionColor dialog = new FormGestionColor();
-				dialog.setVisible(true);
+				
+				new FormGestionColor().setVisible(true);
 			}
 		});
 		btnAgregar.setFont(new Font("Segoe UI", Font.PLAIN, 14));

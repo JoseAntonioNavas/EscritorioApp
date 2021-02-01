@@ -51,7 +51,7 @@ public class GestionColorController {
 	
 
 	
-	public static void guardarColor() {
+	public static String guardarColor() {
 		
 		String rgbcolor = getColorRGBForm();
 		
@@ -65,10 +65,14 @@ public class GestionColorController {
 			setComboBoxColor();
 			logic.ColorLogic.pintarTablaColores(listColores(), view.GestionColor.table);
 			mensajeExito("Color creado correctamente");
+			
+			
+			
 		}else {
 			mensajeError(response);
 		}
 		
+		return response;
 	}
 
 	private static  String getColorRGBForm() {

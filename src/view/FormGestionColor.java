@@ -28,7 +28,7 @@ public class FormGestionColor extends JDialog {
 		setSize(600, 450);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
-		
+		setTitle("Gestión Colores");
 		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
@@ -39,29 +39,20 @@ public class FormGestionColor extends JDialog {
 		
 			contentPanel.add(tcc);
 			{
-				 lblError = new JLabel("New label");
+				 lblError = new JLabel("");
 				contentPanel.add(lblError);
 			}
 			
-			tcc.removeChooserPanel(tcc.getChooserPanels()[0]);
-			tcc.removeChooserPanel(tcc.getChooserPanels()[1]);
-			tcc.removeChooserPanel(tcc.getChooserPanels()[2]);
-			tcc.removeChooserPanel(tcc.getChooserPanels()[0]);
-			
-		
-				//System.out.println(tcc.getColor().getRGB());
+			if(tcc.getChooserPanels().length > 1) {
+				tcc.removeChooserPanel(tcc.getChooserPanels()[0]);
+				tcc.removeChooserPanel(tcc.getChooserPanels()[1]);
+				tcc.removeChooserPanel(tcc.getChooserPanels()[2]);
+				tcc.removeChooserPanel(tcc.getChooserPanels()[0]);
 				
-				tcc.getSelectionModel().addChangeListener(
-					    new ChangeListener() {
-						public void stateChanged(ChangeEvent e) {
-						    //Color newColor = tcc.getColor();
-						    //banner.setForeground(newColor);
-						    
-						}
-						
-					    }
-					    
-					);
+			}else {
+				
+			}
+			
 				
 		{
 			final JLabel banner = new JLabel("",
@@ -73,7 +64,10 @@ public class FormGestionColor extends JDialog {
 				JButton okButton = new JButton("Guardar");
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						controller.GestionColorController.guardarColor();
+						String response = controller.GestionColorController.guardarColor();
+						if(response.equals("OK")) {
+							dispose();
+						}
 					}
 				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
