@@ -6,6 +6,7 @@ import java.util.List;
 import org.json.JSONObject;
 
 import controller.GestionMarcasController.MarcasAPI;
+import logic.ErrorLogic;
 import model.Marca;
 
 
@@ -49,6 +50,20 @@ public class MarcaService {
 		}
 		
 		
+		
+	}
+	
+	
+	public static String newMarca(Marca marca) throws Exception {
+		
+		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/new";
+		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
+
+		String response;
+		
+		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
+		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
+		return p.get(0).getMsg();
 		
 	}
 	

@@ -2,6 +2,8 @@ package controller;
 
 import java.util.List;
 
+import javax.swing.JTable;
+
 import model.Marca;
 import service.MarcaService;
 import view.FormMarcas;
@@ -30,9 +32,8 @@ public class GestionMarcasController {
 	
 	
 	public static List<Marca> getListMarcas() {
-		
+	
 	   BusquedaMarcas o = getCampos();
-	   
 	   return MarcaService.getAllMarcas(o);
 				
 	}
@@ -45,7 +46,6 @@ public class GestionMarcasController {
 	
 
 	
-	
 	public static void abrirFormMarcas(String status) {
 	
 		if(status.equals("Añadir")) {
@@ -54,20 +54,74 @@ public class GestionMarcasController {
 			
 		}else{
 			
-			new FormMarcas("Borrar").setVisible(true);
+			new FormMarcas("Editar").setVisible(true);
+		
 			
 		}
 		
 	}
 	
-	public static void getCamposFormMarcas() {
-		
-	}
+	
 	
 	public static List<MarcasAPI> getAllMarcasAPI() {
 		return service.MarcaService.getAllMarcasAPI();
 	}
 	
+	private static Marca getCamposFormMarcas() {
+		
+		int idMarca = view.FormMarcas.idMarca.get(view.FormMarcas.comboBoxMarcas.getSelectedItem());
+		String nombre_marca = String.valueOf(view.FormMarcas.comboBoxMarcas.getSelectedItem());
+		int visible =  logic.MarcaLogic.BooleantoInt(view.FormMarcas.chBoxVisible.isSelected());
+		
+		return new Marca(idMarca, nombre_marca, visible);
+		
+	}
+
+	public static boolean formGuardarMarca() {
+		
+		Marca m = getCamposFormMarcas();
+		try {
+			
+			String response = MarcaService.newMarca(m);
+			if(response.equals("OK")) {
+				logic.MarcaLogic.mensajeExito("Marca creada correctamente");
+				pintarTableMarcas();
+				
+				return true;
+			}else {
+				logic.MarcaLogic.mensajeError(response);
+				return false;
+			}
+			
+			
+		} catch (Exception e) {
+			
+			logic.MarcaLogic.mensajeError("Error al crear una Marca");
+			return false;
+		}
+	}
+	
+	public static void formEditarMarca() {
+		Marca m = getCamposFormMarcas();
+		
+		System.out.println(m);
+		
+	}
+	
+	public static Marca getSelectedRow() {
+		 return logic.MarcaLogic.getSelectedRow(view.GestionMarcas.table);
+	}
+	public static void setValoresFormMarca(Marca marca) {
+		
+		if(marca.getVisible() == 0){
+			view.FormMarcas.chBoxVisible.setSelected(false);
+		}else {
+			view.FormMarcas.chBoxVisible.setSelected(true);
+		}
+		
+		view.FormMarcas.comboBoxMarcas.setSelectedItem(marca.getNombre_marca());
+		
+	}
 	
 	public static class MarcasAPI{
 		
@@ -127,6 +181,15 @@ public class GestionMarcasController {
 		
 		
 	}
+
+
+
+
+
+	
+
+
+
 
 
 }

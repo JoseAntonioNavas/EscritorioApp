@@ -48,6 +48,7 @@ public class GestionMarcas extends JFrame {
 	private JLabel lblBusqueda;
 	private JButton btnEditar;
 	private JButton btnAgregar;
+	public static JLabel lblError;
 
 	/**
 	 * Launch the application.
@@ -143,6 +144,11 @@ public class GestionMarcas extends JFrame {
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				controller.GestionMarcasController.abrirFormMarcas("Editar");
+			}
+		});
 		btnEditar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(btnEditar);
 		
@@ -156,6 +162,10 @@ public class GestionMarcas extends JFrame {
 		});
 		btnAgregar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(btnAgregar);
+		
+		lblError = new JLabel("");
+		lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		panel_2.add(lblError);
 		
 		JPanel panelTabla = new JPanel();
 		contentPane.add(panelTabla, BorderLayout.CENTER);

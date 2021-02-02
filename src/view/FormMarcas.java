@@ -12,6 +12,7 @@ import org.jdesktop.swingx.autocomplete.AutoCompleteComboBoxEditor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
 import controller.GestionMarcasController.MarcasAPI;
+import model.Marca;
 
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -19,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JComboBox;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.Hashtable;
 import java.util.List;
 import javax.swing.JCheckBox;
 import java.awt.event.ActionListener;
@@ -28,18 +30,31 @@ public class FormMarcas extends JDialog {
 
 	private final JPanel contentPanel = new JPanel();
 	public static JComboBox comboBoxMarcas;
-
-
+	public static Hashtable<String, Integer> idMarca;
+	public static JCheckBox chBoxVisible ;
+	public static JLabel lblError;
+	
 	public FormMarcas(String status) {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {
+				
 				List<MarcasAPI> marcasAPI = controller.GestionMarcasController.getAllMarcasAPI();
+				idMarca = new Hashtable<String, Integer>();
+				
 				for (MarcasAPI m : marcasAPI) {
+					idMarca.put(m.getMake_Name(), m.getMake_ID());
 					comboBoxMarcas.addItem(m.getMake_Name());
 				}
 				
-			
+				if(status.equals("Editar")) {
+					
+					// Marca seleccionada
+					Marca marca = controller.GestionMarcasController.getSelectedRow();
+					controller.GestionMarcasController.setValoresFormMarca(marca);
+					
+				}
+				
 			}
 		});
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -83,12 +98,12 @@ public class FormMarcas extends JDialog {
 				panel.add(lblVisible);
 			}
 			
-			JCheckBox chckbxNewCheckBox = new JCheckBox("Visible");
-			chckbxNewCheckBox.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			chckbxNewCheckBox.setBounds(104, 12, 341, 21);
-			panel.add(chckbxNewCheckBox);
+			chBoxVisible = new JCheckBox("Visible");
+			chBoxVisible.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			chBoxVisible.setBounds(104, 12, 341, 21);
+			panel.add(chBoxVisible);
 			
-			JLabel lblError = new JLabel("");
+			lblError = new JLabel("");
 			lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			lblError.setBounds(243, 49, 233, 25);
 			panel.add(lblError);
@@ -99,6 +114,19 @@ public class FormMarcas extends JDialog {
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
 				JButton okButton = new JButton(status);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						if(status == "Añadir") {
+							if(controller.GestionMarcasController.formGuardarMarca()) {
+								dispose();
+							};
+						}
+						if(status == "Editar") {
+							controller.GestionMarcasController.formEditarMarca();
+						}
+						
+					}
+				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				okButton.setActionCommand(status);
 				buttonPane.add(okButton);

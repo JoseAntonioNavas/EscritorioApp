@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import controller.GestionMarcasController.MarcasAPI;
-import model.Marca;;
+import model.DetallesUsuario;
+import model.GenericUsuario;
+import model.Marca;
+import model.Roles;
+import model.Usuario;;
 
 public class MarcaLogic {
 
@@ -128,6 +133,42 @@ public class MarcaLogic {
 		}
 	}
 	
+	public static int BooleantoInt(boolean b) {
+		
+		if(b == true) {
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
+	
+	private static int StringtoInt(String s) {
+		if(s.equals("Visible")) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
+	public static void mensajeExito(String string) {
+		// TODO Auto-generated method stub
+		view.FormMarcas.lblError.setText(string);
+		view.FormMarcas.lblError.setForeground(Color.BLUE);
+		
+		view.GestionMarcas.lblError.setText(string);
+		view.GestionMarcas.lblError.setForeground(Color.BLUE);
+
+	}
+
+	public static void mensajeError(String string) {
+
+		view.FormMarcas.lblError.setText(string);
+		view.FormMarcas.lblError.setForeground(Color.RED);
+		
+		view.GestionMarcas.lblError.setText(string);
+		view.GestionMarcas.lblError.setForeground(Color.RED);
+	}
 	
 	public static String getCodigoComboBoxVisible(String valueItem) {
 		
@@ -151,6 +192,27 @@ public class MarcaLogic {
 		
 		return codItem;
 	}
+	
+	public static Marca getSelectedRow(JTable table) {
+
+		List<String> listaTablaRow = new ArrayList<String>();
+		for (int i = 0; i < table.getColumnCount() ; i++) {
+			
+			listaTablaRow.add(String.valueOf(table.getValueAt(table.getSelectedRow(), i)));
+			
+		}
+		
+		int id_marca = Integer.parseInt(listaTablaRow.get(0));
+		String nombre_marca = listaTablaRow.get(1);
+		int visible = StringtoInt(listaTablaRow.get(2));
+		
+		return new Marca(id_marca, nombre_marca, visible);
+		
+	}
+	
+
+
+
 	
 	
 	
