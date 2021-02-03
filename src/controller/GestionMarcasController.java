@@ -51,11 +51,12 @@ public class GestionMarcasController {
 		if(status.equals("Añadir")) {
 			
 			new FormMarcas("Añadir").setVisible(true);
+			comboBoxMarcasEnabled("Añadir");
 			
 		}else{
 			
 			new FormMarcas("Editar").setVisible(true);
-		
+			comboBoxMarcasEnabled("Editar");
 			
 		}
 		
@@ -101,10 +102,24 @@ public class GestionMarcasController {
 		}
 	}
 	
-	public static void formEditarMarca() {
+	public static boolean formEditarMarca() {
 		Marca m = getCamposFormMarcas();
+	
+		try {
+			String response = MarcaService.updateMarca(m);
+				if(response.equals("OK")) {
+					logic.MarcaLogic.mensajeExito("Marca editada correctamente");
+					pintarTableMarcas();
+					return true;
+				}else {
+					logic.MarcaLogic.mensajeError(response);
+					return false;
+				}
+		} catch (Exception e) {
+			logic.MarcaLogic.mensajeError("Error al intentar editar marca");
+			return false;
+		}
 		
-		System.out.println(m);
 		
 	}
 	
@@ -120,6 +135,28 @@ public class GestionMarcasController {
 		}
 		
 		view.FormMarcas.comboBoxMarcas.setSelectedItem(marca.getNombre_marca());
+		
+	}
+	
+	
+	private static void comboBoxMarcasEnabled(String status) {
+		if(status.equals("Añadir")) {
+			view.FormMarcas.comboBoxMarcas.setEnabled(true);
+
+		}else {
+			view.FormMarcas.comboBoxMarcas.setEnabled(false);
+		}
+	}
+	
+	public static void btnBorrarEnabled() {
+		
+		if(view.GestionMarcas.table.getSelectedRow() == -1) {
+			view.GestionMarcas.btnEditar.setEnabled(false);
+
+		}else {
+			view.GestionMarcas.btnEditar.setEnabled(true);
+		}
+		
 		
 	}
 	

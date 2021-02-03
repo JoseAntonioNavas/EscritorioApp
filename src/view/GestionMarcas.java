@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
@@ -46,7 +48,7 @@ public class GestionMarcas extends JFrame {
 	private JLabel lblNewLabel_1;
 	public static JComboBox comboBoxVisible;
 	private JLabel lblBusqueda;
-	private JButton btnEditar;
+	public static JButton btnEditar;
 	private JButton btnAgregar;
 	public static JLabel lblError;
 
@@ -78,6 +80,8 @@ public class GestionMarcas extends JFrame {
 				controller.GestionMarcasController.getComboboxVisible();
 				controller.GestionMarcasController.pintarTableMarcas();
 				
+				//Boton editR
+				controller.GestionMarcasController.btnBorrarEnabled(); 
 			}
 		});
 		setTitle("Gestión Marcas");
@@ -175,7 +179,14 @@ public class GestionMarcas extends JFrame {
 		panelTabla.add(table, BorderLayout.CENTER);
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Solo se puede seleccionar una fila
         table.setFillsViewportHeight(true); 
-
+        table.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+			
+			@Override
+			public void valueChanged(ListSelectionEvent e) {
+				controller.GestionMarcasController.btnBorrarEnabled();
+				
+			}
+		});
 		
 		JScrollPane js=new JScrollPane(table);
 		js.setVisible(true);

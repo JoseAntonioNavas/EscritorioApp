@@ -122,7 +122,10 @@ public class FormMarcas extends JDialog {
 							};
 						}
 						if(status == "Editar") {
-							controller.GestionMarcasController.formEditarMarca();
+							if(controller.GestionMarcasController.formEditarMarca()) {
+								dispose();
+
+							};
 						}
 						
 					}

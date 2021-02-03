@@ -67,6 +67,18 @@ public class MarcaService {
 		
 	}
 	
+	public static String updateMarca(Marca marca) throws Exception{
+		
+		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/update";
+		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
+
+		String response;
+	
+		response = logic.PeticionHTTP.peticionHttpPUT(urlWebService, o);
+		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
+		return p.get(0).getMsg();
+	}
+	
 	
 	
 	
