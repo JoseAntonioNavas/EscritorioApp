@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import model.GenericModelo;
 import model.Marca;
+import model.ModeloAPI;
 import view.GestionModelos;
 
 
@@ -50,6 +51,37 @@ public class ModeloLogic {
 	}
 	
 	
+	public static List<ModeloAPI> JsonToModeloAPIs(String response) {
+		
+		List<ModeloAPI> listObject = new ArrayList<>();
+		
+	
+		JSONArray jsonA = new JSONArray(response);
+		
+		for (int i = 0; i < jsonA.length(); i++) {
+			
+			JSONObject jsonO = jsonA.getJSONObject(i);
+			ModeloAPI dU = JsonToModeloAPI(jsonO);
+			listObject.add(dU);
+				
+		}
+	
+		return listObject;
+	}
+
+	private static ModeloAPI JsonToModeloAPI(JSONObject jsonO) {
+				
+			
+		   	Integer id_marca = jsonO.getInt("Make_ID");
+		    String nombre_marca = jsonO.getString("Make_Name");
+		    Integer id_modelo = jsonO.getInt("Model_ID");
+		    String nombre_modelo = jsonO.getString("Model_Name");
+		    
+		    return new ModeloAPI(id_marca, nombre_marca, id_modelo, nombre_modelo);
+		    
+		   
+	}
+	
 	public static void pintarTableMarca(List<model.GenericModelo> list, JTable table) {
 		
 		
@@ -88,7 +120,10 @@ public class ModeloLogic {
 		table.getColumnModel().getColumn(0).setMinWidth(0);
 		table.getColumnModel().getColumn(0).setPreferredWidth(0);
 
-		
+		table.getColumnModel().getColumn(2).setMaxWidth(0);
+		table.getColumnModel().getColumn(2).setMinWidth(0);
+		table.getColumnModel().getColumn(2).setPreferredWidth(0);
+
 		
 		table.getTableHeader().setReorderingAllowed(false) ;
 		table.getTableHeader().setResizingAllowed(false);
@@ -103,4 +138,28 @@ public class ModeloLogic {
 			return "Visible";
 		}
 	}
+	
+	public static String getCodigoComboBoxVisible(String valueItem) {
+		
+		String codItem = "-1";
+		
+		switch (valueItem) {
+		case "Todos":
+			codItem = "-1";
+			break;
+		case "Visible":
+			codItem = "1";
+			break;
+		case "No Visible":
+			codItem = "0";
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		return codItem;
+	}
+	
 }

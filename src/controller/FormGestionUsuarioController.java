@@ -205,9 +205,9 @@ public class FormGestionUsuarioController {
 					   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
 					   "Aceptar");
 
-			System.out.println(seleccion);
 			
 					if (seleccion == 0) {
+						
 						String r = borrarUsuarioById(id_user);
 						
 						if(r.equals("OK")) {

@@ -7,6 +7,7 @@ import org.json.JSONObject;
 
 import model.GenericModelo;
 import model.Marca;
+import model.ModeloAPI;
 
 public class ModeloService {
 
@@ -27,6 +28,22 @@ public class ModeloService {
 			return lstModelo = logic.ModeloLogic.JsonToGenericModelos(response);
 		} catch (Exception e) {
 			return lstModelo;
+		}
+		
+		
+	}
+	
+	
+	public static List<ModeloAPI> getModelosByMarca(String marca){
+
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/getModeloByName/"+marca;
+		
+		try {
+			String response = logic.PeticionHTTP.peticionHttpGET(urlWebService);
+			return logic.ModeloLogic.JsonToModeloAPIs(response);
+			
+		} catch (Exception e) {
+			return new ArrayList<ModeloAPI>() ;
 		}
 		
 		

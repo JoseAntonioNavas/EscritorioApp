@@ -1,20 +1,54 @@
 package controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.GenericModelo;
+import model.Marca;
+import model.ModeloAPI;
+import service.MarcaService;
 import service.ModeloService;
 
 public class GestionModelosController {
 
 	
 	
+	public static void getComboboxVisible(){
+		
+		view.GestionModelos.comboBoxVisible.addItem("Todos");
+		view.GestionModelos.comboBoxVisible.addItem("Visible");
+		view.GestionModelos.comboBoxVisible.addItem("No Visible");
+	}
+	
+	private static List<String> getCamposBusqueda() {
+		
+		List<String> lstParametros = new ArrayList<String>(); 
+	
+		String busqueda = view.GestionModelos.textFieldMarcaorModelo.getText();
+		String estado = String.valueOf(view.GestionModelos.comboBoxVisible.getSelectedItem());
+		
+		
+		lstParametros.add(busqueda);
+		lstParametros.add(estado);
+		
+		return lstParametros;
+	}
+	
+	
 	private static List<GenericModelo> getAllModelos() {
 		
-		BusquedaModelo m = new BusquedaModelo("",  -1 ,"", -1 ,-1 , -1, -1);
+		
+		List<String> parametros = getCamposBusqueda();
+		
+		String busqueda = parametros.get(0);
+		String visible = logic.ModeloLogic.getCodigoComboBoxVisible(parametros.get(1));
+		
+		
+		BusquedaModelo m = new BusquedaModelo(busqueda,  -1 ,busqueda, -1 ,-1 , -1, Integer.parseInt(visible));
 		return ModeloService.getAllModelos(m);
 		
 	}
+	
 	
 	public static void pintarTableModelo() {
 		
@@ -22,6 +56,32 @@ public class GestionModelosController {
 		logic.ModeloLogic.pintarTableMarca(lstModelos, view.GestionModelos.table);
 		
 	}
+	
+	
+	
+	
+	
+	
+	public static void setDatosFormModelos() {
+		// Las marcas registrdas en mi base de datos
+		List<Marca> marca =  MarcaService.getAllMarcas(new controller.GestionMarcasController.BusquedaMarcas("", "-1"));
+		List<Marca> marcasVisibles = new ArrayList<Marca>();
+		
+		// Listado de Marca visibles
+		for (Marca m : marca) {
+			if(m.getVisible() == 1) {
+				marcasVisibles.add(m);
+				System.out.println(m);
+				
+				view.FormModelo.comboBoxMarca.addItem(m.getNombre_marca());
+			}
+		}
+		
+		
+		// Modelos
+		List<ModeloAPI> modelo = ModeloService.getModelosByMarca(marcasVisibles.get(0).getNombre_marca());
+	}
+	
 	
 
 	public static class BusquedaModelo{
@@ -45,6 +105,7 @@ public class GestionModelosController {
 			this.potenciaMax = potenciaMax;
 			this.visible = visible;
 		}
+
 
 		public String getNombre_modelo() {
 			return nombre_modelo;
@@ -110,6 +171,10 @@ public class GestionModelosController {
 		}
 	
 	}
+
+
+
+	
 
 	
 }
