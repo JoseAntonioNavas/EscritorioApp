@@ -1,5 +1,6 @@
 package logic;
 
+import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import model.GenericModelo;
 import model.Marca;
+import model.Modelo;
 import model.ModeloAPI;
 import view.GestionModelos;
 
@@ -161,5 +163,90 @@ public class ModeloLogic {
 		
 		return codItem;
 	}
+	
+	
+	public static void onCargando() {
+		
+		view.FormModelo.lblError.setText("Cargando...");
+	}
+	public static void offCargando() {
+		
+		view.FormModelo.lblError.setText("");
+	}
+
+	public static int booleanToInt(boolean visible) {
+		
+		if(visible == true) {
+			return 1;
+		}else {
+			return 0;
+		}
+		
+	}
+	
+	
+	public static void mensajeExito(String string) {
+		// TODO Auto-generated method stub
+		view.FormModelo.lblError.setText(string);
+		view.FormModelo.lblError.setForeground(Color.BLUE);
+		
+		view.GestionModelos.lblError.setText(string);
+		view.GestionModelos.lblError.setForeground(Color.BLUE);
+
+	}
+
+	public static void mensajeError(String string) {
+
+		view.FormModelo.lblError.setText(string);
+		view.FormModelo.lblError.setForeground(Color.RED);
+		
+		view.GestionModelos.lblError.setText(string);
+		view.GestionModelos.lblError.setForeground(Color.RED);
+	}
+
+	public static int convertPotenciatoInt(String p) {
+		p.replace(" ", "");
+		if(p.equals("")){
+			return 0;
+		}else {
+			return Integer.parseInt(p);
+		}
+	}
+	
+	
+	public static Modelo getSelectedRow(JTable table) {
+
+		List<String> listaTablaRow = new ArrayList<String>();
+		for (int i = 0; i < table.getColumnCount() ; i++) {
+			
+			listaTablaRow.add(String.valueOf(table.getValueAt(table.getSelectedRow(), i)));
+			
+		}
+	
+		int id_modelo = Integer.parseInt(listaTablaRow.get(0));
+		String nombre_modelo = listaTablaRow.get(1);
+		int id_marca = Integer.parseInt(listaTablaRow.get(2));
+		int potencia = Integer.parseInt(listaTablaRow.get(4));
+		int visible = StringtoInt(listaTablaRow.get(5));
+		
+		return new Modelo(id_modelo, nombre_modelo, id_marca, potencia, visible);
+	}
+
+	private static int StringtoInt(String string) {
+		if(string.equalsIgnoreCase("Visible")) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
+	public static boolean IntToBoolean(int i) {
+		if(i == 0) {
+			return false;
+		}else {
+			return false;
+		}
+	}
+	
 	
 }

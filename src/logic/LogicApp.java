@@ -4,13 +4,16 @@ import java.awt.Checkbox;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 
 import javax.swing.JCheckBox;
+import javax.swing.JFormattedTextField;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.text.MaskFormatter;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -96,7 +99,23 @@ public class LogicApp {
 		return jsonObject;
 	}
 	
+	// Solo digitos
 	
+	public static MaskFormatter digitosOnly() {
+		MaskFormatter mascara = null;
+		try {
+			mascara = new MaskFormatter("######");
+			
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+	
+		return mascara;
+	}
+	
+
 
 	
 	

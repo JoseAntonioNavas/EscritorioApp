@@ -8,34 +8,60 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import model.Modelo;
+
 import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import javax.swing.JCheckBox;
-import javax.swing.JTextField;
-import javax.swing.JFormattedTextField;
+import java.util.Hashtable;
+
+
 import javax.swing.JToggleButton;
-import javax.swing.JProgressBar;
+import javax.swing.JFormattedTextField;
+import java.awt.event.ItemListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class FormModelo extends JDialog {
 
+	
+	private static final long serialVersionUID = 1L;
+	
 	private final JPanel contentPanel = new JPanel();
-	public static JComboBox comboBoxModelo;
-	public static JComboBox comboBoxMarca;
-	private JTextField txtPotencia;
-
+	public static JComboBox<String> comboBoxModelo;
+	public static JComboBox<String> comboBoxMarca;
+	public static Hashtable<String, Integer> id_modelo;
+	public static Hashtable<String, Integer> id_marca;
+	public static JLabel lblError;
+	public static JFormattedTextField formattedTextFieldPotencia;
+	public static JToggleButton tgVisible;
+	public static String status;
+	public static JButton okButton;
+	public static Modelo modelo;
 	/**
 	 * Create the dialog.
 	 */
-	public FormModelo() {
+	public FormModelo(String status,Modelo modelo) {
+
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
+				view.FormModelo.modelo = modelo;
+				view.FormModelo.status = status;
+				id_modelo = new Hashtable<String, Integer>();
+				id_marca = new Hashtable<String, Integer>();
 				
-				controller.GestionModelosController.setDatosFormModelos();
 				
+				controller.GestionModelosController.statusMode(status,modelo);
+				
+				controller.GestionModelosController.offCargando();
+			
 				
 			}
 		});
@@ -45,6 +71,7 @@ public class FormModelo extends JDialog {
 		setSize(500, 313);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
+		setModal(true);
 		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -57,7 +84,7 @@ public class FormModelo extends JDialog {
 			contentPanel.add(lblModelo);
 		}
 		{
-			comboBoxModelo = new JComboBox();
+			comboBoxModelo = new JComboBox<String>();
 			comboBoxModelo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			comboBoxModelo.setBounds(196, 74, 238, 20);
 			contentPanel.add(comboBoxModelo);
@@ -68,17 +95,18 @@ public class FormModelo extends JDialog {
 		lblMarca.setBounds(48, 29, 53, 25);
 		contentPanel.add(lblMarca);
 		
-		comboBoxMarca = new JComboBox();
+		comboBoxMarca = new JComboBox<String>();
+		comboBoxMarca.addItemListener(new ItemListener() {
+			public void itemStateChanged(ItemEvent e) {
+				controller.GestionModelosController.onCargando();
+				controller.GestionModelosController.setModeloFormModelos();
+				
+				controller.GestionModelosController.offCargando();
+			}
+		});
 		comboBoxMarca.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxMarca.setBounds(196, 33, 238, 20);
 		contentPanel.add(comboBoxMarca);
-		{
-			txtPotencia = new JTextField();
-			txtPotencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			txtPotencia.setBounds(196, 120, 238, 20);
-			contentPanel.add(txtPotencia);
-			txtPotencia.setColumns(10);
-		}
 		{
 			JLabel lblPotencia = new JLabel("* Potencia:");
 			lblPotencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -92,16 +120,56 @@ public class FormModelo extends JDialog {
 			contentPanel.add(lblVisible);
 		}
 		{
-			JToggleButton tgVisible = new JToggleButton("On");
+			tgVisible = new JToggleButton("S\u00ED");
+			tgVisible.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 			tgVisible.setBounds(196, 173, 79, 23);
 			contentPanel.add(tgVisible);
 		}
+		
+		lblError = new JLabel("Cargando...");
+		lblError.setHorizontalAlignment(SwingConstants.CENTER);
+		lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblError.setBounds(48, 211, 386, 25);
+		contentPanel.add(lblError);
+		
+
+		formattedTextFieldPotencia = new JFormattedTextField(new Integer(0));
+		formattedTextFieldPotencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		formattedTextFieldPotencia.setText("0");
+		formattedTextFieldPotencia.setBounds(196, 126, 238, 25);
+		contentPanel.add(formattedTextFieldPotencia);
+		
+		
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton("OK");
+				okButton = new JButton("OK");
+				okButton.setEnabled(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+
+						if(status.equals("Añadir")) {
+							
+							// Añadir
+							boolean response = controller.GestionModelosController.addModelo();
+							if(response) {
+								dispose();
+							}
+							
+						}else {
+							
+							//Editar 
+							boolean response = controller.GestionModelosController.editModelo();
+							if(response) {
+								dispose();
+							}
+						}
+						
+						
+					}
+				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -109,10 +177,16 @@ public class FormModelo extends JDialog {
 			}
 			{
 				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
 		}
 	}
+
 }

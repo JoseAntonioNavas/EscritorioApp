@@ -5,8 +5,10 @@ import java.util.List;
 
 import org.json.JSONObject;
 
+import logic.ErrorLogic;
 import model.GenericModelo;
 import model.Marca;
+import model.Modelo;
 import model.ModeloAPI;
 
 public class ModeloService {
@@ -46,6 +48,31 @@ public class ModeloService {
 			return new ArrayList<ModeloAPI>() ;
 		}
 		
+		
+	}
+	
+	
+	public static String newModelo(Modelo m) throws Exception {
+		
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/new";
+		JSONObject o = logic.LogicApp.ObjetoToJson(m);
+		String response;
+		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
+		
+		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
+		return p.get(0).getMsg();
+		
+	}
+	
+	public static String updateModelo(Modelo m) throws Exception{
+		
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/update";
+		JSONObject o = logic.LogicApp.ObjetoToJson(m);
+		String response;
+		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
+		
+		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
+		return p.get(0).getMsg();
 		
 	}
 	

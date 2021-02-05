@@ -39,7 +39,8 @@ public class GestionModelos extends JFrame {
 	public static JTextField textFieldMarcaorModelo;
 	public static JLabel lblBusqueda;
 	public static JComboBox comboBoxVisible;
-	
+	public static JLabel lblError;
+	public static JButton btnEditar;
 	/**
 	 * Launch the application.
 	 */
@@ -64,6 +65,8 @@ public class GestionModelos extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent arg0) {
+				
+				controller.GestionModelosController.btnEditarEnabled();
 				controller.GestionModelosController.getComboboxVisible();
 				controller.GestionModelosController.pintarTableModelo();
 			}
@@ -120,7 +123,13 @@ public class GestionModelos extends JFrame {
 		panelBuscador.add(panel_2);
 		panel_2.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
-		JButton btnEditar = new JButton("Editar");
+		btnEditar = new JButton("Editar");
+		btnEditar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			
+				new FormModelo("Editar",controller.GestionModelosController.getSelectedRow()).setVisible(true);
+			}
+		});
 		btnEditar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(btnEditar);
 		
@@ -128,7 +137,7 @@ public class GestionModelos extends JFrame {
 		btnAnadir.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				FormModelo m = new FormModelo();
+				FormModelo m = new FormModelo("Añadir",null);
 				m.setVisible(true);
 				
 				
@@ -137,7 +146,7 @@ public class GestionModelos extends JFrame {
 		btnAnadir.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(btnAnadir);
 		
-		JLabel lblError = new JLabel("");
+		lblError = new JLabel("");
 		lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		panel_2.add(lblError);
 		
@@ -152,9 +161,7 @@ public class GestionModelos extends JFrame {
 			@Override
 			public void valueChanged(ListSelectionEvent e) {
 				
-				
-				
-				
+				controller.GestionModelosController.btnEditarEnabled();
 			}
 		});
 		table.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Solo se puede seleccionar una fila
