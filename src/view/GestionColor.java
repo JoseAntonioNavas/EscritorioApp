@@ -16,6 +16,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
+
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.MouseAdapter;
@@ -23,7 +25,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GestionColor extends JFrame {
+public class GestionColor extends JDialog {
 
 	private JPanel contentPane;
 	public static JTable table;
@@ -48,6 +50,7 @@ public class GestionColor extends JFrame {
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 413);
+		setModal(true);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
 		setTitle("Gestión Colores");
@@ -83,7 +86,7 @@ public class GestionColor extends JFrame {
 		
 		comboBoxColores = new JComboBox();
 		comboBoxColores.setBounds(122, 5, 388, 28);
-		comboBoxColores.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		comboBoxColores.setFont(new Font("Segoe UI", Font.PLAIN, 12));
 		panelBuscador2.add(comboBoxColores);
 		
 		JLabel btnBuscar = new JLabel("");

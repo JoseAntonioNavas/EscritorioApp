@@ -17,7 +17,7 @@ public class MarcaService {
 		
 		List<MarcasAPI> listMarcas = new ArrayList<MarcasAPI>();
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/vehiculos/getAllMarcas";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/getAllMarcas";
 		
 		String response;
 		
@@ -60,7 +60,7 @@ public class MarcaService {
 	
 	public static String newMarca(Marca marca) throws Exception {
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/new";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/new";
 		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
 
 		String response;
@@ -73,12 +73,12 @@ public class MarcaService {
 	
 	public static String updateMarca(Marca marca) throws Exception{
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/marca/update";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/update";
 		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
 
 		String response;
 	
-		response = logic.PeticionHTTP.peticionHttpPUT(urlWebService, o);
+		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
 		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
 		return p.get(0).getMsg();
 	}

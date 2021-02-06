@@ -51,12 +51,11 @@ public class GestionMarcasController {
 		if(status.equals("Añadir")) {
 			
 			new FormMarcas("Añadir").setVisible(true);
-			comboBoxMarcasEnabled("Añadir");
+			
 			
 		}else{
 			
 			new FormMarcas("Editar").setVisible(true);
-			comboBoxMarcasEnabled("Editar");
 			
 		}
 		
@@ -126,6 +125,7 @@ public class GestionMarcasController {
 	public static Marca getSelectedRow() {
 		 return logic.MarcaLogic.getSelectedRow(view.GestionMarcas.table);
 	}
+	
 	public static void setValoresFormMarca(Marca marca) {
 		
 		if(marca.getVisible() == 0){
@@ -139,7 +139,8 @@ public class GestionMarcasController {
 	}
 	
 	
-	private static void comboBoxMarcasEnabled(String status) {
+	public static void comboBoxMarcasEnabled(String status) {
+		
 		if(status.equals("Añadir")) {
 			view.FormMarcas.comboBoxMarcas.setEnabled(true);
 

@@ -103,7 +103,7 @@ public class FormGestionUsuarioController {
 		return logic.GestionUsuarioLogic.getCamposFormUsuario();
 	}
 
-	public static void crearUsuario() {
+	public static boolean crearUsuario() {
 		
 		String nombre = getCampos().get(0);
 		String apellido1 = getCampos().get(1);
@@ -131,7 +131,7 @@ public class FormGestionUsuarioController {
 					
 					try {
 						respuesta1 = DetallesUsuarioService.newDetallesUsuario(du);
-						System.out.println(respuesta1);
+						
 						if(respuesta1.equals("OK")) {
 							
 							mensajeExito("Usuario creado correctamente");
@@ -139,25 +139,30 @@ public class FormGestionUsuarioController {
 							controller.GestionUsuarioController.mensajeExito("Usuario creado Correctamente");
 							controller.GestionUsuarioController.pintarTableUsuario();
 							
+							return true;
 						}else {
 							mensajeError(respuesta1);
+							
 							//borrar Usuario si da error
 							borrarUsuarioById(String.valueOf(listUsuario.get(0).getId_user()));
+							return false;
 						}
 						
 					} catch (Exception e) {
 						mensajeError("Error al crear el Usuario");
 						//borrar Usuario si da error
 						borrarUsuarioById(String.valueOf(listUsuario.get(0).getId_user()));
-
+						return false;
 					}	
 				
 			}else{
 				mensajeError(respuesta);
-			};
+				return false;
+			}
 		
 		} catch (Exception e1) {
 			mensajeError("Error al crearel Usuario");
+			return false;
 		}
 
 		
@@ -167,13 +172,15 @@ public class FormGestionUsuarioController {
 		
 		view.FormGestionUsuario.lblError.setText(mensaje);
 		view.FormGestionUsuario.lblError.setForeground(Color.BLUE);
-		
+
 	}
 
 	private static void mensajeError(String mensaje) {
 		
 		view.FormGestionUsuario.lblError.setText(mensaje);
 		view.FormGestionUsuario.lblError.setForeground(Color.RED);
+		
+		JOptionPane.showMessageDialog(null, mensaje);
 		
 	}
 
@@ -190,7 +197,7 @@ public class FormGestionUsuarioController {
 	}
 	
 	
-	public static void borrarModal() {
+	public static boolean borrarModal() {
 		
 		
 			String id_user = String.valueOf(view.FormGestionUsuario.usuariogenerico.getUsuario().getId_user());
@@ -198,9 +205,9 @@ public class FormGestionUsuarioController {
 			int seleccion = JOptionPane.showOptionDialog(
 					   null,
 					   "¿Estás Seguro de borrar el usuario? \n Recuerda que se borraran todos los datos asociados a este usuario", 
-					   "Selector de opciones",
+					   "Atencion",
 					   JOptionPane.YES_NO_CANCEL_OPTION,
-					   JOptionPane.WARNING_MESSAGE,
+					   JOptionPane.ERROR_MESSAGE,
 					   null,    // null para icono por defecto.
 					   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
 					   "Aceptar");
@@ -214,13 +221,17 @@ public class FormGestionUsuarioController {
 							mensajeExito("Usuario eliminado Correctamente");
 							controller.GestionUsuarioController.mensajeExito("Usuario eliminado Correctamente");
 							controller.GestionUsuarioController.pintarTableUsuario();
+							return true;
 							// Cerramos formulario
 							
 						}else {
 							mensajeError(r);
+							return false;
 						}
 						
 					}
+					
+			return false;
 						 
 					
 		
@@ -253,7 +264,7 @@ public class FormGestionUsuarioController {
 		view.FormGestionUsuario.comboBoxRoles.setSelectedItem(usuariogenerico.getRol().getNombre_rol());
 	}
 
-	public static void editar() {
+	public static boolean editar() {
 		
 		// Editamos tabla Usuario
 		GenericUsuario usuariogenerico = FormGestionUsuario.usuariogenerico;
@@ -267,27 +278,34 @@ public class FormGestionUsuarioController {
 				,getCampos().get(1)
 				,getCampos().get(2));
 		
+		
+		
 		try {
 		
 			String respuesta = UsuarioService.updatePassword(u);
 			String respuesta1 = DetallesUsuarioService.updateDetallesUsuario(d);
 			
+			
 			 	   if(respuesta.equals("OK") && respuesta1.equals("OK")) {
 			 		   mensajeExito("Usuario editado correctamente");
 			 		   controller.GestionUsuarioController.mensajeExito("Usuario editado correctamente");
 			 		   controller.GestionUsuarioController.pintarTableUsuario();
+			 		   return true;
 			 		   // cerramos formulario
 			 		   
 			 	   }else {
 			 		   if(respuesta1.equals("OK")) {
 			 			  mensajeError(respuesta);
+			 			  return false;
 			 		   }else{
 			 			   
 			 		  
 				 		   if(respuesta.equals("OK")){
 				 			   mensajeError(respuesta1);
+				 			  return false;
 				 		   }else {
 				 			   mensajeError(respuesta1);
+				 			  return false;
 				 		   }
 			 		  }
 			 		   
@@ -296,6 +314,7 @@ public class FormGestionUsuarioController {
 			
 		} catch (Exception e) {
 			mensajeError("Error al editar el usuario");
+			return false;
 		}
 		
 	}

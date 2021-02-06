@@ -7,7 +7,7 @@ public class GenericModelo {
 	private Marca marca;
 	private int potencia;
 	private int visible;
-	
+	private float precio;
 	
 	public GenericModelo(int id_modelo, String nombre_modelo, Marca marca, int potencia, int visible) {
 		
@@ -17,6 +17,20 @@ public class GenericModelo {
 		this.potencia = potencia;
 		this.visible = visible;
 	}
+
+	
+
+	public GenericModelo(int id_modelo, String nombre_modelo, Marca marca, int potencia, int visible, float precio) {
+		
+		this.id_modelo = id_modelo;
+		this.nombre_modelo = nombre_modelo;
+		this.marca = marca;
+		this.potencia = potencia;
+		this.visible = visible;
+		this.precio = precio;
+	}
+
+
 
 	@Override
 	public String toString() {
@@ -53,6 +67,18 @@ public class GenericModelo {
 	}
 	public void setVisible(int visible) {
 		this.visible = visible;
+	}
+
+
+
+	public float getPrecio() {
+		return precio;
+	}
+
+
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
 	}
 	
 	

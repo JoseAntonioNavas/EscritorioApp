@@ -18,13 +18,14 @@ import java.util.UUID;
 import javax.swing.SwingConstants;
 import javax.swing.JPasswordField;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JButton;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class FormGestionUsuario extends JFrame {
+public class FormGestionUsuario extends JDialog {
 
 	private JPanel contentPane;
 	private JLabel lblTitulo;
@@ -75,8 +76,8 @@ public class FormGestionUsuario extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
-		setSize(500, 750);
+		setModal(true);
+		setSize(500, 500);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
 		
@@ -107,103 +108,111 @@ public class FormGestionUsuario extends JFrame {
 		
 		lblApellido1 = new JLabel("* Primer Apellido:");
 		lblApellido1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblApellido1.setBounds(52, 145, 120, 25);
+		lblApellido1.setBounds(52, 112, 120, 25);
 		panel.add(lblApellido1);
 		
 		txtApellido1 = new JTextField();
 		txtApellido1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		txtApellido1.setBounds(200, 144, 236, 25);
+		txtApellido1.setBounds(200, 111, 236, 25);
 		panel.add(txtApellido1);
 		txtApellido1.setColumns(10);
 		
 		txtApellido2 = new JTextField();
 		txtApellido2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtApellido2.setColumns(10);
-		txtApellido2.setBounds(200, 220, 236, 25);
+		txtApellido2.setBounds(200, 146, 236, 25);
 		panel.add(txtApellido2);
 		
 		lblSegundoApellido = new JLabel("Segundo Apellido:");
 		lblSegundoApellido.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblSegundoApellido.setBounds(52, 221, 120, 25);
+		lblSegundoApellido.setBounds(52, 147, 120, 25);
 		panel.add(lblSegundoApellido);
 		
 		txtNick = new JTextField();
 		txtNick.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtNick.setColumns(10);
-		txtNick.setBounds(200, 292, 236, 25);
+		txtNick.setBounds(200, 181, 236, 25);
 		panel.add(txtNick);
 		
 		txtEmail = new JTextField();
 		txtEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		txtEmail.setColumns(10);
-		txtEmail.setBounds(200, 370, 236, 25);
+		txtEmail.setBounds(200, 217, 236, 25);
 		panel.add(txtEmail);
 		
 		lblNick = new JLabel("* Nick:");
 		lblNick.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblNick.setBounds(52, 293, 120, 25);
+		lblNick.setBounds(52, 182, 120, 25);
 		panel.add(lblNick);
 		
 		lblEmail = new JLabel("* Email");
 		lblEmail.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblEmail.setBounds(52, 371, 120, 25);
+		lblEmail.setBounds(52, 217, 120, 25);
 		panel.add(lblEmail);
 		
 		passwordField = new JPasswordField();
 		passwordField.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		passwordField.setBounds(200, 437, 236, 25);
+		passwordField.setBounds(200, 252, 236, 25);
 		panel.add(passwordField);
 		
 		JLabel lblContrasea = new JLabel("* Contrase\u00F1a:");
 		lblContrasea.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblContrasea.setBounds(52, 437, 120, 25);
+		lblContrasea.setBounds(52, 252, 120, 25);
 		panel.add(lblContrasea);
 		
 		JLabel lblRol = new JLabel("* Rol:");
 		lblRol.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblRol.setBounds(52, 510, 120, 25);
+		lblRol.setBounds(52, 287, 120, 25);
 		panel.add(lblRol);
 		
 		 comboBoxRoles = new JComboBox();
-		comboBoxRoles.setBounds(200, 512, 236, 25);
+		comboBoxRoles.setBounds(200, 287, 236, 25);
 		panel.add(comboBoxRoles);
 		
 		btnBorrar = new JButton("BORRAR");
 		btnBorrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.FormGestionUsuarioController.borrarModal();;
+				if(controller.FormGestionUsuarioController.borrarModal()){
+					dispose();
+				}
 			}
 		});
 		btnBorrar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnBorrar.setBounds(52, 613, 120, 25);
+		btnBorrar.setBounds(33, 350, 120, 25);
 		panel.add(btnBorrar);
 		
 		btnEditar = new JButton("EDITAR");
 		btnEditar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				controller.FormGestionUsuarioController.editar();
+				
+				if(controller.FormGestionUsuarioController.editar()) {
+					dispose();
+				};
+				
 			}
 		});
 		btnEditar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnEditar.setBounds(185, 613, 120, 25);
+		btnEditar.setBounds(174, 350, 120, 25);
 		panel.add(btnEditar);
 		
 		btnCrear = new JButton("CREAR");
 		btnCrear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
-				controller.FormGestionUsuarioController.crearUsuario();
+				if(controller.FormGestionUsuarioController.crearUsuario()) {
+					dispose();
+				};
 				
 			}
 		});
 		btnCrear.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnCrear.setBounds(316, 613, 120, 25);
+		btnCrear.setBounds(316, 350, 120, 25);
 		panel.add(btnCrear);
 		
 		lblError = new JLabel("");
-		lblError.setHorizontalAlignment(SwingConstants.LEFT);
+		lblError.setHorizontalAlignment(SwingConstants.CENTER);
 		lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblError.setBounds(52, 562, 384, 25);
+		lblError.setBounds(43, 381, 384, 30);
 		panel.add(lblError);
 		
 		lblInfo = new JLabel("Todos los campos (*) son obligatorios");

@@ -26,6 +26,7 @@ public class FormGestionColor extends JDialog {
 	public FormGestionColor() {
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setSize(600, 450);
+		setModal(true);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
 		setTitle("Gestión Colores");

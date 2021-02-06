@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -37,7 +38,7 @@ public class MarcaLogic {
 		return lstResultado;
 	}
 	
-	private static Marca JsonToUsMarca(JSONObject jsonO) {
+	public static Marca JsonToUsMarca(JSONObject jsonO) {
 		
 		   	Integer id_marca = jsonO.getInt("id_marca");
 		    String nombre_marca = jsonO.getString("nombre_marca");
@@ -168,6 +169,8 @@ public class MarcaLogic {
 		
 		view.GestionMarcas.lblError.setText(string);
 		view.GestionMarcas.lblError.setForeground(Color.RED);
+		
+		JOptionPane.showMessageDialog(null, string);
 	}
 	
 	public static String getCodigoComboBoxVisible(String valueItem) {
@@ -209,6 +212,8 @@ public class MarcaLogic {
 		return new Marca(id_marca, nombre_marca, visible);
 		
 	}
+
+
 	
 
 

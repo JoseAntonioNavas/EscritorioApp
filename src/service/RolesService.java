@@ -16,7 +16,7 @@ public class RolesService {
 		
 			List<Roles> listRoles = new ArrayList<Roles>();
 			
-			String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/rol/getRol";
+			String urlWebService = "https://joseant1.000webhostapp.com/public/api/rol/getRol";
 			
 			try {
 				String response = logic.PeticionHTTP.peticionHttpGET(urlWebService);

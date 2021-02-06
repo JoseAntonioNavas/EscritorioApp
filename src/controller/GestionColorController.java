@@ -3,7 +3,10 @@ package controller;
 import java.awt.Color;
 import java.util.List;
 
+import javax.swing.JOptionPane;
 
+import model.ParametrosBusquedaColores;
+import model.ParametrosNuevoColor;
 import service.ColoresService;
 import view.FormGestionColor;
 
@@ -29,6 +32,7 @@ public class GestionColorController {
 			 p = new ParametrosBusquedaColores(getCampo());
 		};
 	
+		
 		return ColoresService.getColor(p);
 	}
 	
@@ -64,11 +68,12 @@ public class GestionColorController {
 			view.GestionColor.comboBoxColores.removeAllItems();
 			setComboBoxColor();
 			logic.ColorLogic.pintarTablaColores(listColores(), view.GestionColor.table);
+			
 			mensajeExito("Color creado correctamente");
 			
 			
-			
 		}else {
+			
 			mensajeError(response);
 		}
 		
@@ -102,62 +107,10 @@ public class GestionColorController {
 		view.FormGestionColor.lblError.setText(mensaje);
 		view.FormGestionColor.lblError.setForeground(Color.RED);
 		
+		JOptionPane.showMessageDialog(null, mensaje);
+		
 	}
 	
-	// CLASS PARAMETROS
-	private static class ParametrosBusquedaColores {
-		
-		private String nombre_color;
-
-		
-		public ParametrosBusquedaColores(String nombre_color) {
-			
-			this.nombre_color = nombre_color;
-		}
-
-		public String getNombre_color() {
-			return nombre_color;
-		}
-
-		public void setNombre_color(String nombre_color) {
-			this.nombre_color = nombre_color;
-		}
-
-		@Override
-		public String toString() {
-			return "ParametrosBusquedaColores [nombre_color=" + nombre_color + "]";
-		}
-				
-	}
-
-	// Parametros Nuevo Color
-	private static class ParametrosNuevoColor{
-		
-		private String rgbcolor;
-
-		public ParametrosNuevoColor(String rgbcolor) {
-			
-			this.rgbcolor = rgbcolor;
-		}
-
-
-		public String getRgbcolor() {
-			return rgbcolor;
-		}
-
-
-		public void setRgbcolor(String rgbcolor) {
-			this.rgbcolor = rgbcolor;
-		}
-
-
-		@Override
-		public String toString() {
-			return "ParametrosNuevoColor [rgbcolor=" + rgbcolor + "]";
-		}
-		
-		
-	}
 
 
 }

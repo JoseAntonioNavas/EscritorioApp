@@ -42,23 +42,28 @@ public class FormMarcas extends JDialog {
 				List<MarcasAPI> marcasAPI = controller.GestionMarcasController.getAllMarcasAPI();
 				idMarca = new Hashtable<String, Integer>();
 				
+				
 				for (MarcasAPI m : marcasAPI) {
 					idMarca.put(m.getMake_Name(), m.getMake_ID());
 					comboBoxMarcas.addItem(m.getMake_Name());
 				}
 				
+				// Si es Editar
 				if(status.equals("Editar")) {
 					
 					// Marca seleccionada
 					Marca marca = controller.GestionMarcasController.getSelectedRow();
 					controller.GestionMarcasController.setValoresFormMarca(marca);
-					
+					controller.GestionMarcasController.comboBoxMarcasEnabled("Editar");
+
+				}else {
+					controller.GestionMarcasController.comboBoxMarcasEnabled("Añadir");
 				}
 				
 			}
 		});
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		
+		setModal(true);
 		setSize(500, 250);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
@@ -136,7 +141,7 @@ public class FormMarcas extends JDialog {
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
 				cancelButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						dispose();

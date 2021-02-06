@@ -21,6 +21,7 @@ import java.awt.Font;
 
 import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JTextField;
 import javax.swing.JToggleButton;
 import java.awt.FlowLayout;
@@ -32,7 +33,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GestionModelos extends JFrame {
+public class GestionModelos extends JDialog {
 
 	private JPanel contentPane;
 	public static JTable table;
@@ -41,22 +42,7 @@ public class GestionModelos extends JFrame {
 	public static JComboBox comboBoxVisible;
 	public static JLabel lblError;
 	public static JButton btnEditar;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestionModelos frame = new GestionModelos();
-					frame.setVisible(true);
-				
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -72,6 +58,7 @@ public class GestionModelos extends JFrame {
 			}
 		});
 		setTitle("Gestión Modelos");
+		setModal(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(600, 413);
 		setLocationRelativeTo(null);  // Para centrar el frame

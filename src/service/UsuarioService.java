@@ -16,7 +16,7 @@ public class UsuarioService {
 	
 	public static List<Usuario> login(Usuario usuario) throws Exception{
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/usuario/login";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/usuario/login";
 		
 		Gson g = new Gson();
 		String jsonInString = g.toJson(usuario);
@@ -33,19 +33,18 @@ public class UsuarioService {
 	
 	public static String updatePassword(Usuario usuario) throws Exception {
 		
-	String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/usuario/updatePassword";
+	String urlWebService = "https://joseant1.000webhostapp.com/public/api/usuario/updatePassword";
 		
 		Gson g = new Gson();
 		String jsonInString = g.toJson(usuario);
 	
 		JSONObject usuarioObject  = new JSONObject(jsonInString);
 	
-		String response =  logic.PeticionHTTP.peticionHttpPUT(urlWebService, usuarioObject);
+		String response =  logic.PeticionHTTP.peticionHttpPOST(urlWebService, usuarioObject);
 		
 		List<ErrorLogic> Errorlog = logic.ErrorLogic.JsonToErrores(response);
 		return Errorlog.get(0).getMsg();
-		// Convertimos la respuesta a una lista de USUARIOS
-		//return logic.UsuarioLogic.JsonToUsuarios(response);
+		
 		
 	}
 	
@@ -53,7 +52,7 @@ public class UsuarioService {
 		
 		List<Usuario> listUsuario = new ArrayList<Usuario>();
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/usuario/getUsuarios";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/usuario/getUsuarios";
 		
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		
@@ -67,12 +66,11 @@ public class UsuarioService {
 	public static String insertarUsuario(Usuario usuario) throws Exception{
 		
 	
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/usuario/new";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/usuario/new";
 		
 		JSONObject o = logic.LogicApp.ObjetoToJson(usuario);
 		
 		String response = logic.PeticionHTTP.peticionHttpPOST(urlWebService,o);
-	
 		List<ErrorLogic> p = logic.ErrorLogic.JsonToErrores(response);
 		
 		return p.get(0).getMsg();
@@ -81,11 +79,14 @@ public class UsuarioService {
 
 	public static String deleteUsuario(String id) throws Exception {
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public//api/usuario/deleteById/"+id;
+		
+		
+		
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/usuario/deleteById/"+id;
 		
 		String response;
 		
-		response = logic.PeticionHTTP.peticionHttpDELETE(urlWebService);
+		response = logic.PeticionHTTP.peticionHttpGET(urlWebService);
 		List<ErrorLogic> Errorlog = logic.ErrorLogic.JsonToErrores(response);
 		return Errorlog.get(0).getMsg();
 			

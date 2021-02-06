@@ -27,6 +27,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -35,7 +36,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-public class GestionMarcas extends JFrame {
+public class GestionMarcas extends JDialog {
 
 	private JPanel contentPane;
 	public static JTable table;
@@ -52,21 +53,7 @@ public class GestionMarcas extends JFrame {
 	private JButton btnAgregar;
 	public static JLabel lblError;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GestionMarcas frame = new GestionMarcas();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	/**
 	 * Create the frame.
@@ -89,7 +76,8 @@ public class GestionMarcas extends JFrame {
 		setSize(600, 413);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
-
+		setModal(true);
+		
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

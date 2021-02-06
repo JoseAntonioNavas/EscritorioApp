@@ -32,18 +32,14 @@ public class LoginController {
 		 
 		try {
 		
-			
 			// Recogo los datos
 			
 			String email = view.Login.txtEmail.getText();
 			String password = logic.LogicApp.descrifarPassword(view.Login.passwordField);
 			
-			// OBJETO USUARIO 
-			
-			Usuario usuario = new Usuario(email, password);
-			
 			// Peticion Login
-			List<Usuario> listaUsuario = UsuarioService.login(usuario);
+			List<Usuario> listaUsuario = UsuarioService.login(new Usuario(email, password));
+			
 			
 			if(listaUsuario.size() != 0) {
 				
@@ -51,14 +47,13 @@ public class LoginController {
 				mensajeError("");
 				
 				 Usuario u1 = new Usuario(listaUsuario.get(0).getId_user(),listaUsuario.get(0).getEmail(),listaUsuario.get(0).getPasswd());
-				
-				// Vemos si es Administrador
-				List<GenericUsuario> listDetalleUsuario = null;
 
+				
+				 // Vemos si es Administrador
+				List<GenericUsuario> listDetalleUsuario = null;
 
 				try {
 					listDetalleUsuario = DetallesUsuarioService.getListDetalleUsuarioByID(String.valueOf(u1.getId_user()));
-					System.out.println(listDetalleUsuario);
 					 // Si es administrador puede registrarse
 					 if(listDetalleUsuario.get(0).getDetallesUsuario().getId_rol() == 4) {
 							// Pasamos el usuario que ha iniciado sesion a una variable global para que toda la aplicacion pueda usarla.

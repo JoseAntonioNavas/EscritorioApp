@@ -37,7 +37,7 @@ public class ModeloLogic {
 		return listObject;
 	}
 
-	private static GenericModelo JsonToGenericModelo(JSONObject jsonO) {
+	public static GenericModelo JsonToGenericModelo(JSONObject jsonO) {
 				
 			
 		   	Integer id_modelo = jsonO.getInt("id_modelo");
@@ -46,8 +46,9 @@ public class ModeloLogic {
 		    String nombre_marca = jsonO.getJSONObject("marca").getString("nombre_marca");
 		    Integer potencia = jsonO.getInt("potencia");
 		    Integer visible = jsonO.getInt("visible");
+		    float precio = jsonO.getFloat("precio");
 		    
-		    GenericModelo g = new GenericModelo(id_modelo, nombre_modelo, new Marca(id_marca, nombre_marca), potencia, visible);
+		    GenericModelo g = new GenericModelo(id_modelo, nombre_modelo, new Marca(id_marca, nombre_marca), potencia, visible, precio);
 		    return g;
 		    
 	}
@@ -91,7 +92,7 @@ public class ModeloLogic {
 		
 		// COLUMNAS
 		
-		String[] columnNames = {"id_modelo","Modelo","id_marca","Marca","Potencia","Estado"};
+		String[] columnNames = {"id_modelo","Modelo","id_marca","Marca","Potencia","Precio","Estado"};
 		
 		JLabel l = new JLabel();
 		for(int i=0; i < columnNames.length;i++) {
@@ -110,7 +111,8 @@ public class ModeloLogic {
 		fila[2] = list.get(i).getMarca().getId_marca();
 		fila[3] = list.get(i).getMarca().getNombre_marca();
 		fila[4] = list.get(i).getPotencia();
-		fila[5] = IntegertoBooleanToString(list.get(i).getVisible());
+		fila[5] = list.get(i).getPrecio();
+		fila[6] = IntegertoBooleanToString(list.get(i).getVisible());
 		tableModel.addRow(fila);
 			
 		}

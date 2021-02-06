@@ -17,7 +17,7 @@ public class ColoresService {
 		
 		List<Color> listRoles = new ArrayList<Color>();
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/color/getColor";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/color/getColor";
 		
 		// Object to Json
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
@@ -38,7 +38,7 @@ public class ColoresService {
 
 	public static String nuevoColor(Object parametros) {
 		
-		String urlWebService = "http://localhost/VehiculosAPI/WebService/public/api/color/new";
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/color/new";
 				// Object to Json
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		

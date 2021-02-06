@@ -8,8 +8,26 @@ public class Modelo {
 	private int id_marca;
 	private int potencia;
 	private int visible;
+	private float precio;
 	
 	
+	
+	
+	public Modelo(String nombre_modelo) {
+		
+		this.nombre_modelo = nombre_modelo;
+	}
+
+	public Modelo(int id_modelo, String nombre_modelo, int id_marca, int potencia, int visible, float precio) {
+		
+		this.id_modelo = id_modelo;
+		this.nombre_modelo = nombre_modelo;
+		this.id_marca = id_marca;
+		this.potencia = potencia;
+		this.visible = visible;
+		this.precio = precio;
+	}
+
 	public Modelo(int id_modelo, String nombre_modelo, int id_marca, int potencia, int visible) {
 
 		this.id_modelo = id_modelo;
@@ -18,6 +36,19 @@ public class Modelo {
 		this.potencia = potencia;
 		this.visible = visible;
 	}
+	
+		public Modelo(int id_modelo, String nombre_modelo, int id_marca, int potencia, float precio) {
+		
+		this.id_modelo = id_modelo;
+		this.nombre_modelo = nombre_modelo;
+		this.id_marca = id_marca;
+		this.potencia = potencia;
+		this.precio = precio;
+	}
+		
+
+	
+	
 	
 	@Override
 	public String toString() {

@@ -27,6 +27,7 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
+import javax.swing.JTextField;
 
 public class FormModelo extends JDialog {
 
@@ -44,6 +45,7 @@ public class FormModelo extends JDialog {
 	public static String status;
 	public static JButton okButton;
 	public static Modelo modelo;
+	private JLabel lblPrecio;
 	/**
 	 * Create the dialog.
 	 */
@@ -116,28 +118,32 @@ public class FormModelo extends JDialog {
 		{
 			JLabel lblVisible = new JLabel("* Visible:");
 			lblVisible.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			lblVisible.setBounds(48, 175, 70, 14);
+			lblVisible.setBounds(48, 168, 70, 14);
 			contentPanel.add(lblVisible);
 		}
 		{
 			tgVisible = new JToggleButton("S\u00ED");
 			tgVisible.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			tgVisible.setBounds(196, 173, 79, 23);
+			tgVisible.setBounds(196, 164, 79, 23);
 			contentPanel.add(tgVisible);
 		}
-		
-		lblError = new JLabel("Cargando...");
-		lblError.setHorizontalAlignment(SwingConstants.CENTER);
-		lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblError.setBounds(48, 211, 386, 25);
-		contentPanel.add(lblError);
 		
 
 		formattedTextFieldPotencia = new JFormattedTextField(new Integer(0));
 		formattedTextFieldPotencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		formattedTextFieldPotencia.setText("0");
-		formattedTextFieldPotencia.setBounds(196, 126, 238, 25);
+		formattedTextFieldPotencia.setBounds(196, 126, 238, 20);
 		contentPanel.add(formattedTextFieldPotencia);
+		{
+			lblPrecio = new JLabel("* Precio:");
+			lblPrecio.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+			lblPrecio.setBounds(48, 197, 79, 25);
+			contentPanel.add(lblPrecio);
+		}
+		
+		JFormattedTextField formattedTextField = new JFormattedTextField();
+		formattedTextField.setBounds(196, 202, 238, 20);
+		contentPanel.add(formattedTextField);
 		
 		
 		{
@@ -170,6 +176,11 @@ public class FormModelo extends JDialog {
 						
 					}
 				});
+				
+				lblError = new JLabel("Cargando...");
+				buttonPane.add(lblError);
+				lblError.setHorizontalAlignment(SwingConstants.CENTER);
+				lblError.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
@@ -188,5 +199,4 @@ public class FormModelo extends JDialog {
 			}
 		}
 	}
-
 }

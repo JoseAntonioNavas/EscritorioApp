@@ -14,9 +14,12 @@ import model.Usuario;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JSeparator;
@@ -80,6 +83,9 @@ public class Login extends JFrame {
 	
 		setTitle("JoCars");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		ImageIcon icono = new ImageIcon("images/logo.jpg");
+		this.setIconImage(icono.getImage());
 		
 		setSize(728, 450);
 		setLocationRelativeTo(null);  // Para centrar el frame
@@ -193,24 +199,13 @@ public class Login extends JFrame {
 		chbxRecordar.setBounds(209, 212, 90, 21);
 		contentPane.add(chbxRecordar);
 		
-		JLabel lblRegistrar = new JLabel("\u00BFA\u00FAn no tienes cuenta?");
-		lblRegistrar.setHorizontalAlignment(SwingConstants.CENTER);
-		lblRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		lblRegistrar.setBounds(198, 305, 177, 25);
-		contentPane.add(lblRegistrar);
-		
 		JSeparator separator1 = new JSeparator();
 		separator1.setBounds(209, 119, 310, 2);
 		contentPane.add(separator1);
 		
 		JSeparator separator2 = new JSeparator();
-		separator2.setBounds(209, 349, 310, 2);
+		separator2.setBounds(209, 316, 310, 2);
 		contentPane.add(separator2);
-		
-		JButton btnRegistrar = new JButton("Reg\u00EDstrate");
-		btnRegistrar.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnRegistrar.setBounds(400, 307, 119, 21);
-		contentPane.add(btnRegistrar);
 		
 		lblError = new JLabel("");
 		lblError.setHorizontalAlignment(SwingConstants.CENTER);

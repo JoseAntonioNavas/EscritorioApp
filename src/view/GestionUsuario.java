@@ -31,6 +31,7 @@ import javax.swing.JButton;
 import javax.swing.JSeparator;
 import javax.swing.JCheckBox;
 import javax.swing.JComponent;
+import javax.swing.JDialog;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -50,8 +51,9 @@ import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.Color;
 
-public class GestionUsuario extends JFrame {
+public class GestionUsuario extends JDialog {
 
 	private JPanel contentPane;
 	private JPanel panelBuscador;
@@ -105,7 +107,7 @@ public class GestionUsuario extends JFrame {
 			}
 		});
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		
+		setModal(true);
 		setSize(804, 613);
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(false);
@@ -120,10 +122,11 @@ public class GestionUsuario extends JFrame {
 		panelBuscador.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		panelTitulo = new JPanel();
+		panelTitulo.setForeground(new Color(0, 0, 0));
 		panelBuscador.add(panelTitulo);
 		
 		lblGestUsuario = new JLabel("Gesti\u00F3n Usuarios");
-		lblGestUsuario.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblGestUsuario.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		panelTitulo.add(lblGestUsuario);
 		
 		panelBuscadorElement = new JPanel();
@@ -162,6 +165,7 @@ public class GestionUsuario extends JFrame {
 		panelPassword.add(lblBusqueda);
 		
 		comboBoxRoles = new JComboBox();
+		comboBoxRoles.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxRoles.setBounds(59, 7, 268, 20);
 		panelPassword.add(comboBoxRoles);
 		lblBusqueda.addMouseListener(new MouseAdapter() {
