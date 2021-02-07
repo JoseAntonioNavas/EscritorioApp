@@ -13,10 +13,10 @@ import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import controller.GestionMarcasController.MarcasAPI;
 import model.DetallesUsuario;
 import model.GenericUsuario;
 import model.Marca;
+import model.MarcasAPI;
 import model.Roles;
 import model.Usuario;;
 
@@ -73,7 +73,7 @@ public class MarcaLogic {
 		    String Make_Name = jsonO.getString("Make_Name");
 		
 		    
-		     controller.GestionMarcasController.MarcasAPI u = new MarcasAPI(Make_ID, Make_Name);
+		     MarcasAPI u = new MarcasAPI(Make_ID, Make_Name);
 		   
 		     return u;
 		     

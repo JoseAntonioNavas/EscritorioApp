@@ -6,6 +6,7 @@ import java.util.Hashtable;
 import java.util.List;
 import javax.swing.text.MaskFormatter;
 
+import model.BusquedaMarcas;
 import model.GenericModelo;
 import model.Marca;
 import model.Modelo;
@@ -47,7 +48,7 @@ public class GestionModelosController {
 		String busqueda = parametros.get(0);
 		String visible = logic.ModeloLogic.getCodigoComboBoxVisible(parametros.get(1));
 		
-		Modelo m = new Modelo("");
+		Modelo m = new Modelo("",-1);
 		return ModeloService.getAllModelos(m);
 		
 	}
@@ -83,7 +84,7 @@ public class GestionModelosController {
 		
 		
 		// Las marcas registrdas en mi base de datos
-		List<Marca> marca =  MarcaService.getAllMarcas(new controller.GestionMarcasController.BusquedaMarcas("", "-1"));
+		List<Marca> marca =  MarcaService.getAllMarcas(new BusquedaMarcas("", "-1"));
 		List<Marca> marcasVisibles = new ArrayList<Marca>();
 		
 		// Listado de Marca visibles

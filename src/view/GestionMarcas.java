@@ -12,7 +12,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import controller.GestionMarcasController.MarcasAPI;
 import controller.GestionUsuarioController;
 
 import java.awt.event.WindowAdapter;

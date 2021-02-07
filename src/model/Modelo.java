@@ -12,10 +12,11 @@ public class Modelo {
 	
 	
 	
-	
-	public Modelo(String nombre_modelo) {
+
+	public Modelo(String nombre_modelo,int visible) {
 		
 		this.nombre_modelo = nombre_modelo;
+		this.visible = visible;
 	}
 
 	public Modelo(int id_modelo, String nombre_modelo, int id_marca, int potencia, int visible, float precio) {
@@ -89,5 +90,13 @@ public class Modelo {
 	
 	
 	
+	public float getPrecio() {
+		return precio;
+	}
+
+	public void setPrecio(float precio) {
+		this.precio = precio;
+	}
+
 	
 }

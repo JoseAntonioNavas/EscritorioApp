@@ -11,8 +11,8 @@ import javax.swing.border.EmptyBorder;
 import org.jdesktop.swingx.autocomplete.AutoCompleteComboBoxEditor;
 import org.jdesktop.swingx.autocomplete.AutoCompleteDecorator;
 
-import controller.GestionMarcasController.MarcasAPI;
 import model.Marca;
+import model.MarcasAPI;
 
 import java.awt.Font;
 import java.awt.GridLayout;

@@ -1,18 +1,20 @@
 package logic;
 
+import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.JLabel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.Color;
-import model.DetallesUsuario;
-import model.GenericUsuario;
+import model.GenericModelo;
 import model.Marca;
 import model.Modelo;
-import model.Roles;
-import model.Usuario;
 import model.Vehiculo;
 
 public class VehiculoLogic {
@@ -55,13 +57,123 @@ public class VehiculoLogic {
 		   
 			Marca m = new Marca(id_marca, nombre_marca);
 			Modelo mo = new Modelo(id_modelo, nombre_modelo, id_marca, potencia, precio);
-			Color co = new Color(id_color,nombre_color,rgbcolor);
+			model.Color co = new model.Color(id_color,nombre_color,rgbcolor);
 			
 			
 			return  new Vehiculo(id_vehiculo, m, mo, matricula, co);
 		
 	     
 	}
+
+	public static void pintarTableVehiculos(List<Vehiculo> list, JTable table) {
+
+		DefaultTableModel tableModel = new DefaultTableModel();
+		
+		// COLUMNAS
+		
+		String[] columnNames = {"id_vehiculo",
+				"id_marca","Marca",
+				"id_modelo","Modelo",
+				"Potencia","Precio",
+				"Matricula","id_color","Color",
+				};
+		
+		JLabel l = new JLabel();
+		for(int i=0; i < columnNames.length;i++) {
+			tableModel.addColumn(columnNames[i]);
+		}
+		
+		// FILAS 
+		
+		tableModel.setColumnIdentifiers(columnNames);
+		Object[] fila = new Object[tableModel.getColumnCount()];
+		for (int i = 0; i < list.size(); i++) {
+			
+		fila[0] = list.get(i).getId_vehiculo();
+		fila[1] = list.get(i).getMarca().getId_marca();
+		fila[2] = list.get(i).getMarca().getNombre_marca();
+		fila[3] = list.get(i).getModelo().getId_modelo();
+		fila[4] = list.get(i).getModelo().getNombre_modelo();
+		fila[5] = list.get(i).getModelo().getPotencia();
+		fila[6] = list.get(i).getModelo().getPrecio() + " €";
+		fila[7] = list.get(i).getMatricula();
+		fila[8] = list.get(i).getColor().getId_color();
+		fila[9] = list.get(i).getColor().getNombre_color();
+		
+		
+		tableModel.addRow(fila);
+			
+		}
+
 	
+		table.setModel(tableModel);
+			
+		table.getColumnModel().getColumn(0).setMaxWidth(0);
+		table.getColumnModel().getColumn(0).setMinWidth(0);
+		table.getColumnModel().getColumn(0).setPreferredWidth(0);
+		
+		table.getColumnModel().getColumn(1).setMaxWidth(0);
+		table.getColumnModel().getColumn(1).setMinWidth(0);
+		table.getColumnModel().getColumn(1).setPreferredWidth(0);
+		
+		table.getColumnModel().getColumn(3).setMaxWidth(0);
+		table.getColumnModel().getColumn(3).setMinWidth(0);
+		table.getColumnModel().getColumn(3).setPreferredWidth(0);
+
+		table.getColumnModel().getColumn(8).setMaxWidth(0);
+		table.getColumnModel().getColumn(8).setMinWidth(0);
+		table.getColumnModel().getColumn(8).setPreferredWidth(0);
+		
+		
+		table.getTableHeader().setReorderingAllowed(false) ;
+		table.getTableHeader().setResizingAllowed(false);
+		
+	
+	}
+	
+	
+	public static void setColorLabel(String color) {
+		
+		
+		String[] colour = color.substring(4,color.length()-1).split(",");
+		Color c = new Color(Integer.parseInt(colour[0]),Integer.parseInt(colour[1]),Integer.parseInt(colour[2]));
+		
+		view.FormVehiculosCatalogo.lblColorMuestra.setBackground(c);
+		view.FormVehiculosCatalogo.lblColorMuestra.setOpaque(true);
+		 
+		 
+	}
+	
+	
+	public static boolean tableSelectedRow() {
+		
+		if(view.GestionVehiculo.table.getSelectedRow() == -1){
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+	
+	
+	public static void getDataRow() {
+		
+		List<String> response = new ArrayList<String>();
+		int pos = view.GestionVehiculo.table.getSelectedRow();
+		
+		for (int i=0; i< view.GestionVehiculo.table.getColumnCount(); i++) {
+			
+			response.add(String.valueOf(view.GestionVehiculo.table.getValueAt(pos, i)));
+			
+		}
+		
+		view.FormVehiculosCatalogo.comboBoxMarca.setSelectedItem(response.get(2));
+		view.FormVehiculosCatalogo.comboBoxModelo.setSelectedItem(response.get(4));
+		view.FormVehiculosCatalogo.txtMatricula.setText(response.get(7));
+		view.FormVehiculosCatalogo.comboBoxColor.setSelectedItem(response.get(9));
+		
+		
+		
+	}
 	
 }

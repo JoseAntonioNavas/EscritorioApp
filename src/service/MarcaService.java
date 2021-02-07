@@ -5,9 +5,9 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import controller.GestionMarcasController.MarcasAPI;
 import logic.ErrorLogic;
 import model.Marca;
+import model.MarcasAPI;
 
 
 public class MarcaService {
