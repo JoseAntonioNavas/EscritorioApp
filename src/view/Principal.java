@@ -14,14 +14,17 @@ import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import javax.swing.JSeparator;
+import java.awt.GridLayout;
 
 public class Principal extends JFrame {
 
 	private JPanel contentPane;
 	
-
+	public static JPanel panelGrafica1;
 
 	/**
 	 * Create the frame.
@@ -31,11 +34,34 @@ public class Principal extends JFrame {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosed(WindowEvent e) {
-					System.exit(0);
+		
+					
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				int seleccion = JOptionPane.showOptionDialog(
+						   null,
+						   "¿Estás Seguro de borrar el usuario? \n Recuerda que se borraran todos los datos asociados a este usuario", 
+						   "Selector de opciones",
+						   JOptionPane.YES_NO_CANCEL_OPTION,
+						   JOptionPane.WARNING_MESSAGE,
+						   null,    // null para icono por defecto.
+						   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
+						   "Aceptar");
+				
+					if(seleccion == 0) {
+						System.exit(0);
+					}else {
+						
+				      
+					}
 			}
 		});
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setSize(804, 613);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH); 
+
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(true);
 		
@@ -94,6 +120,18 @@ public class Principal extends JFrame {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
+		contentPane.setLayout(new BorderLayout(0, 0));
+		
+		JPanel panelPrincipal = new JPanel();
+		contentPane.add(panelPrincipal, BorderLayout.CENTER);
+		panelPrincipal.setLayout(new GridLayout(1, 2, 0, 0));
+		
+		panelGrafica1 = new JPanel();
+		panelPrincipal.add(panelGrafica1);
+		panelGrafica1.add(controller.PrincipalController.grafica1());
+		
+		JPanel panelGrafica2 = new JPanel();
+		panelPrincipal.add(panelGrafica2);
+		panelGrafica2.add(controller.PrincipalController.grafica2());
 	}
 }
