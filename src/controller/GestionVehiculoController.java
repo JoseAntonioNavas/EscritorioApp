@@ -14,9 +14,9 @@ import service.VehiculoService;
 
 public class GestionVehiculoController {
 	
-	private static List<model.Color> lstColor;
-	private static List<Marca> lstAllMarcasVisibles;
-	private static List<GenericModelo> lstAllModelosVisibles;
+	public static List<model.Color> lstColor;
+	public static List<model.Marca> lstAllMarcasVisibles;
+	public static List<model.GenericModelo> lstAllModelosVisibles;
 	public static GenericModelo objectGeneric;
 	
 	private static BusquedaVehiculo getParametros() {
@@ -49,7 +49,7 @@ public class GestionVehiculoController {
 	
 	private static List<Marca> getAllMarcasVisibles() {
 		
-		return lstAllMarcasVisibles  = service.MarcaService.getAllMarcas(new BusquedaMarcas("", "1"));
+		return lstAllMarcasVisibles = service.MarcaService.getAllMarcas(new BusquedaMarcas("", "1"));
 	}
 	
 	private static List<Marca> getAllMarcasVisiblesByName(String name) {
@@ -112,6 +112,7 @@ public class GestionVehiculoController {
 	public static void setValores(String status) {
 		List<Marca> lstMarcas = getAllMarcasVisibles();
 		List<model.Color> lstColor = getColor();
+
 		
 		// ComboBox Marca
 		for (Marca marca : lstMarcas) {
@@ -131,18 +132,22 @@ public class GestionVehiculoController {
 		switch (status) {
 		case "Añadir":
 				
-				view.FormVehiculosCatalogo.txtMatricula.setText("0");
+				view.FormVehiculosCatalogo.txtMatricula.setText("");
+				view.FormVehiculosCatalogo.lblcargando.setText("");
+				view.FormVehiculosCatalogo.okButton.setEnabled(true);
 			
 			break;
 		case "Editar":
 			
 				enabledFields();
 				logic.VehiculoLogic.getDataRow();
+				
 			break;
 		case "Borrar":
 			
 				enabledFields();
 				logic.VehiculoLogic.getDataRow();
+				
 			break;
 
 		default:
@@ -173,7 +178,42 @@ public class GestionVehiculoController {
 		
 	}
 
+
+	private static Vehiculo getFieldsFormVehiculo() {
+		return logic.VehiculoLogic.getVehiculoForm();
+	}
 	
+	public static void btnOkFormVehiculo(String status) {
+		
+		switch (status) {
+		case "Editar":
+			
+			getFieldsFormVehiculo();
+		
+			break;
+		case "Borrar":
+			
+			getFieldsFormVehiculo();
+			
+			break;
+			
+		case "Añadir":
+			
+			
+			try {
+				VehiculoService.newVehiculo(getFieldsFormVehiculo());
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+			break;
+		default:
+			break;
+		}
+		
+	}
 
 	
 	

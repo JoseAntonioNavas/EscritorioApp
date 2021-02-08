@@ -14,6 +14,9 @@ public class Marca {
 		this.visible = visible;
 	}
 	
+	public Marca(int id_marca) {
+		this.id_marca = id_marca;
+	}
 	
 	public Marca(int id_marca, String nombre_marca) {
 		

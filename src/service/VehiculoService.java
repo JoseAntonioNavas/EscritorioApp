@@ -31,4 +31,13 @@ public class VehiculoService {
 	}
 	
 	
+	public static void newVehiculo(Vehiculo v) throws Exception{
+		
+		System.out.println(v);
+		
+		
+		
+	}
+	
+	
 }

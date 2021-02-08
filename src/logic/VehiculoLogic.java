@@ -167,12 +167,54 @@ public class VehiculoLogic {
 			
 		}
 		
+		view.FormVehiculosCatalogo.lblIdVehiculo.setText(response.get(0));
 		view.FormVehiculosCatalogo.comboBoxMarca.setSelectedItem(response.get(2));
 		view.FormVehiculosCatalogo.comboBoxModelo.setSelectedItem(response.get(4));
 		view.FormVehiculosCatalogo.txtMatricula.setText(response.get(7));
 		view.FormVehiculosCatalogo.comboBoxColor.setSelectedItem(response.get(9));
 		
+		view.FormVehiculosCatalogo.lblcargando.setText("");
+		view.FormVehiculosCatalogo.okButton.setEnabled(true);
 		
+		
+	}
+
+	public static Vehiculo getVehiculoForm() {
+		
+		
+		int id_marca = 0;
+		int id_modelo = 0;
+		int id_color = 0;
+		
+		String id_vehiculo = String.valueOf(view.FormVehiculosCatalogo.lblIdVehiculo.getText());
+		//String nombre_marca = String.valueOf(view.FormVehiculosCatalogo.comboBoxMarca.getSelectedItem());
+		String nombre_modelo = String.valueOf(view.FormVehiculosCatalogo.comboBoxModelo.getSelectedItem());
+		String nombre_color = String.valueOf(view.FormVehiculosCatalogo.comboBoxColor.getSelectedItem());
+		String matricula = view.FormVehiculosCatalogo.txtMatricula.getText();
+		
+		List<GenericModelo> lstModelo = controller.GestionVehiculoController.lstAllModelosVisibles;
+		for (GenericModelo g : lstModelo) {
+			if(g.getNombre_modelo().equals(nombre_modelo)) {
+				id_modelo = g.getId_modelo();
+				id_marca = g.getMarca().getId_marca();
+			}
+		}		
+		
+		List<model.Color> lstColour = controller.GestionVehiculoController.lstColor;
+		for (model.Color c : lstColour) {
+			if(c.getNombre_color().equals(nombre_color)) {
+				id_color = c.getId_color();
+			}
+		}
+		
+		
+		if(id_vehiculo.equals("")) {
+			return new Vehiculo(-1, new Marca(id_marca), new Modelo(id_modelo), matricula, new model.Color(id_color));			
+
+		}else {
+			return new Vehiculo(Integer.parseInt(id_vehiculo), new Marca(id_marca), new Modelo(id_modelo), matricula, new model.Color(id_color));			
+
+		}
 		
 	}
 	

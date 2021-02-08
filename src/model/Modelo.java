@@ -11,7 +11,11 @@ public class Modelo {
 	private float precio;
 	
 	
-	
+	public Modelo(int id_modelo) {
+		
+		this.id_modelo = id_modelo;
+
+	}
 
 	public Modelo(String nombre_modelo,int visible) {
 		

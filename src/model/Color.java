@@ -22,6 +22,9 @@ public class Color {
 		this.rgbcolor = rdbcolor;
 	}
 
+	public Color(Integer id_color) {
+		this.id_color = id_color;
+	}
 
 	public Integer getId_color() {
 		return id_color;

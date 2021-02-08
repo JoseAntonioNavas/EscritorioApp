@@ -17,6 +17,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ItemEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.SwingConstants;
 
 public class FormVehiculosCatalogo extends JDialog {
 
@@ -27,6 +30,9 @@ public class FormVehiculosCatalogo extends JDialog {
 	public static JFormattedTextField txtMatricula;
 	public static JComboBox<String> comboBoxColor;
 	public static JLabel lblColorMuestra;
+	public static JLabel lblcargando;
+	public static JButton okButton;
+	public static JLabel lblIdVehiculo;
 	
 	public FormVehiculosCatalogo(String status) {
 		addWindowListener(new WindowAdapter() {
@@ -36,9 +42,13 @@ public class FormVehiculosCatalogo extends JDialog {
 			}
 		});
 		
+		setTitle("Formulario Vehículo");
 		setModal(true);
 		setResizable(false);
-		setBounds(100, 100, 374, 453);
+		setSize(374, 453);
+		setLocationRelativeTo(null);  // Para centrar el frame
+
+		
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -46,7 +56,7 @@ public class FormVehiculosCatalogo extends JDialog {
 		{
 			JLabel lblMarca = new JLabel("* Marca:");
 			lblMarca.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-			lblMarca.setBounds(36, 27, 79, 25);
+			lblMarca.setBounds(36, 29, 79, 25);
 			contentPanel.add(lblMarca);
 		}
 		
@@ -57,7 +67,7 @@ public class FormVehiculosCatalogo extends JDialog {
 			}
 		});
 		comboBoxMarca.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		comboBoxMarca.setBounds(141, 29, 165, 21);
+		comboBoxMarca.setBounds(141, 31, 165, 21);
 		contentPanel.add(comboBoxMarca);
 		
 		comboBoxModelo = new JComboBox<String>();
@@ -82,8 +92,12 @@ public class FormVehiculosCatalogo extends JDialog {
 		contentPanel.add(txtMatricula);
 		
 		JButton btnSubirImagen = new JButton("Cargar Imagen");
+		btnSubirImagen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnSubirImagen.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnSubirImagen.setBounds(109, 323, 127, 25);
+		btnSubirImagen.setBounds(141, 290, 127, 25);
 		contentPanel.add(btnSubirImagen);
 		
 		comboBoxColor = new JComboBox<String>();
@@ -105,19 +119,44 @@ public class FormVehiculosCatalogo extends JDialog {
 		lblColorMuestra = new JLabel("");
 		lblColorMuestra.setBounds(141, 221, 165, 44);
 		contentPanel.add(lblColorMuestra);
+		
+		lblcargando = new JLabel("Cargando...");
+		lblcargando.setHorizontalAlignment(SwingConstants.CENTER);
+		lblcargando.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblcargando.setBounds(25, 0, 294, 21);
+		contentPanel.add(lblcargando);
+		
+		lblIdVehiculo = new JLabel("");
+		lblIdVehiculo.setVisible(false);
+		lblIdVehiculo.setEnabled(false);
+		lblIdVehiculo.setBounds(25, 351, 46, 13);
+		contentPanel.add(lblIdVehiculo);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton okButton = new JButton(status);
+				 okButton = new JButton(status);
+				 okButton.setEnabled(false);
+				okButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						controller.GestionVehiculoController.btnOkFormVehiculo(status);
+						
+					}
+				});
 				okButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				okButton.setActionCommand("OK");
 				buttonPane.add(okButton);
 				getRootPane().setDefaultButton(okButton);
 			}
 			{
-				JButton cancelButton = new JButton("Cancel");
+				JButton cancelButton = new JButton("Cancelar");
+				cancelButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						dispose();
+					}
+				});
 				cancelButton.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
