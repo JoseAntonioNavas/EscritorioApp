@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.List;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.JFreeChart;
@@ -8,19 +10,28 @@ import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 
+import model.numMarcas;
+
 public class PrincipalController {
 
 	
 	
 	public static ChartPanel grafica1() {
 		
+		List<numMarcas> nMarcas = service.GraficasService.getNumMarcasCatalogo();
+		
 		  DefaultPieDataset data = new DefaultPieDataset();
-	        data.setValue("Category 1", 43.2);
-	        data.setValue("Category 2", 27.9);
-	        data.setValue("Category 3", 79.5);
+		  
+		  for (numMarcas n: nMarcas) {
+			
+			  	data.setValue(n.getNombre_marca(), n.getNumMarca());
+		       
+		        
+		  }
+	      
 	        // create a chart...
 	        JFreeChart chart = ChartFactory.createPieChart(
-	            "Sample Pie Chart",
+	            "Número de vehículos en Catálogo por Marcas",
 	            data,
 	            true, // legend?
 	            true, // tooltips?
