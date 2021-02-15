@@ -19,7 +19,7 @@ import model.Vehiculo;
 
 public class VehiculoLogic {
 
-	public static List<Vehiculo> JsonToDetallesUsuariosObject(String response) {
+	public static List<Vehiculo> JsonToVehiculos(String response) {
 		
 		List<Vehiculo> listObject = new ArrayList<>();
 		

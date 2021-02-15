@@ -108,6 +108,17 @@ public class Principal extends JFrame {
 		gModelo.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnUsuario.add(gModelo);
 		
+		JMenuItem mngGestionVehiculos = new JMenuItem("Gesti\u00F3n Veh\u00EDculos");
+		mngGestionVehiculos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				new GestionVehiculo().setVisible(true);
+				
+			}
+		});
+		mngGestionVehiculos.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		mnUsuario.add(mngGestionVehiculos);
+		
 		JSeparator separator = new JSeparator();
 		mnUsuario.add(separator);
 		

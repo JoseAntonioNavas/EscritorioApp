@@ -33,6 +33,7 @@ public class FormVehiculosCatalogo extends JDialog {
 	public static JLabel lblcargando;
 	public static JButton okButton;
 	public static JLabel lblIdVehiculo;
+	public static JLabel lblLoadImg;
 	
 	public FormVehiculosCatalogo(String status) {
 		addWindowListener(new WindowAdapter() {
@@ -45,7 +46,7 @@ public class FormVehiculosCatalogo extends JDialog {
 		setTitle("Formulario Vehículo");
 		setModal(true);
 		setResizable(false);
-		setSize(374, 453);
+		setSize(697, 348);
 		setLocationRelativeTo(null);  // Para centrar el frame
 
 		
@@ -94,10 +95,11 @@ public class FormVehiculosCatalogo extends JDialog {
 		JButton btnSubirImagen = new JButton("Cargar Imagen");
 		btnSubirImagen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				logic.imageLogic.seleccionarFichero();
 			}
 		});
 		btnSubirImagen.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-		btnSubirImagen.setBounds(141, 290, 127, 25);
+		btnSubirImagen.setBounds(141, 224, 165, 25);
 		contentPanel.add(btnSubirImagen);
 		
 		comboBoxColor = new JComboBox<String>();
@@ -117,7 +119,7 @@ public class FormVehiculosCatalogo extends JDialog {
 		contentPanel.add(lblColor);
 		
 		lblColorMuestra = new JLabel("");
-		lblColorMuestra.setBounds(141, 221, 165, 44);
+		lblColorMuestra.setBounds(316, 170, 35, 25);
 		contentPanel.add(lblColorMuestra);
 		
 		lblcargando = new JLabel("Cargando...");
@@ -131,6 +133,17 @@ public class FormVehiculosCatalogo extends JDialog {
 		lblIdVehiculo.setEnabled(false);
 		lblIdVehiculo.setBounds(25, 351, 46, 13);
 		contentPanel.add(lblIdVehiculo);
+		
+		lblLoadImg = new JLabel("No imagen seleccionada");
+		lblLoadImg.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblLoadImg.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLoadImg.setBounds(369, 29, 314, 217);
+		contentPanel.add(lblLoadImg);
+		
+		JLabel lblImagen = new JLabel("* Imagen:");
+		lblImagen.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblImagen.setBounds(37, 224, 78, 21);
+		contentPanel.add(lblImagen);
 		{
 			JPanel buttonPane = new JPanel();
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));

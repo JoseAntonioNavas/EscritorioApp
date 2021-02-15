@@ -148,6 +148,7 @@ public class GestionModelosController {
 		
 		Modelo m = getCamposFormModelo();
 		String response = null;
+		System.out.println(m);
 		try {
 			response = ModeloService.newModelo(m);
 				if(response.equals("OK")) {

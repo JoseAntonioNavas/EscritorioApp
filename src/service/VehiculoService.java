@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
+import logic.ErrorLogic;
 import model.BusquedaVehiculo;
 import model.Vehiculo;
 
@@ -26,15 +27,35 @@ public class VehiculoService {
 		String response =  logic.PeticionHTTP.peticionHttpPOST(urlWebService, Object);
 		
 
-		return logic.VehiculoLogic.JsonToDetallesUsuariosObject(response);
+		return logic.VehiculoLogic.JsonToVehiculos(response);
 		
 	}
 	
 	
-	public static void newVehiculo(Vehiculo v) throws Exception{
+	public static String getUltimoIDVehiculo() throws Exception {
+		
+		String urlWebService = "https://joseant1.000webhostapp.com/public//api/vehiculos/getMaxID";
+		
+		String response;
+		return  response = logic.PeticionHTTP.peticionHttpGET(urlWebService);	
+	}
+	
+	public static List<ErrorLogic> newVehiculo(Vehiculo v) throws Exception{
+		
+	
+		String urlWebService = "https://joseant1.000webhostapp.com/public/api/vehiculos/new";
+		
+		Gson g = new Gson();
+		String jsonInString = g.toJson(v);
 		
 		System.out.println(v);
+	
+		JSONObject Object  = new JSONObject(jsonInString);
+	
+		String response =  logic.PeticionHTTP.peticionHttpPOST(urlWebService, Object);
 		
+		
+		return logic.ErrorLogic.JsonToErrores(response);
 		
 		
 	}

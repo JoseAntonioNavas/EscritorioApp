@@ -50,12 +50,8 @@ public class Vehiculo {
 	@Override
 	public String toString() {
 		return "Vehiculo [id_vehiculo=" + id_vehiculo + ", marca=" + marca + ", modelo=" + modelo + ", matricula="
-				+ matricula + ", color=" + color + ", getId_vehiculo()=" + getId_vehiculo() + ", getMarca()="
-				+ getMarca() + ", getModelo()=" + getModelo() + ", getMatricula()=" + getMatricula() + ", getColor()="
-				+ getColor() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode() + ", toString()="
-				+ super.toString() + "]";
+				+ matricula + ", color=" + color + "]";
 	}
-	
-	
 
+	
 }

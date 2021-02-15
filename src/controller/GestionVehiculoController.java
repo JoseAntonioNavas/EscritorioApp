@@ -2,6 +2,9 @@ package controller;
 
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
+import logic.ErrorLogic;
 import model.BusquedaMarcas;
 import model.BusquedaVehiculo;
 import model.Color;
@@ -180,7 +183,12 @@ public class GestionVehiculoController {
 
 
 	private static Vehiculo getFieldsFormVehiculo() {
+		
+		
 		return logic.VehiculoLogic.getVehiculoForm();
+		
+		
+		
 	}
 	
 	public static void btnOkFormVehiculo(String status) {
@@ -201,10 +209,23 @@ public class GestionVehiculoController {
 			
 			
 			try {
-				VehiculoService.newVehiculo(getFieldsFormVehiculo());
+				///convertir
+				List<ErrorLogic> response = VehiculoService.newVehiculo(getFieldsFormVehiculo());
+					if(response.get(0).getMsg().equalsIgnoreCase("OK")) {
+						
+						String id_vehiculo = VehiculoService.getUltimoIDVehiculo();
+						logic.imageLogic.upload(id_vehiculo);
+						
+						
+					}else {
+						JOptionPane.showMessageDialog(null, response.get(0).getMsg() ,"ERROR",JOptionPane.ERROR_MESSAGE);
+					}
+				
+				
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
+				JOptionPane.showMessageDialog(null, "Error al realizar la consulta" ,"ERROR",JOptionPane.ERROR_MESSAGE);
+				
 			}
 			
 			
