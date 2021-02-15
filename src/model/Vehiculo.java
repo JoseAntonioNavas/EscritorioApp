@@ -8,7 +8,17 @@ public class Vehiculo {
 	private String matricula;
 	private Color color;
 	
+	private int id_marca;
+	private int id_modelo;
+	private int id_color;
 	
+	public Vehiculo( Marca marca, Modelo modelo, String matricula, Color color) {
+		
+		this.matricula = matricula;
+		this.id_marca = marca.getId_marca();
+		this.id_modelo = modelo.getId_modelo();
+		this.id_color = color.getId_color();
+	}
 	public Vehiculo(int id_vehiculo, Marca marca, Modelo modelo, String matricula, Color color) {
 		
 		this.id_vehiculo = id_vehiculo;

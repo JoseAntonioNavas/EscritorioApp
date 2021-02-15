@@ -77,7 +77,6 @@ public class imageLogic {
 	
 	String path = "https://joseant1.000webhostapp.com/public/api/photo/photoCoche";
 
-	System.out.println(filePath);
 	//Establecer conexion
 
 	URL url = new URL(path);

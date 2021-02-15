@@ -185,8 +185,9 @@ public class GestionVehiculoController {
 	private static Vehiculo getFieldsFormVehiculo() {
 		
 		
-		return logic.VehiculoLogic.getVehiculoForm();
+		Vehiculo v = logic.VehiculoLogic.getVehiculoForm();
 		
+		return new Vehiculo(v.getMarca(),v.getModelo(),v.getMatricula(),v.getColor());
 		
 		
 	}
@@ -209,7 +210,7 @@ public class GestionVehiculoController {
 			
 			
 			try {
-				///convertir
+// Convertir
 				List<ErrorLogic> response = VehiculoService.newVehiculo(getFieldsFormVehiculo());
 					if(response.get(0).getMsg().equalsIgnoreCase("OK")) {
 						
