@@ -18,7 +18,7 @@ public class PrincipalController {
 	
 	public static ChartPanel grafica1() {
 		
-		List<numMarcas> nMarcas = service.GraficasService.getNumMarcasCatalogo();
+		List<numMarcas> nMarcas = service.GraficasService.getNumMarcasCarrito();
 		
 		  DefaultPieDataset data = new DefaultPieDataset();
 		  
@@ -31,7 +31,7 @@ public class PrincipalController {
 	      
 	        // create a chart...
 	        JFreeChart chart = ChartFactory.createPieChart(
-	            "Número de vehículos en Catálogo por Marcas",
+	            "Número de Marcas en Carrito",
 	            data,
 	            true, // legend?
 	            true, // tooltips?
@@ -49,10 +49,11 @@ public class PrincipalController {
 	public static ChartPanel grafica2() {
 		
 		
+		
 		  JFreeChart barChart = ChartFactory.createBarChart(
-			         "oa",           
-			         "Category",            
-			         "Score",            
+			         "Número de vehículos en Catálogo por Marcas",           
+			         "Marcas",            
+			         "Unidades",            
 			         createDataset(),          
 			         PlotOrientation.VERTICAL,           
 			         true, true, false);
@@ -64,31 +65,15 @@ public class PrincipalController {
 	
 	
 	   private static CategoryDataset createDataset( ) {
-		      final String fiat = "FIAT";        
-		      final String audi = "AUDI";        
-		      final String ford = "FORD";        
-		      final String speed = "Speed";        
-		      final String millage = "Millage";        
-		      final String userrating = "User Rating";        
-		      final String safety = "safety";        
+			List<numMarcas> nMarcas = service.GraficasService.getNumMarcasCatalogo();
 		      final DefaultCategoryDataset dataset = 
 		      new DefaultCategoryDataset( );  
 
-		      dataset.addValue( 1.0 , fiat , speed );        
-		      dataset.addValue( 3.0 , fiat , userrating );        
-		      dataset.addValue( 5.0 , fiat , millage ); 
-		      dataset.addValue( 5.0 , fiat , safety );           
-
-		      dataset.addValue( 5.0 , audi , speed );        
-		      dataset.addValue( 6.0 , audi , userrating );       
-		      dataset.addValue( 10.0 , audi , millage );        
-		      dataset.addValue( 4.0 , audi , safety );
-
-		      dataset.addValue( 4.0 , ford , speed );        
-		      dataset.addValue( 2.0 , ford , userrating );        
-		      dataset.addValue( 3.0 , ford , millage );        
-		      dataset.addValue( 6.0 , ford , safety );               
-
+		      for (numMarcas numMarcas : nMarcas) {
+		          dataset.addValue( numMarcas.getNumMarca() , numMarcas.getNombre_marca() , "Marcas" );   
+			}
+		      
+		 
 		      return dataset; 
 		   }
 		   

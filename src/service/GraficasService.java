@@ -32,5 +32,28 @@ public class GraficasService {
 		return nMarcas;
 		
 	}
+	
+public static List<numMarcas> getNumMarcasCarrito() {
+		
+		List<numMarcas> nMarcas = null;
+		String urlWebService = "https://joseant1.000webhostapp.com/public//api/vehiculos/getCountCarritoByMarca";
+		
+		String response;
+		
+		try {
+			response = logic.PeticionHTTP.peticionHttpGET(urlWebService);
+			
+		
+			  nMarcas = logic.numMarcasLogic.JsonToNumMarcas(response);
+			
+			
+		} catch (Exception e) {
+			
+			
+		}
+		
+		return nMarcas;
+		
+	}
 
 }

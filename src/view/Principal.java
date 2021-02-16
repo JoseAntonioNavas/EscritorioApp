@@ -134,15 +134,15 @@ public class Principal extends JFrame {
 		contentPane.setLayout(new BorderLayout(0, 0));
 		
 		JPanel panelPrincipal = new JPanel();
-		contentPane.add(panelPrincipal, BorderLayout.CENTER);
-		panelPrincipal.setLayout(new GridLayout(1, 2, 0, 0));
+		contentPane.add(panelPrincipal, BorderLayout.WEST);
+		panelPrincipal.setLayout(new BorderLayout(0, 0));
 		
 		panelGrafica1 = new JPanel();
 		panelPrincipal.add(panelGrafica1);
 		panelGrafica1.add(controller.PrincipalController.grafica1());
 		
 		JPanel panelGrafica2 = new JPanel();
-		panelPrincipal.add(panelGrafica2);
+		panelPrincipal.add(panelGrafica2, BorderLayout.EAST);
 		panelGrafica2.add(controller.PrincipalController.grafica2());
 	}
 }
