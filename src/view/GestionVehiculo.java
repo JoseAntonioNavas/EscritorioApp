@@ -97,7 +97,7 @@ public class GestionVehiculo extends JFrame {
 		panelBuscador.add(panel);
 		
 		lblTitulo = new JLabel("Gesti\u00F3n Veh\u00EDculos en Cat\u00E1logo");
-		lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		panel.add(lblTitulo);
 		
 		panel_1 = new JPanel();

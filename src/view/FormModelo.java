@@ -46,6 +46,8 @@ public class FormModelo extends JDialog {
 	public static JButton okButton;
 	public static Modelo modelo;
 	private JLabel lblPrecio;
+	public static JFormattedTextField ftxtPrecio;
+	
 	/**
 	 * Create the dialog.
 	 */
@@ -141,9 +143,9 @@ public class FormModelo extends JDialog {
 			contentPanel.add(lblPrecio);
 		}
 		
-		JFormattedTextField formattedTextField = new JFormattedTextField();
-		formattedTextField.setBounds(196, 202, 238, 20);
-		contentPanel.add(formattedTextField);
+		ftxtPrecio = new JFormattedTextField();
+		ftxtPrecio.setBounds(196, 202, 238, 20);
+		contentPanel.add(ftxtPrecio);
 		
 		
 		{

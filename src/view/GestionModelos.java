@@ -43,7 +43,7 @@ public class GestionModelos extends JDialog {
 	public static JLabel lblError;
 	public static JButton btnEditar;
 
-
+	
 	/**
 	 * Create the frame.
 	 */
@@ -77,7 +77,7 @@ public class GestionModelos extends JDialog {
 		panelBuscador.add(panel);
 		
 		JLabel lblTitutlo = new JLabel("Gesti\u00F3n Modelo");
-		lblTitutlo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblTitutlo.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		panel.add(lblTitutlo);
 		
 		JPanel panel_1 = new JPanel();

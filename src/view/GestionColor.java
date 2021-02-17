@@ -67,7 +67,7 @@ public class GestionColor extends JDialog {
 		panelBuscador.setLayout(new GridLayout(2, 1, 0, 0));
 		
 		JLabel lblTitulo = new JLabel("Gesti\u00F3n Colores");
-		lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		panelBuscador.add(lblTitulo);
 		

@@ -8,6 +8,8 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
@@ -19,6 +21,7 @@ import javax.swing.JOptionPane;
 import java.awt.Font;
 import javax.swing.JSeparator;
 import java.awt.GridLayout;
+import java.awt.Color;
 
 public class Principal extends JFrame {
 
@@ -30,6 +33,7 @@ public class Principal extends JFrame {
 	 * Create the frame.
 	 */
 	public Principal() {
+		setBackground(new Color(0, 128, 128));
 		
 		addWindowListener(new WindowAdapter() {
 			@Override
@@ -52,9 +56,6 @@ public class Principal extends JFrame {
 				
 					if(seleccion == 0) {
 						System.exit(0);
-					}else {
-						
-				      
 					}
 			}
 		});
@@ -64,6 +65,9 @@ public class Principal extends JFrame {
 
 		setLocationRelativeTo(null);  // Para centrar el frame
 		setResizable(true);
+		
+		ImageIcon icono = new ImageIcon("images/logo.jpg");
+		this.setIconImage(icono.getImage());
 		
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
@@ -123,6 +127,23 @@ public class Principal extends JFrame {
 		mnUsuario.add(separator);
 		
 		JMenuItem mnSalir = new JMenuItem("Salir");
+		mnSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int seleccion = JOptionPane.showOptionDialog(
+						   null,
+						   "¿Estás Seguro de borrar el usuario? \n Recuerda que se borraran todos los datos asociados a este usuario", 
+						   "Selector de opciones",
+						   JOptionPane.YES_NO_CANCEL_OPTION,
+						   JOptionPane.WARNING_MESSAGE,
+						   null,    
+						   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
+						   "Aceptar");
+				
+					if(seleccion == 0) {
+						System.exit(0);
+					}
+			}
+		});
 		mnSalir.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		mnUsuario.add(mnSalir);
 		
@@ -138,10 +159,12 @@ public class Principal extends JFrame {
 		panelPrincipal.setLayout(new BorderLayout(0, 0));
 		
 		panelGrafica1 = new JPanel();
+		panelGrafica1.setBackground(new Color(0, 128, 128));
 		panelPrincipal.add(panelGrafica1);
 		panelGrafica1.add(controller.PrincipalController.grafica1());
 		
 		JPanel panelGrafica2 = new JPanel();
+		panelGrafica2.setBackground(new Color(0, 128, 128));
 		panelPrincipal.add(panelGrafica2, BorderLayout.EAST);
 		panelGrafica2.add(controller.PrincipalController.grafica2());
 	}

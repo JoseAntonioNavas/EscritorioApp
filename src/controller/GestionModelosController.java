@@ -139,8 +139,9 @@ public class GestionModelosController {
 		String nombre_modelo = String.valueOf(view.FormModelo.comboBoxModelo.getSelectedItem());
 		int potencia = Integer.parseInt(view.FormModelo.formattedTextFieldPotencia.getText().trim());
 		int visible = logic.ModeloLogic.booleanToInt(view.FormModelo.tgVisible.isSelected());
+		float precio = Float.parseFloat(view.FormModelo.ftxtPrecio.getText());
 		
-		return   new Modelo(id_modelo,nombre_modelo,id_marca,potencia,visible);
+		return  new Modelo(id_modelo,nombre_modelo,id_marca,potencia,visible,precio);
 
 	}
 	
@@ -148,7 +149,7 @@ public class GestionModelosController {
 		
 		Modelo m = getCamposFormModelo();
 		String response = null;
-		System.out.println(m);
+		
 		try {
 			response = ModeloService.newModelo(m);
 				if(response.equals("OK")) {
@@ -192,6 +193,7 @@ public class GestionModelosController {
 			view.FormModelo.comboBoxModelo.setSelectedItem(modelo.getNombre_modelo());	
 			view.FormModelo.formattedTextFieldPotencia.setText(String.valueOf(modelo.getPotencia()));
 			view.FormModelo.tgVisible.setSelected(logic.ModeloLogic.IntToBoolean(modelo.getVisible()));
+			view.FormModelo.ftxtPrecio.setText(String.valueOf(modelo.getPrecio()));
 			
 		}else {
 			

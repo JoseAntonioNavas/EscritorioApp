@@ -166,6 +166,7 @@ public class FormGestionUsuario extends JDialog {
 		panel.add(lblRol);
 		
 		 comboBoxRoles = new JComboBox();
+		 comboBoxRoles.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		comboBoxRoles.setBounds(200, 287, 236, 25);
 		panel.add(comboBoxRoles);
 		

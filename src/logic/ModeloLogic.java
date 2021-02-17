@@ -229,9 +229,10 @@ public class ModeloLogic {
 		String nombre_modelo = listaTablaRow.get(1);
 		int id_marca = Integer.parseInt(listaTablaRow.get(2));
 		int potencia = Integer.parseInt(listaTablaRow.get(4));
-		int visible = StringtoInt(listaTablaRow.get(5));
+		int visible = StringtoInt(listaTablaRow.get(6));
+		float precio = Float.parseFloat(listaTablaRow.get(5));
 		
-		return new Modelo(id_modelo, nombre_modelo, id_marca, potencia, visible);
+		return new Modelo(id_modelo, nombre_modelo, id_marca, potencia, visible,precio);
 	}
 
 	private static int StringtoInt(String string) {

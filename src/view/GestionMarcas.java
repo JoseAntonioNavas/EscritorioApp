@@ -91,7 +91,7 @@ public class GestionMarcas extends JDialog {
 		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 5));
 		
 		lblTitulo = new JLabel("Gesti\u00F3n Marcas");
-		lblTitulo.setFont(new Font("Segoe UI", Font.PLAIN, 30));
+		lblTitulo.setFont(new Font("Segoe UI", Font.BOLD, 30));
 		panel.add(lblTitulo);
 		
 		panel_1 = new JPanel();

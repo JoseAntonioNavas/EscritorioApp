@@ -7,15 +7,12 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import logic.DetallesUsuarioLogic;
-import model.DetallesUsuario;
 import model.Usuario;
 
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 import java.awt.Font;
-import java.awt.Image;
-import java.awt.Toolkit;
+
 
 import javax.swing.JTextField;
 import javax.swing.JPasswordField;
@@ -91,6 +88,7 @@ public class App extends JFrame {
 		
 		setResizable(false);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(0, 128, 128));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
