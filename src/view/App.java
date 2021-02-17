@@ -32,7 +32,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 
-public class Login extends JFrame {
+public class App extends JFrame {
 
 	/**
 	 * 
@@ -45,7 +45,7 @@ public class Login extends JFrame {
 	public static JButton btnEntrar;
 	public static JLabel lblError;
 	
-	private static Login frame;
+	private static App frame;
 	/**
 	 * Launch the application.
 	 */
@@ -53,7 +53,7 @@ public class Login extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					frame = new Login();
+					frame = new App();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -65,7 +65,7 @@ public class Login extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Login() {
+	public App() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowOpened(WindowEvent e) {

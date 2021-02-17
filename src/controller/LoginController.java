@@ -34,8 +34,8 @@ public class LoginController {
 		
 			// Recogo los datos
 			
-			String email = view.Login.txtEmail.getText();
-			String password = logic.LogicApp.descrifarPassword(view.Login.passwordField);
+			String email = view.App.txtEmail.getText();
+			String password = logic.LogicApp.descrifarPassword(view.App.passwordField);
 			
 			// Peticion Login
 			List<Usuario> listaUsuario = UsuarioService.login(new Usuario(email, password));
@@ -111,15 +111,15 @@ public class LoginController {
 	
 	public static void mensajeError(String mensaje) {
 		
-		view.Login.lblError.setText(mensaje);
+		view.App.lblError.setText(mensaje);
 		if(mensaje == "") {
 			
-			view.Login.passwordField.setBorder(BorderFactory.createLineBorder(Color.black));
-			view.Login.txtEmail.setBorder(BorderFactory.createLineBorder(Color.black));
+			view.App.passwordField.setBorder(BorderFactory.createLineBorder(Color.black));
+			view.App.txtEmail.setBorder(BorderFactory.createLineBorder(Color.black));
 			
 		}else {
-			view.Login.passwordField.setBorder(BorderFactory.createLineBorder(Color.red));
-			view.Login.txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
+			view.App.passwordField.setBorder(BorderFactory.createLineBorder(Color.red));
+			view.App.txtEmail.setBorder(BorderFactory.createLineBorder(Color.RED));
 		}
 		
 	}
@@ -129,14 +129,14 @@ public class LoginController {
 	 */
 	public static void lengthFieldLogin() {
 		
-		int fieldEmail = logic.LogicApp.longitudTextField(view.Login.txtEmail);
-		int fieldPassword = logic.LogicApp.longitudJPassword(view.Login.passwordField);
+		int fieldEmail = logic.LogicApp.longitudTextField(view.App.txtEmail);
+		int fieldPassword = logic.LogicApp.longitudJPassword(view.App.passwordField);
 		
 		// Para habilitar el boton de Logear(Entrar)
 		if(fieldEmail > 0  && fieldPassword > 0) {
-			btnEnabledTrue(view.Login.btnEntrar);
+			btnEnabledTrue(view.App.btnEntrar);
 		}else {
-			btnEnabledFalse(view.Login.btnEntrar);
+			btnEnabledFalse(view.App.btnEntrar);
 		}
 	}
 
@@ -169,7 +169,7 @@ public class LoginController {
 		List<Usuario> listadoUsuario = new ArrayList<Usuario>();
 		Usuario u = globalVariables.usuarioLogged;
 		
-		if(view.Login.chbxRecordar.isSelected()) {
+		if(view.App.chbxRecordar.isSelected()) {
 			listadoUsuario = new ArrayList<Usuario>();
 			listadoUsuario.add(u);
 		}else {
@@ -197,15 +197,15 @@ public class LoginController {
 	public static void rellenarCamposLogin() {
 				
 		if(lecturaRecordarUsuario() == null) {
-			view.Login.txtEmail.setText("");
-			view.Login.passwordField.setText("");
+			view.App.txtEmail.setText("");
+			view.App.passwordField.setText("");
 			
 		}else{
 			Usuario usuario = lecturaRecordarUsuario();
 			
-			view.Login.txtEmail.setText(usuario.getEmail()); // Email
-			view.Login.passwordField.setText(usuario.getPasswd()); // Password
-			view.Login.chbxRecordar.setSelected(true); // Recordar
+			view.App.txtEmail.setText(usuario.getEmail()); // Email
+			view.App.passwordField.setText(usuario.getPasswd()); // Password
+			view.App.chbxRecordar.setSelected(true); // Recordar
 			
 		};
 		
