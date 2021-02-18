@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import org.jdesktop.swingx.error.ErrorReporter;
+
 import logic.ErrorLogic;
 import model.BusquedaMarcas;
 import model.BusquedaVehiculo;
@@ -13,6 +15,7 @@ import model.Marca;
 import model.Modelo;
 import model.ParametrosBusquedaColores;
 import model.Vehiculo;
+import model.editVehiculo;
 import service.VehiculoService;
 
 public class GestionVehiculoController {
@@ -138,17 +141,18 @@ public class GestionVehiculoController {
 				view.FormVehiculosCatalogo.txtMatricula.setText("");
 				view.FormVehiculosCatalogo.lblcargando.setText("");
 				view.FormVehiculosCatalogo.okButton.setEnabled(true);
+				view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(true);
 			
 			break;
 		case "Editar":
 			
-				enabledFields();
+				enabledFieldsEditar();
 				logic.VehiculoLogic.getDataRow();
 				
 			break;
 		case "Borrar":
 			
-				enabledFields();
+				enabledFieldsBorrar();
 				logic.VehiculoLogic.getDataRow();
 				
 			break;
@@ -160,14 +164,23 @@ public class GestionVehiculoController {
 	}
 	
 	
-	private static void enabledFields() {
+	private static void enabledFieldsBorrar() {
 		view.FormVehiculosCatalogo.comboBoxColor.setEnabled(false);
 		view.FormVehiculosCatalogo.comboBoxMarca.setEnabled(false);
 		view.FormVehiculosCatalogo.comboBoxModelo.setEnabled(false);
 		view.FormVehiculosCatalogo.txtMatricula.setEnabled(false);
 		view.FormVehiculosCatalogo.lblLoadImg.setText("");
 		view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(false);
-		view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(false);
+
+	}
+	private static void enabledFieldsEditar() {
+		
+		view.FormVehiculosCatalogo.comboBoxMarca.setEnabled(false);
+		view.FormVehiculosCatalogo.comboBoxModelo.setEnabled(false);
+		view.FormVehiculosCatalogo.lblLoadImg.setText("");
+		view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(true);
+	
+
 	}
 
 	public static void changeBtn() {
@@ -195,51 +208,121 @@ public class GestionVehiculoController {
 		
 	}
 	
-	public static void btnOkFormVehiculo(String status) {
+	public static boolean btnOkFormVehiculo(String status) {
 		
 		switch (status) {
 		case "Editar":
+			String id_color_edit = "";
+			String id_vehiculo_edit = view.FormVehiculosCatalogo.lblIdVehiculo.getText();
+			String nombre_color = String.valueOf(view.FormVehiculosCatalogo.comboBoxColor.getSelectedItem());
+			String matricula_edit = String.valueOf(view.FormVehiculosCatalogo.txtMatricula.getText());
 			
-			getFieldsFormVehiculo();
+			for (model.Color c : lstColor) {
+				if(c.getNombre_color().equals(nombre_color)) {
+					id_color_edit = String.valueOf(c.getId_color());
+				}
+			}
+				
+			String fileData = logic.imageLogic.updateImage();
+			
+			editVehiculo ev = new editVehiculo(Integer.parseInt(id_vehiculo_edit), Integer.parseInt(id_color_edit), matricula_edit,fileData);
+			
+			try {
+				String response = service.VehiculoService.updateVehiculo(ev);
+					if(response.equals("OK")) {
+						
+						pintarTableVehiculos();
+						JOptionPane.showMessageDialog(null, "Vehículo editado correctamente" ,"EDITADO",JOptionPane.INFORMATION_MESSAGE);
+						return true;
+					}else {
+						JOptionPane.showMessageDialog(null, response ,"ERROR",JOptionPane.ERROR_MESSAGE);
+						return false;
+					}
+				
+				
+			} catch (Exception e2) {
+				
+				pintarTableVehiculos();
+				JOptionPane.showMessageDialog(null, "Vehículo editado correctamente" ,"EDITADO",JOptionPane.INFORMATION_MESSAGE);
+				return true;
+			}
+			
+			
+			
 		
-			break;
 		case "Borrar":
 			
 			getFieldsFormVehiculo();
 			
-			//	VehiculoService.deleteVehiculo(id_vehiculo);
+			int seleccion = JOptionPane.showOptionDialog(
+					   null,
+					   "¿Estás seguro de borrar este vehículo?", 
+					   "Borrar Vehículo",
+					   JOptionPane.YES_NO_CANCEL_OPTION,
+					   JOptionPane.WARNING_MESSAGE,
+					   null,    // null para icono por defecto.
+					   new Object[] { "Aceptar", "Cancelar" },   // null para YES, NO y CANCEL
+					   "Aceptar");
+			
+				if(seleccion == 0) {
+					try {
+						String response = VehiculoService.deleteVehiculo(view.FormVehiculosCatalogo.lblIdVehiculo.getText());
+							if(response.equals("OK")) {
+								
+								pintarTableVehiculos();
+								JOptionPane.showMessageDialog(null, "Vehículo Borrado correctamente" ,"BORRADO",JOptionPane.INFORMATION_MESSAGE);
+
+								return true;
+								
+							}else {
+								JOptionPane.showMessageDialog(null, response ,"ERROR",JOptionPane.ERROR_MESSAGE);
+								return false;
+							}
+						
+					} catch (Exception e1) {
+						
+						JOptionPane.showMessageDialog(null, "No se ha podido borrar el vehículo" ,"ERROR",JOptionPane.ERROR_MESSAGE);
+						return false;
+					}
+				}
+			
+		
 			
 			
-			break;
+			
 			
 		case "Añadir":
 			
 			
 			try {
-// Convertir
 				List<ErrorLogic> response = VehiculoService.newVehiculo(getFieldsFormVehiculo());
 					if(response.get(0).getMsg().equalsIgnoreCase("OK")) {
 						
 						String id_vehiculo = VehiculoService.getUltimoIDVehiculo();
 						logic.imageLogic.upload(id_vehiculo);
 						
-						
+						return true;
 					}else {
 						JOptionPane.showMessageDialog(null, response.get(0).getMsg() ,"ERROR",JOptionPane.ERROR_MESSAGE);
+						return false;
 					}
 				
 				
 			} catch (Exception e) {
 				
 				JOptionPane.showMessageDialog(null, "Error al realizar la consulta" ,"ERROR",JOptionPane.ERROR_MESSAGE);
+				return false;
 				
 			}
 			
 			
-			break;
+			
 		default:
-			break;
+			return false;
 		}
+		
+		
+		
 		
 	}
 

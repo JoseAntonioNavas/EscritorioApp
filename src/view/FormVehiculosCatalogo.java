@@ -156,7 +156,9 @@ public class FormVehiculosCatalogo extends JDialog {
 				okButton.addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						
-						controller.GestionVehiculoController.btnOkFormVehiculo(status);
+						if(controller.GestionVehiculoController.btnOkFormVehiculo(status)) {
+							dispose();
+						};
 						
 					}
 				});

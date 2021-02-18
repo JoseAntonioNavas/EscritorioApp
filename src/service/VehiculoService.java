@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import logic.ErrorLogic;
 import model.BusquedaVehiculo;
 import model.Vehiculo;
+import model.editVehiculo;
 
 public class VehiculoService {
 
@@ -48,7 +49,6 @@ public class VehiculoService {
 		Gson g = new Gson();
 		String jsonInString = g.toJson(v);
 		
-		System.out.println(v);
 	
 		JSONObject Object  = new JSONObject(jsonInString);
 	
@@ -69,6 +69,25 @@ public class VehiculoService {
 		
 		
 	}
+	
+	public static String updateVehiculo(editVehiculo ev) throws Exception {
+		
+		Gson g = new Gson();
+		String jsonInString = g.toJson(ev);
+		JSONObject Object  = new JSONObject(jsonInString);
+		
+		
+		String urlWebService =  "https://joseant1.000webhostapp.com/public/api/vehiculos/update";
+		String response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, Object);
+		
+		System.out.println(logic.ErrorLogic.JsonToErrores(response).get(0).getMsg());
+		return "";
+		
+		
+	}
+
+
+	
 	
 	
 }

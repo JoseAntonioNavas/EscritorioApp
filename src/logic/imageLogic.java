@@ -26,7 +26,7 @@ import javax.xml.ws.spi.http.HttpContext;
 
 public class imageLogic {
 
-	private static File archivo;
+	public static File archivo;
 
 	public static void seleccionarFichero() {
 
@@ -170,6 +170,22 @@ public class imageLogic {
         return bimage;
     }
  
+    
+    
+    public static String updateImage() {
+    	
+    	
+    	try {
+    		String filePath = archivo.getAbsolutePath();
+       	 	return encoderFileToBase64(filePath);
+       	 	 
+		} catch (Exception e) {
+			return "";
+		}
+    
+    	 
+    	 
+    }
 
 	
 }
