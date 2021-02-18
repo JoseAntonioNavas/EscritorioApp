@@ -34,6 +34,7 @@ public class FormVehiculosCatalogo extends JDialog {
 	public static JButton okButton;
 	public static JLabel lblIdVehiculo;
 	public static JLabel lblLoadImg;
+	public static JButton btnSubirImagen;
 	
 	public FormVehiculosCatalogo(String status) {
 		addWindowListener(new WindowAdapter() {
@@ -92,7 +93,7 @@ public class FormVehiculosCatalogo extends JDialog {
 		txtMatricula.setBounds(141, 126, 162, 21);
 		contentPanel.add(txtMatricula);
 		
-		JButton btnSubirImagen = new JButton("Cargar Imagen");
+		btnSubirImagen = new JButton("Cargar Imagen");
 		btnSubirImagen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logic.imageLogic.seleccionarFichero();

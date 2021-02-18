@@ -16,6 +16,7 @@ import model.GenericModelo;
 import model.Marca;
 import model.Modelo;
 import model.Vehiculo;
+import service.photoCocheService;
 
 public class VehiculoLogic {
 
@@ -176,6 +177,21 @@ public class VehiculoLogic {
 		view.FormVehiculosCatalogo.lblcargando.setText("");
 		view.FormVehiculosCatalogo.okButton.setEnabled(true);
 		
+		
+		try {
+			String urlfoto = photoCocheService.getNamePathImgVehiculo(response.get(0));
+			if(urlfoto.equalsIgnoreCase("") || urlfoto.equalsIgnoreCase("ERROR")) {
+					
+			}else {
+				
+				logic.imageLogic.download(urlfoto);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//logic.imageLogic.download(pathName);
 		
 	}
 

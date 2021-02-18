@@ -3,6 +3,8 @@ import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
+import java.awt.image.RenderedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.net.HttpURLConnection;
@@ -45,25 +47,27 @@ public class imageLogic {
 		}
 	}
 
+
 	
-	/*
-	public static void download() {
+	public static void download(String pathName) {
 
-	String path = "https://d500.epimg.net/cincodias/imagenes/2018/11/13/lifestyle/1542113135_776401_1542116070_noticia_normal.jpg";
-	String fileName = view.FrmPrincipal.txtFileName.getText().toString();
-	try {
+	String path = "https://joseant1.000webhostapp.com/public/images/"+pathName+".jpg";
 
-	URL url = new URL(path);
-	Image image = ImageIO.read(url);
-	view.FrmPrincipal.foto.setIcon(new ImageIcon(image));
+		try {
+	
+			URL url = new URL(path);
+			BufferedImage image = ImageIO.read(url);
+			
+			BufferedImage img = resize(image, 314, 217);
+			
+			view.FormVehiculosCatalogo.lblLoadImg.setIcon(new ImageIcon(img));
+		
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, "La imagen no se ha descargado correctamente","UPLOAD",JOptionPane.ERROR_MESSAGE);
+		}
 
-	} catch (Exception e) {
-	System.out.println(e.getMessage());
-	e.printStackTrace();
 	}
 
-	}
-*/
 	public static void upload(String id_vehiculo) {
 		
 
@@ -71,8 +75,7 @@ public class imageLogic {
 
 	String filePath = archivo.getAbsolutePath();
 	String fileName = archivo.getName();
-	String fileNameWithOutExt = fileName.replaceFirst("[.][^.]+$", "") ;
-	fileNameWithOutExt = "jaja";
+
 	
 	
 	String path = "https://joseant1.000webhostapp.com/public/api/photo/photoCoche";
@@ -126,19 +129,20 @@ public class imageLogic {
 	
 	private static String encoderFileToBase64(String filePath) {
 
-	String base64Image = "";
-	File file = new File(filePath);
-
-	try(FileInputStream imageInFile = new FileInputStream(file)) {
-
-	byte imageData[] = new byte[ (int) file.length()];
-	imageInFile.read(imageData);
-	base64Image = Base64.getEncoder().encodeToString(imageData);
-
-	} catch (Exception e) {
-	JOptionPane.showMessageDialog(null, e.getMessage(),"FALLO",JOptionPane.ERROR_MESSAGE);
-	}
-	return base64Image;
+		String base64Image = "";
+		File file = new File(filePath);
+	
+			try(FileInputStream imageInFile = new FileInputStream(file)) {
+		
+			byte imageData[] = new byte[ (int) file.length()];
+			imageInFile.read(imageData);
+			base64Image = Base64.getEncoder().encodeToString(imageData);
+		
+			} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage(),"FALLO",JOptionPane.ERROR_MESSAGE);
+			}
+			
+		return base64Image;
 	}
 	
 	

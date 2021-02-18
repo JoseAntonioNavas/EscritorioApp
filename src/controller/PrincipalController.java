@@ -22,12 +22,17 @@ public class PrincipalController {
 		
 		  DefaultPieDataset data = new DefaultPieDataset();
 		  
-		  for (numMarcas n: nMarcas) {
-			
-			  	data.setValue(n.getNombre_marca(), n.getNumMarca());
-		       
-		        
+		  
+		  if(nMarcas.size() > 0) {
+			  for (numMarcas n: nMarcas) {
+					
+				  	data.setValue(n.getNombre_marca(), n.getNumMarca());
+			          
+			  }
+		  }else{
+			  
 		  }
+
 	      
 	        // create a chart...
 	        JFreeChart chart = ChartFactory.createPieChart(

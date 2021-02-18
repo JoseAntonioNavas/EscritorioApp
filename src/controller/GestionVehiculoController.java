@@ -165,6 +165,9 @@ public class GestionVehiculoController {
 		view.FormVehiculosCatalogo.comboBoxMarca.setEnabled(false);
 		view.FormVehiculosCatalogo.comboBoxModelo.setEnabled(false);
 		view.FormVehiculosCatalogo.txtMatricula.setEnabled(false);
+		view.FormVehiculosCatalogo.lblLoadImg.setText("");
+		view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(false);
+		view.FormVehiculosCatalogo.btnSubirImagen.setEnabled(false);
 	}
 
 	public static void changeBtn() {
