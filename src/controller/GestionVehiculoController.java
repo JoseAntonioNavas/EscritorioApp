@@ -207,6 +207,9 @@ public class GestionVehiculoController {
 			
 			getFieldsFormVehiculo();
 			
+			//	VehiculoService.deleteVehiculo(id_vehiculo);
+			
+			
 			break;
 			
 		case "Añadir":

@@ -94,6 +94,7 @@ public class FormVehiculosCatalogo extends JDialog {
 		contentPanel.add(txtMatricula);
 		
 		btnSubirImagen = new JButton("Cargar Imagen");
+		btnSubirImagen.setEnabled(false);
 		btnSubirImagen.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				logic.imageLogic.seleccionarFichero();

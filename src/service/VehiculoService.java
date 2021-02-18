@@ -60,5 +60,15 @@ public class VehiculoService {
 		
 	}
 	
+	public static String deleteVehiculo(String id_vehiculo) throws Exception {
+	
+		String urlWebService =  "https://joseant1.000webhostapp.com/public//api/vehiculos/deleteById/"+id_vehiculo;
+		
+		String response = logic.PeticionHTTP.peticionHttpGET(urlWebService);	
+		return logic.ErrorLogic.JsonToErrores(response).get(0).getMsg();
+		
+		
+	}
+	
 	
 }
