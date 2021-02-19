@@ -8,7 +8,6 @@ import javax.swing.JOptionPane;
 import model.ParametrosBusquedaColores;
 import model.ParametrosNuevoColor;
 import service.ColoresService;
-import view.FormGestionColor;
 
 public class GestionColorController {
 

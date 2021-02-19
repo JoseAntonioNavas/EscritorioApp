@@ -1,10 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Hashtable;
 import java.util.List;
-import javax.swing.text.MaskFormatter;
 
 import model.BusquedaMarcas;
 import model.GenericModelo;

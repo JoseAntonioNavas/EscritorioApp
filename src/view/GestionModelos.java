@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,7 +22,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
-import javax.swing.JToggleButton;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import java.awt.event.WindowAdapter;

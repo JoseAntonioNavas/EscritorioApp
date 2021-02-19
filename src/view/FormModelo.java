@@ -27,7 +27,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 
 public class FormModelo extends JDialog {
 
@@ -131,7 +130,15 @@ public class FormModelo extends JDialog {
 		}
 		
 
-		formattedTextFieldPotencia = new JFormattedTextField(new Integer(0));
+		formattedTextFieldPotencia = new JFormattedTextField(new Float(0.0));
+		/*MaskFormatter dateMask;
+		try {
+			dateMask = new MaskFormatter("####.##");
+			dateMask.install(formattedTextFieldPotencia);
+		} catch (ParseException e1) {
+			
+		}*/
+		
 		formattedTextFieldPotencia.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		formattedTextFieldPotencia.setText("0");
 		formattedTextFieldPotencia.setBounds(196, 126, 238, 20);

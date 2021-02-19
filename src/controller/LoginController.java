@@ -7,7 +7,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JFrame;
-import org.json.JSONObject;
 import logic.GestFchSerializable;
 import logic.globalVariables;
 import model.GenericUsuario;

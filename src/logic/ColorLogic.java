@@ -3,22 +3,16 @@ package logic;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-
-import model.GenericUsuario;
-import model.Roles;
-import service.RolesService;
 
 public class ColorLogic {
 	

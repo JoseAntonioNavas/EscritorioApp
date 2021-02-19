@@ -14,7 +14,6 @@ import model.GenericModelo;
 import model.Marca;
 import model.Modelo;
 import model.ModeloAPI;
-import view.GestionModelos;
 
 
 public class ModeloLogic {

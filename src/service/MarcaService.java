@@ -17,7 +17,7 @@ public class MarcaService {
 		
 		List<MarcasAPI> listMarcas = new ArrayList<MarcasAPI>();
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/getAllMarcas";
+		String urlWebService = logic.globalVariables.HOST + "api/marca/getAllMarcas";
 		
 		String response;
 		
@@ -38,7 +38,7 @@ public class MarcaService {
 		
 		List<Marca> listMarcas = new ArrayList<Marca>();
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/getMarcas";
+		String urlWebService = logic.globalVariables.HOST + "api/marca/getMarcas";
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		
 		
@@ -60,7 +60,7 @@ public class MarcaService {
 	
 	public static String newMarca(Marca marca) throws Exception {
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/new";
+		String urlWebService = logic.globalVariables.HOST + "api/marca/new";
 		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
 
 		String response;
@@ -73,7 +73,7 @@ public class MarcaService {
 	
 	public static String updateMarca(Marca marca) throws Exception{
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/marca/update";
+		String urlWebService = logic.globalVariables.HOST + "api/marca/update";
 		JSONObject o = logic.LogicApp.ObjetoToJson(marca);
 
 		String response;

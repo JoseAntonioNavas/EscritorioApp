@@ -1,32 +1,19 @@
 package controller;
 
 import java.awt.Color;
-import java.awt.Component;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
-import javax.swing.AbstractCellEditor;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellEditor;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumn;
+
 
 import model.GenericUsuario;
 import model.Roles;
-import model.Usuario;
 import service.DetallesUsuarioService;
 import service.RolesService;
-import service.UsuarioService;
-import view.GestionUsuario;
+
 
 public class GestionUsuarioController {
 	

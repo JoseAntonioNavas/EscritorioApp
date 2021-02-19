@@ -11,7 +11,6 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import model.DetallesUsuario;
 import model.GenericUsuario;
 
 import javax.swing.JLabel;
@@ -20,8 +19,7 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import java.awt.Font;
 
-import javax.swing.AbstractCellEditor;
-import javax.swing.BoxLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
@@ -29,28 +27,19 @@ import javax.swing.ListSelectionModel;
 import java.awt.FlowLayout;
 import javax.swing.JButton;
 import javax.swing.JSeparator;
-import javax.swing.JCheckBox;
-import javax.swing.JComponent;
 import javax.swing.JDialog;
 
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.ScrollPane;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import javax.swing.JComboBox;
-import java.awt.event.ItemListener;
-import java.awt.event.ItemEvent;
 import java.awt.Color;
 
 public class GestionUsuario extends JDialog {

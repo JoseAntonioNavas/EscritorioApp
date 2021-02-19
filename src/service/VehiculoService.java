@@ -18,7 +18,7 @@ public class VehiculoService {
 	public static List<Vehiculo> getAllVehiculos(BusquedaVehiculo o) throws Exception {
 		
 
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/vehiculos/getVehiculosBBDD";
+		String urlWebService = logic.globalVariables.HOST + "api/vehiculos/getVehiculosBBDD";
 		
 		Gson g = new Gson();
 		String jsonInString = g.toJson(o);
@@ -35,16 +35,16 @@ public class VehiculoService {
 	
 	public static String getUltimoIDVehiculo() throws Exception {
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public//api/vehiculos/getMaxID";
+		String urlWebService = logic.globalVariables.HOST + "api/vehiculos/getMaxID";
 		
-		String response;
-		return  response = logic.PeticionHTTP.peticionHttpGET(urlWebService);	
+		
+		return  logic.PeticionHTTP.peticionHttpGET(urlWebService);	
 	}
 	
 	public static List<ErrorLogic> newVehiculo(Vehiculo v) throws Exception{
 		
 	
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/vehiculos/new";
+		String urlWebService = logic.globalVariables.HOST + "api/vehiculos/new";
 		
 		Gson g = new Gson();
 		String jsonInString = g.toJson(v);
@@ -62,7 +62,7 @@ public class VehiculoService {
 	
 	public static String deleteVehiculo(String id_vehiculo) throws Exception {
 	
-		String urlWebService =  "https://joseant1.000webhostapp.com/public//api/vehiculos/deleteById/"+id_vehiculo;
+		String urlWebService =  logic.globalVariables.HOST + "api/vehiculos/deleteById/"+id_vehiculo;
 		
 		String response = logic.PeticionHTTP.peticionHttpGET(urlWebService);	
 		return logic.ErrorLogic.JsonToErrores(response).get(0).getMsg();
@@ -77,7 +77,7 @@ public class VehiculoService {
 		JSONObject Object  = new JSONObject(jsonInString);
 		
 		
-		String urlWebService =  "https://joseant1.000webhostapp.com/public/api/vehiculos/update";
+		String urlWebService =  logic.globalVariables.HOST + "api/vehiculos/update";
 		String response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, Object);
 		
 		System.out.println(logic.ErrorLogic.JsonToErrores(response).get(0).getMsg());

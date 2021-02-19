@@ -3,10 +3,7 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.json.JSONObject;
-
 import model.Roles;
-import model.Usuario;
 
 public class RolesService {
 

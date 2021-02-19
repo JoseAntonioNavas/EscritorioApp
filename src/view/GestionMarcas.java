@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -12,11 +11,8 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import controller.GestionUsuarioController;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
 import javax.swing.JTable;
 import javax.swing.ListSelectionModel;
 
@@ -27,7 +23,6 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;

@@ -7,7 +7,6 @@ import org.json.JSONObject;
 
 import logic.ErrorLogic;
 import model.GenericModelo;
-import model.Marca;
 import model.Modelo;
 import model.ModeloAPI;
 
@@ -19,7 +18,7 @@ public class ModeloService {
 		
 		List<GenericModelo> lstModelo = new ArrayList<GenericModelo>();
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/getModelos";
+		String urlWebService = logic.globalVariables.HOST + "api/modelo/getModelos";
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		
 		String response;
@@ -38,7 +37,7 @@ public class ModeloService {
 	
 	public static List<ModeloAPI> getModelosByMarca(String marca){
 
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/getModeloByName/"+marca;
+		String urlWebService = logic.globalVariables.HOST + "api/modelo/getModeloByName/"+marca;
 		
 		try {
 			String response = logic.PeticionHTTP.peticionHttpGET(urlWebService);
@@ -54,7 +53,7 @@ public class ModeloService {
 	
 	public static String newModelo(Modelo m) throws Exception {
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/new";
+		String urlWebService = logic.globalVariables.HOST + "api/modelo/new";
 		JSONObject o = logic.LogicApp.ObjetoToJson(m);
 		String response;
 		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);
@@ -66,7 +65,7 @@ public class ModeloService {
 	
 	public static String updateModelo(Modelo m) throws Exception{
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/modelo/update";
+		String urlWebService = logic.globalVariables.HOST + "api/modelo/update";
 		JSONObject o = logic.LogicApp.ObjetoToJson(m);
 		String response;
 		response = logic.PeticionHTTP.peticionHttpPOST(urlWebService, o);

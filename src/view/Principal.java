@@ -1,7 +1,6 @@
 package view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -10,7 +9,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JMenuBar;
@@ -20,7 +18,6 @@ import javax.swing.JOptionPane;
 
 import java.awt.Font;
 import javax.swing.JSeparator;
-import java.awt.GridLayout;
 import java.awt.Color;
 
 public class Principal extends JFrame {

@@ -6,8 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.Usuario;
-
 public class ErrorLogic {
 
 	private Integer status;

@@ -5,8 +5,6 @@ import java.util.List;
 
 import org.json.JSONObject;
 
-import com.google.gson.Gson;
-
 import logic.ErrorLogic;
 import model.Color;
 
@@ -17,7 +15,7 @@ public class ColoresService {
 		
 		List<Color> listRoles = new ArrayList<Color>();
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/color/getColor";
+		String urlWebService = logic.globalVariables.HOST + "api/color/getColor";
 		
 		// Object to Json
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
@@ -38,7 +36,7 @@ public class ColoresService {
 
 	public static String nuevoColor(Object parametros) {
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/color/new";
+		String urlWebService = logic.globalVariables.HOST + "api/color/new";
 				// Object to Json
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		

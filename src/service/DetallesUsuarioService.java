@@ -19,7 +19,7 @@ public class DetallesUsuarioService {
 	public static List<GenericUsuario> getListDetalleUsuario(Object parametros) throws Exception {
 		
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/detalles-usuario";
+		String urlWebService = logic.globalVariables.HOST + "api/detalles-usuario";
 		
 		JSONObject o = logic.LogicApp.ObjetoToJson(parametros);
 		String response =  logic.PeticionHTTP.peticionHttpPOST(urlWebService,o);
@@ -34,7 +34,7 @@ public class DetallesUsuarioService {
 	public static List<GenericUsuario> getListDetalleUsuarioByID(String id) throws Exception {
 			
 			
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/detalles-usuarioById/"+ id;
+		String urlWebService = logic.globalVariables.HOST + "api/detalles-usuarioById/"+ id;
 		String response =  logic.PeticionHTTP.peticionHttpGET(urlWebService);
 			
 		return DetallesUsuarioLogic.JsonToDetallesUsuariosObject(response);
@@ -45,7 +45,7 @@ public class DetallesUsuarioService {
 		
 	
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/detalles-usuario/new";
+		String urlWebService = logic.globalVariables.HOST + "api/detalles-usuario/new";
 		Gson g = new Gson();
 		String jsonInString = g.toJson(detallesUsuario);
 	
@@ -63,7 +63,7 @@ public class DetallesUsuarioService {
 	public static String updateDetallesUsuario(DetallesUsuario detallesUsuario) throws Exception{
 		
 		
-		String urlWebService = "https://joseant1.000webhostapp.com/public/api/detalles-usuario/update";
+		String urlWebService = logic.globalVariables.HOST + "api/detalles-usuario/update";
 		Gson g = new Gson();
 		String jsonInString = g.toJson(detallesUsuario);
 		JSONObject dUsuarioObject  = new JSONObject(jsonInString);

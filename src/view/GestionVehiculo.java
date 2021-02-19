@@ -13,23 +13,18 @@ import javax.swing.event.ListSelectionListener;
 
 import org.jdesktop.swingx.prompt.PromptSupport;
 
-import model.BusquedaVehiculo;
-import model.Vehiculo;
-import service.VehiculoService;
-
 import javax.swing.JTable;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.List;
+
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JButton;
-import javax.swing.JDialog;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 

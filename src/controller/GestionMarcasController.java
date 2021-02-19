@@ -1,9 +1,6 @@
 package controller;
 
 import java.util.List;
-
-import javax.swing.JTable;
-
 import model.BusquedaMarcas;
 import model.Marca;
 import model.MarcasAPI;

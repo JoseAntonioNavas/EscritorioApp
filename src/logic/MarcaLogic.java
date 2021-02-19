@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -13,12 +12,9 @@ import javax.swing.table.DefaultTableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import model.DetallesUsuario;
-import model.GenericUsuario;
+
 import model.Marca;
 import model.MarcasAPI;
-import model.Roles;
-import model.Usuario;;
 
 public class MarcaLogic {
 

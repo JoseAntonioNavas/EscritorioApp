@@ -13,7 +13,7 @@ public class GraficasService {
 	public static List<numMarcas> getNumMarcasCatalogo() {
 		
 		List<numMarcas> nMarcas = null;
-		String urlWebService = "https://joseant1.000webhostapp.com/public//api/vehiculos/getCountByMarca";
+		String urlWebService = logic.globalVariables.HOST + "api/vehiculos/getCountByMarca";
 		
 		String response;
 		
@@ -36,7 +36,7 @@ public class GraficasService {
 public static List<numMarcas> getNumMarcasCarrito() {
 		
 		List<numMarcas> nMarcas = null;
-		String urlWebService = "https://joseant1.000webhostapp.com/public//api/vehiculos/getCountCarritoByMarca";
+		String urlWebService = logic.globalVariables.HOST + "api/vehiculos/getCountCarritoByMarca";
 		
 		String response;
 		

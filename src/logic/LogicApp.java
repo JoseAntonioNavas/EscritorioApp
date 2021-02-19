@@ -1,26 +1,22 @@
 package logic;
 
-import java.awt.Checkbox;
+
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Hashtable;
-import java.util.List;
 
-import javax.swing.JCheckBox;
-import javax.swing.JFormattedTextField;
+
+
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.text.MaskFormatter;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.google.gson.Gson;
 
-import model.Usuario;
 
 public class LogicApp {
 

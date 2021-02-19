@@ -1,19 +1,14 @@
 package controller;
 
 import java.awt.Color;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.JOptionPane;
-import javax.swing.JTable;
 
 import model.DetallesUsuario;
 import model.GenericUsuario;
-import model.Roles;
 import model.Usuario;
 import service.DetallesUsuarioService;
-import service.RolesService;
 import service.UsuarioService;
 import view.FormGestionUsuario;
 

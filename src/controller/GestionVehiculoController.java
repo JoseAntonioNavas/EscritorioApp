@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
-import org.jdesktop.swingx.error.ErrorReporter;
-
 import logic.ErrorLogic;
 import model.BusquedaMarcas;
 import model.BusquedaVehiculo;
@@ -298,8 +296,10 @@ public class GestionVehiculoController {
 				List<ErrorLogic> response = VehiculoService.newVehiculo(getFieldsFormVehiculo());
 					if(response.get(0).getMsg().equalsIgnoreCase("OK")) {
 						
+						pintarTableVehiculos();
 						String id_vehiculo = VehiculoService.getUltimoIDVehiculo();
 						logic.imageLogic.upload(id_vehiculo);
+						pintarTableVehiculos();
 						
 						return true;
 					}else {
